@@ -70,7 +70,7 @@ Manager의 로비 서버는 `AcceptEx` 방식이 아닙니다. 별도의 개인 
 1. [`SOURCE_LINKS.md`](SOURCE_LINKS.md) — 로컬 코드 발췌본을 로비 서버 → Dedi lifecycle → readiness/reconnect → 카드 안정화 순서로 안내
 2. [`CONTRIBUTIONS.md`](CONTRIBUTIONS.md) — 파일별 기여 범위와 공동 작업 경계
 3. [`source/GoldDropActor.h`](source/GoldDropActor.h) — 현재 줄 기준 100% 직접 작성이 확인되는 원본 header
-4. [`docs/devlog`](docs/devlog/) — 본인이 작성한 개발 기록
+4. [`docs/devlog`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/01-dophamine-addiction/docs/devlog) — 본인이 작성한 개발 기록
 
 `evidence/excerpts`의 파일은 원본 경로·고정 commit·line range·blame 근거를 상단에 적은 **비독립 실행 발췌본**입니다. 주변 팀 코드는 제외했고, 읽기 흐름을 위해 남긴 타인 attribution의 빈 줄·중괄호는 파일별 header에서 수량을 공개합니다.
 

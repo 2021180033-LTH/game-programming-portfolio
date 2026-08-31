@@ -9,8 +9,8 @@
 | 단계 | 위치 | 내용 | 상태 |
 |---|---|---|---|
 | 초기 Canvas prototype | [`archive/early-canvas-prototype.html`](archive/early-canvas-prototype.html) | browser에서 실행하는 초기 공간·상호작용 실험 | archive |
-| Unreal 기술 연구 | [`unreal-study`](unreal-study/) | 구면 중력, 접선 이동, local-Up camera, world progression, 자동화 test/tool | 이전 연구 기준 |
-| Godot 현재 구현 | [`godot-current`](godot-current/) | Town↔Field, quest 4단계, portal, save/resume, fixed camera, 초기 environment pass | 현재 개발 방향 |
+| Unreal 기술 연구 | [`unreal-study`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/03-everplanet-world-study/unreal-study) | 구면 중력, 접선 이동, local-Up camera, world progression, 자동화 test/tool | 이전 연구 기준 |
+| Godot 현재 구현 | [`godot-current`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/03-everplanet-world-study/godot-current) | Town↔Field, quest 4단계, portal, save/resume, fixed camera, 초기 environment pass | 현재 개발 방향 |
 
 - Unreal 연구 시작: 2026.08
 - Godot 전환 및 첫 playable slice: 2026.08.27–
@@ -55,7 +55,7 @@ flowchart LR
 1. [`autoload/game_state.gd`](godot-current/autoload/game_state.gd) — save schema, quest와 region 상태
 2. [`game/game.gd`](godot-current/game/game.gd) — region load와 transition guard
 3. [`gameplay/player/player.gd`](godot-current/gameplay/player/player.gd) — 이동·상호작용
-4. [`gameplay/interactables`](godot-current/gameplay/interactables/) — NPC, portal, quest target
+4. [`gameplay/interactables`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/03-everplanet-world-study/godot-current/gameplay/interactables) — NPC, portal, quest target
 5. [`gameplay/camera/fixed_camera_rig.gd`](godot-current/gameplay/camera/fixed_camera_rig.gd) — camera framing
 6. [`data/first_slice.json`](godot-current/data/first_slice.json) — region·quest data contract
 
@@ -100,7 +100,7 @@ Godot 4.7.2 .NET build에서 [`godot-current/project.godot`](godot-current/proje
 - Unreal Python으로 test content와 first planet graybox 생성·patch
 - Blueprint compile allow-list로 예상 대상만 검사
 
-코드: [`unreal-study/Source/EverPlanet/Tests`](unreal-study/Source/EverPlanet/Tests/), [`unreal-study/Source/EverPlanetEditorTests`](unreal-study/Source/EverPlanetEditorTests/), [`unreal-study/Scripts/Unreal`](unreal-study/Scripts/Unreal/)
+코드: [`unreal-study/Source/EverPlanet/Tests`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/03-everplanet-world-study/unreal-study/Source/EverPlanet/Tests), [`unreal-study/Source/EverPlanetEditorTests`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/03-everplanet-world-study/unreal-study/Source/EverPlanetEditorTests), [`unreal-study/Scripts/Unreal`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/03-everplanet-world-study/unreal-study/Scripts/Unreal)
 
 Unreal `Content`, generated cache와 local-only credential을 포함한 `DefaultEngine.ini`는 공개본에서 제외했으므로 이 폴더 단독으로 완전한 Unreal project를 실행할 수는 없습니다. 목적은 본인이 설계·적용·검증하고 설명할 수 있는 C++ 수학·gameplay·test/tool code review입니다.
 

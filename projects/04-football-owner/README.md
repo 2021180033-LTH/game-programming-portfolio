@@ -39,10 +39,10 @@ flowchart LR
 
 | 계층 | 위치 | 책임 |
 |---|---|---|
-| Core | [`src/core`](src/core/) | 날짜, 상태, event queue, 이적·임대·계약·AI 시장 규칙 |
-| Application | [`src/application`](src/application/) | QML용 상태 변환, command, 저장·rollback orchestration |
-| Infrastructure | [`src/infrastructure`](src/infrastructure/) | SQLite migration/repository, save file 수명과 안전 교체 |
-| Presentation | [`qml`](qml/) | 시작, dashboard, squad, transfer, scouting, finance UI |
+| Core | [`src/core`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/04-football-owner/src/core) | 날짜, 상태, event queue, 이적·임대·계약·AI 시장 규칙 |
+| Application | [`src/application`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/04-football-owner/src/application) | QML용 상태 변환, command, 저장·rollback orchestration |
+| Infrastructure | [`src/infrastructure`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/04-football-owner/src/infrastructure) | SQLite migration/repository, save file 수명과 안전 교체 |
+| Presentation | [`qml`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/04-football-owner/qml) | 시작, dashboard, squad, transfer, scouting, finance UI |
 
 Core에는 Qt header를 넣지 않아 `core-only-debug` preset으로 UI와 대규모 역사 데이터 없이 규칙 회귀 테스트를 실행할 수 있습니다.
 
@@ -82,13 +82,13 @@ AI 구단도 player 구단과 같은 cash, transfer budget, wage limit와 reserv
 - 외래키, WAL, busy timeout과 metadata/hash 검증
 - 원본 baseline과 career delta를 분리해 과거 데이터와 player 선택을 덮어쓰지 않음
 
-코드: [`sqlite_game_repository.cpp`](src/infrastructure/sqlite_game_repository.cpp), [`save_game_manager.cpp`](src/infrastructure/save_game_manager.cpp), [`data/migrations`](data/migrations/)
+코드: [`sqlite_game_repository.cpp`](src/infrastructure/sqlite_game_repository.cpp), [`save_game_manager.cpp`](src/infrastructure/save_game_manager.cpp), [`data/migrations`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/04-football-owner/data/migrations)
 
 ### 5. Qt/QML 경계
 
 `GameController`가 C++ domain state를 QML-friendly model로 변환하고, QML action을 검증된 engine command로 연결합니다. 화면 code가 repository를 직접 호출하지 않도록 계층을 분리했습니다.
 
-코드: [`game_controller.cpp`](src/application/game_controller.cpp), [`qml`](qml/)
+코드: [`game_controller.cpp`](src/application/game_controller.cpp), [`qml`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/04-football-owner/qml)
 
 ## 5분 코드 리뷰 순서
 
@@ -98,7 +98,7 @@ AI 구단도 player 구단과 같은 cash, transfer budget, wage limit와 reserv
 4. [`src/infrastructure/save_game_manager.cpp`](src/infrastructure/save_game_manager.cpp) — save 목록과 안전 교체
 5. [`src/infrastructure/sqlite_game_repository.cpp`](src/infrastructure/sqlite_game_repository.cpp) — migration, transaction, load/save
 6. [`src/application/game_controller.cpp`](src/application/game_controller.cpp) — QML↔domain command 경계
-7. [`qml/pages`](qml/pages/) — 실제 운영 UI
+7. [`qml/pages`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/04-football-owner/qml/pages) — 실제 운영 UI
 
 ## Core-only 빌드와 테스트
 

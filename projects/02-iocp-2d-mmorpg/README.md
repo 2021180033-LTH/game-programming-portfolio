@@ -74,7 +74,7 @@ SQL 호출이 IOCP worker를 오래 막지 않도록 login/save job queue를 별
 
 monster, NPC와 item 판매 가격을 Lua script에서 읽어 C++ 재컴파일 없이 콘텐츠 값을 바꿀 수 있도록 분리했습니다.
 
-코드: [`source/Server/Scripts`](source/Server/Scripts/)
+코드: [`source/Server/Scripts`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/02-iocp-2d-mmorpg/source/Server/Scripts)
 
 ## 5분 코드 리뷰 순서
 
@@ -95,7 +95,7 @@ monster, NPC와 item 판매 가격을 Lua script에서 읽어 C++ 재컴파일 �
 - 당시 작성 기록에는 별도 PC와 server PC를 유선 LAN으로 연결해 5,000명대, 60–110ms, 10분 이상 유지했다고 적혀 있습니다.
 - 원시 RTT log, CPU/memory 기록과 동일 조건 재현 script는 남아 있지 않습니다. 따라서 이는 **발표 당시 자체 측정 기록**이며 5,000명 안정 처리 보장이나 독립 검증 결과로 표현하지 않습니다.
 
-추가 화면은 [`docs/images`](docs/images/)에 있습니다.
+추가 화면은 [`docs/images`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/02-iocp-2d-mmorpg/docs/images)에 있습니다.
 
 ## 빌드 조건
 

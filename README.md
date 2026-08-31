@@ -14,11 +14,11 @@ Unreal Engine 기반 멀티플레이 게임과 C++ IOCP 서버를 중심으로 �
 
 | 프로젝트 | 성격 / 인원 | 역할 | 핵심 기술 | 상태 |
 |---|---|---|---|---|
-| [Dophamine Addiction](projects/01-dophamine-addiction/) | 졸업작품 / 4인 | 서버 파트 전담, 서버 권위 게임 판정, 충돌·획득/배치 판정 일부 — 공동 통합 파일은 기여표로 구분 | Unreal Engine, C++, Dedicated Server, WinSock2/IOCP, TCP | 4대 PC 실제 플레이 검증 |
-| [C++ IOCP 2D MMORPG](projects/02-iocp-2d-mmorpg/) | 학기 개인 프로젝트 / 1인 | 네트워크·동시성·DB·게임 로직·부하 시험 | C++, IOCP, SFML, ODBC/MS SQL, Lua | 구현 및 자체 시험 완료 |
-| [EverPlanet World Study](projects/03-everplanet-world-study/) | 개인 기술 연구 / 1인 | UE 구면 기술 연구 → Godot playable slice·저장·지역·퀘스트 | Godot/GDScript, Unreal C++, Python, Automation Test | 진행 중 |
-| [Football Owner](projects/04-football-owner/) | 개인 기획·구현 / 1인 | 시뮬레이션 기획, 요구사항·검증, 구현 통합 | C++20, Qt 6/QML, SQLite, CMake | 개발 중 |
-| [계약과 공명 RPG](projects/05-rpg-game-design/) | 개인 기획 / 1인 | GDD, 전투·성장·선택 구조, 기술 구조 설계 | C++20·SFML·Lua·CMake 목표 | 기획 단계 |
+| [Dophamine Addiction](projects/01-dophamine-addiction/README.md) | 졸업작품 / 4인 | 서버 파트 전담, 서버 권위 게임 판정, 충돌·획득/배치 판정 일부 — 공동 통합 파일은 기여표로 구분 | Unreal Engine, C++, Dedicated Server, WinSock2/IOCP, TCP | 4대 PC 실제 플레이 검증 |
+| [C++ IOCP 2D MMORPG](projects/02-iocp-2d-mmorpg/README.md) | 학기 개인 프로젝트 / 1인 | 네트워크·동시성·DB·게임 로직·부하 시험 | C++, IOCP, SFML, ODBC/MS SQL, Lua | 구현 및 자체 시험 완료 |
+| [EverPlanet World Study](projects/03-everplanet-world-study/README.md) | 개인 기술 연구 / 1인 | UE 구면 기술 연구 → Godot playable slice·저장·지역·퀘스트 | Godot/GDScript, Unreal C++, Python, Automation Test | 진행 중 |
+| [Football Owner](projects/04-football-owner/README.md) | 개인 기획·구현 / 1인 | 시뮬레이션 기획, 요구사항·검증, 구현 통합 | C++20, Qt 6/QML, SQLite, CMake | 개발 중 |
+| [계약과 공명 RPG](projects/05-rpg-game-design/README.md) | 개인 기획 / 1인 | GDD, 전투·성장·선택 구조, 기술 구조 설계 | C++20·SFML·Lua·CMake 목표 | 기획 단계 |
 
 ## 핵심 역량과 코드 근거
 

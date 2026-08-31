@@ -48,5 +48,5 @@
 ## 함께 볼 근거
 
 - 파일 전체의 공동 기여 경계: [`CONTRIBUTIONS.md`](CONTRIBUTIONS.md)
-- 작업 당시 작성한 개발 기록: [`docs/devlog`](docs/devlog/)
+- 작업 당시 작성한 개발 기록: [`docs/devlog`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/01-dophamine-addiction/docs/devlog)
 - 원본과 공개 복사본의 hash·변환 상태: [`../../docs/SOURCE_MANIFEST.csv`](../../docs/SOURCE_MANIFEST.csv)
