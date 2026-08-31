@@ -1,0 +1,97 @@
+{
+  "version": 1,
+  "planets": {
+    "planet_first": {
+      "display_name": "첫 번째 행성",
+      "region_ids": [
+        "region_first_town",
+        "region_first_field"
+      ]
+    }
+  },
+  "regions": {
+    "region_first_town": {
+      "planet_id": "planet_first",
+      "display_name": "시작 마을",
+      "default_spawn_id": "spawn_new_game",
+      "spawn_ids": [
+        "spawn_new_game",
+        "spawn_from_field"
+      ],
+      "fall_limit_y": -12.0
+    },
+    "region_first_field": {
+      "planet_id": "planet_first",
+      "display_name": "마을 앞 들판",
+      "default_spawn_id": "spawn_from_town",
+      "spawn_ids": [
+        "spawn_from_town"
+      ],
+      "fall_limit_y": -12.0
+    }
+  },
+  "portals": {
+    "portal_town_to_field": {
+      "from_region_id": "region_first_town",
+      "destination_region_id": "region_first_field",
+      "destination_spawn_id": "spawn_from_town",
+      "locked_text": "먼저 마을 안내인의 부탁을 들어 보자."
+    },
+    "portal_field_to_town": {
+      "from_region_id": "region_first_field",
+      "destination_region_id": "region_first_town",
+      "destination_spawn_id": "spawn_from_field"
+    }
+  },
+  "quests": {
+    "quest_first_errand": {
+      "title": "들판의 빛",
+      "objective_id": "objective_first_field",
+      "active_text": "마을 앞 들판에서 빛나는 표식을 확인하자.",
+      "ready_text": "마을 안내인에게 돌아가자.",
+      "completed_text": "첫 부탁을 완료했다.",
+      "unlock_regions_on_accept": [
+        "region_first_field"
+      ]
+    }
+  },
+  "npcs": {
+    "npc_first_guide": {
+      "display_name": "마을 안내인",
+      "quest_id": "quest_first_errand",
+      "dialogue": {
+        "not_started": [
+          "어서 와! 이곳은 첫 번째 행성의 작은 마을이야.",
+          "마을 앞 들판에 나타난 빛나는 표식을 확인해 줄래?"
+        ],
+        "active": [
+          "동쪽 출구를 지나 들판으로 가면 빛나는 표식을 찾을 수 있어."
+        ],
+        "ready_to_turn_in": [
+          "무사히 확인하고 돌아왔구나. 고마워!"
+        ],
+        "completed": [
+          "덕분에 들판으로 가는 길이 다시 안전해졌어."
+        ]
+      }
+    }
+  },
+  "targets": {
+    "target_first_field": {
+      "display_name": "빛나는 표식",
+      "prompt": "표식 확인",
+      "quest_id": "quest_first_errand",
+      "objective_id": "objective_first_field",
+      "inactive_lines": [
+        "은은하게 빛나는 표식이다. 지금은 살펴볼 이유가 없다."
+      ],
+      "active_lines": [
+        "표식에는 마을 쪽을 가리키는 작은 문양이 새겨져 있다.",
+        "확인을 마쳤다. 마을 안내인에게 돌아가자."
+      ],
+      "done_lines": [
+        "이미 확인한 표식이다."
+      ]
+    }
+  }
+}

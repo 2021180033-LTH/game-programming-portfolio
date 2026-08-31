@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://gameplay/camera/fixed_camera_rig.gd" id="1_camera"]
+
+[node name="FixedCameraRig" type="Node3D"]
+script = ExtResource("1_camera")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+rotation_degrees = Vector3(-52, 45, 0)
+spring_length = 19.0
+margin = 0.12
+collision_mask = 2
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D"]
+current = true
+fov = 38.0
+near = 0.1
+far = 240.0

@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://gameplay/interactables/quest_target.gd" id="1_target"]
+
+[sub_resource type="SphereShape3D" id="SphereShape_target"]
+radius = 1.15
+
+[sub_resource type="StandardMaterial3D" id="Material_target"]
+transparency = 1
+albedo_color = Color(1, 0.8, 0.18, 0.9)
+emission_enabled = true
+emission = Color(1, 0.48, 0.06, 1)
+emission_energy_multiplier = 3.0
+roughness = 0.25
+
+[sub_resource type="SphereMesh" id="SphereMesh_target"]
+material = SubResource("Material_target")
+radius = 0.34
+height = 0.68
+radial_segments = 20
+rings = 10
+
+[node name="QuestTarget" type="Area3D" groups=["interactable"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_target")
+
+[node name="InteractionShape" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.55, 0)
+shape = SubResource("SphereShape_target")
+
+[node name="Visual" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.52, 0)
+mesh = SubResource("SphereMesh_target")
+
+[node name="Glow" type="OmniLight3D" parent="."]
+position = Vector3(0, 0.65, 0)
+light_color = Color(1, 0.55, 0.14, 1)
+light_energy = 1.7
+omni_range = 3.0
+shadow_enabled = false

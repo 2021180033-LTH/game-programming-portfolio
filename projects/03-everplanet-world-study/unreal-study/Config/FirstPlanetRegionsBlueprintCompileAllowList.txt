@@ -1,0 +1,2 @@
+/Game/EverPlanet/Product/Characters/BP_EverPlanetPlayerCharacter.BP_EverPlanetPlayerCharacter
+/Game/EverPlanet/Product/GameModes/BP_EverPlanetRegionalGameMode.BP_EverPlanetRegionalGameMode

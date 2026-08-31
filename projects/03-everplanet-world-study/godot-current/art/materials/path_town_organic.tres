@@ -1,0 +1,16 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://art/shaders/organic_path_patch.gdshader" id="1_shader"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_shader")
+shader_parameter/base_color = Color(0.45, 0.32, 0.105, 1)
+shader_parameter/variation_color = Color(0.54, 0.405, 0.17, 1)
+shader_parameter/edge_color = Color(0.32, 0.235, 0.075, 1)
+shader_parameter/color_variation = 0.12
+shader_parameter/edge_wobble = 0.13
+shader_parameter/edge_feather = 0.025
+shader_parameter/edge_tint_strength = 0.24
+shader_parameter/curvature_strength = 0.00625
+shader_parameter/roughness_value = 0.96

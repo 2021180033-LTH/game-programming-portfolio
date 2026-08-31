@@ -1,0 +1,249 @@
+[gd_scene load_steps=27 format=3]
+
+[ext_resource type="Script" path="res://gameplay/world/surface_anchor.gd" id="1_anchor"]
+[ext_resource type="Material" path="res://art/materials/wall_cream.tres" id="2_wall"]
+[ext_resource type="Material" path="res://art/materials/roof_purple.tres" id="3_roof"]
+[ext_resource type="Material" path="res://art/materials/wood.tres" id="4_wood"]
+[ext_resource type="Material" path="res://art/materials/accent_cyan.tres" id="5_glass"]
+[ext_resource type="Material" path="res://art/materials/cloth_cream.tres" id="6_awning"]
+[ext_resource type="Material" path="res://art/materials/wood_light.tres" id="7_wood_light"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_walls"]
+top_radius = 2.65
+bottom_radius = 2.9
+height = 3.5
+radial_segments = 10
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_roof"]
+top_radius = 0.52
+bottom_radius = 3.72
+height = 2.2
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_roof_brim"]
+top_radius = 3.72
+bottom_radius = 3.82
+height = 0.25
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_roof_cap"]
+top_radius = 0.18
+bottom_radius = 1.25
+height = 0.82
+radial_segments = 12
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_plinth"]
+top_radius = 3.0
+bottom_radius = 3.12
+height = 0.38
+radial_segments = 12
+rings = 1
+
+[sub_resource type="BoxMesh" id="BoxMesh_bay"]
+size = Vector3(2.45, 2.45, 1.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_door"]
+size = Vector3(1.15, 2.15, 0.18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_window"]
+size = Vector3(1.15, 1.05, 0.14)
+
+[sub_resource type="BoxMesh" id="BoxMesh_trim_h"]
+size = Vector3(1.4, 0.17, 0.17)
+
+[sub_resource type="BoxMesh" id="BoxMesh_trim_v"]
+size = Vector3(0.17, 1.35, 0.17)
+
+[sub_resource type="BoxMesh" id="BoxMesh_deck"]
+size = Vector3(4.0, 0.28, 1.45)
+
+[sub_resource type="BoxMesh" id="BoxMesh_step"]
+size = Vector3(3.0, 0.18, 0.55)
+
+[sub_resource type="BoxMesh" id="BoxMesh_awning_stripe"]
+size = Vector3(0.52, 0.17, 1.38)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sign_post"]
+size = Vector3(0.18, 2.5, 0.18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sign_arm"]
+size = Vector3(1.25, 0.18, 0.18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_sign_board"]
+size = Vector3(1.25, 0.82, 0.18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_finial"]
+size = Vector3(0.25, 1.1, 0.25)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape_shop"]
+radius = 2.85
+height = 3.5
+
+[sub_resource type="BoxShape3D" id="BoxShape_bay"]
+size = Vector3(2.45, 2.45, 1.2)
+
+[node name="EvergreenShop" type="Node3D"]
+script = ExtResource("1_anchor")
+
+[node name="WoodPlinth" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.28, 0)
+mesh = SubResource("CylinderMesh_plinth")
+material_override = ExtResource("7_wood_light")
+
+[node name="RoundWalls" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.75, 0)
+mesh = SubResource("CylinderMesh_walls")
+material_override = ExtResource("2_wall")
+
+[node name="UmbrellaRoof" type="MeshInstance3D" parent="."]
+position = Vector3(0, 4.42, 0)
+mesh = SubResource("CylinderMesh_roof")
+material_override = ExtResource("3_roof")
+
+[node name="RoofBrim" type="MeshInstance3D" parent="."]
+position = Vector3(0, 3.38, 0)
+mesh = SubResource("CylinderMesh_roof_brim")
+material_override = ExtResource("6_awning")
+
+[node name="RoofTopCap" type="MeshInstance3D" parent="."]
+position = Vector3(0, 5.62, 0)
+mesh = SubResource("CylinderMesh_roof_cap")
+material_override = ExtResource("3_roof")
+
+[node name="RoofFinial" type="MeshInstance3D" parent="."]
+position = Vector3(0, 6.43, 0)
+mesh = SubResource("BoxMesh_finial")
+material_override = ExtResource("6_awning")
+
+[node name="FrontBay" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.28, -2.68)
+mesh = SubResource("BoxMesh_bay")
+material_override = ExtResource("2_wall")
+
+[node name="Door" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.08, -3.3)
+mesh = SubResource("BoxMesh_door")
+material_override = ExtResource("4_wood")
+
+[node name="DoorFrameTop" type="MeshInstance3D" parent="."]
+position = Vector3(0, 2.27, -3.42)
+scale = Vector3(0.94, 1, 1)
+mesh = SubResource("BoxMesh_trim_h")
+material_override = ExtResource("7_wood_light")
+
+[node name="DoorFrameLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-0.67, 1.18, -3.42)
+scale = Vector3(1, 1.62, 1)
+mesh = SubResource("BoxMesh_trim_v")
+material_override = ExtResource("7_wood_light")
+
+[node name="DoorFrameRight" type="MeshInstance3D" parent="."]
+position = Vector3(0.67, 1.18, -3.42)
+scale = Vector3(1, 1.62, 1)
+mesh = SubResource("BoxMesh_trim_v")
+material_override = ExtResource("7_wood_light")
+
+[node name="WindowLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-1.72, 1.92, -2.43)
+rotation = Vector3(0, -0.52, 0)
+mesh = SubResource("BoxMesh_window")
+material_override = ExtResource("5_glass")
+
+[node name="WindowRight" type="MeshInstance3D" parent="."]
+position = Vector3(1.72, 1.92, -2.43)
+rotation = Vector3(0, 0.52, 0)
+mesh = SubResource("BoxMesh_window")
+material_override = ExtResource("5_glass")
+
+[node name="WindowLeftMullion" type="MeshInstance3D" parent="."]
+position = Vector3(-1.72, 1.92, -2.53)
+rotation = Vector3(0, -0.52, 0)
+scale = Vector3(1, 0.72, 1)
+mesh = SubResource("BoxMesh_trim_v")
+material_override = ExtResource("6_awning")
+
+[node name="WindowRightMullion" type="MeshInstance3D" parent="."]
+position = Vector3(1.72, 1.92, -2.53)
+rotation = Vector3(0, 0.52, 0)
+scale = Vector3(1, 0.72, 1)
+mesh = SubResource("BoxMesh_trim_v")
+material_override = ExtResource("6_awning")
+
+[node name="Awning" type="MeshInstance3D" parent="."]
+position = Vector3(0, 2.72, -3.48)
+rotation = Vector3(-0.23, 0, 0)
+scale = Vector3(3.6, 1, 8.2)
+mesh = SubResource("BoxMesh_trim_h")
+material_override = ExtResource("6_awning")
+
+[node name="AwningStripeLeftOuter" type="MeshInstance3D" parent="."]
+position = Vector3(-1.04, 2.75, -3.52)
+rotation = Vector3(-0.23, 0, 0)
+mesh = SubResource("BoxMesh_awning_stripe")
+material_override = ExtResource("3_roof")
+
+[node name="AwningStripeLeftInner" type="MeshInstance3D" parent="."]
+position = Vector3(-0.52, 2.75, -3.52)
+rotation = Vector3(-0.23, 0, 0)
+mesh = SubResource("BoxMesh_awning_stripe")
+material_override = ExtResource("6_awning")
+
+[node name="AwningStripeCenter" type="MeshInstance3D" parent="."]
+position = Vector3(0, 2.75, -3.52)
+rotation = Vector3(-0.23, 0, 0)
+mesh = SubResource("BoxMesh_awning_stripe")
+material_override = ExtResource("3_roof")
+
+[node name="AwningStripeRightInner" type="MeshInstance3D" parent="."]
+position = Vector3(0.52, 2.75, -3.52)
+rotation = Vector3(-0.23, 0, 0)
+mesh = SubResource("BoxMesh_awning_stripe")
+material_override = ExtResource("6_awning")
+
+[node name="AwningStripeRightOuter" type="MeshInstance3D" parent="."]
+position = Vector3(1.04, 2.75, -3.52)
+rotation = Vector3(-0.23, 0, 0)
+mesh = SubResource("BoxMesh_awning_stripe")
+material_override = ExtResource("3_roof")
+
+[node name="FrontDeck" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.16, -3.12)
+mesh = SubResource("BoxMesh_deck")
+material_override = ExtResource("7_wood_light")
+
+[node name="FrontStep" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.09, -4.03)
+mesh = SubResource("BoxMesh_step")
+material_override = ExtResource("4_wood")
+
+[node name="SignPost" type="MeshInstance3D" parent="."]
+position = Vector3(3.35, 1.42, -1.7)
+mesh = SubResource("BoxMesh_sign_post")
+material_override = ExtResource("4_wood")
+
+[node name="SignArm" type="MeshInstance3D" parent="."]
+position = Vector3(2.82, 2.58, -1.7)
+mesh = SubResource("BoxMesh_sign_arm")
+material_override = ExtResource("4_wood")
+
+[node name="HangingSign" type="MeshInstance3D" parent="."]
+position = Vector3(2.35, 2.15, -1.7)
+rotation = Vector3(0, 0.16, 0.04)
+mesh = SubResource("BoxMesh_sign_board")
+material_override = ExtResource("7_wood_light")
+
+[node name="ShopBody" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ShopBody"]
+position = Vector3(0, 1.75, 0)
+shape = SubResource("CylinderShape_shop")
+
+[node name="FrontBayCollision" type="CollisionShape3D" parent="ShopBody"]
+position = Vector3(0, 1.28, -2.68)
+shape = SubResource("BoxShape_bay")

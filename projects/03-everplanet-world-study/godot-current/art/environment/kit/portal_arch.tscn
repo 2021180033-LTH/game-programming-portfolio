@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://gameplay/world/surface_anchor.gd" id="1_anchor"]
+[ext_resource type="Material" path="res://art/materials/wood.tres" id="2_wood"]
+[ext_resource type="Material" path="res://art/materials/accent_cyan.tres" id="3_cyan"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_post"]
+size = Vector3(0.7, 4.5, 0.9)
+
+[sub_resource type="BoxMesh" id="BoxMesh_top"]
+size = Vector3(5.2, 0.75, 0.9)
+
+[sub_resource type="BoxShape3D" id="BoxShape_post"]
+size = Vector3(0.72, 4.5, 0.92)
+
+[sub_resource type="SphereMesh" id="SphereMesh_lamp"]
+radius = 0.4
+height = 0.8
+radial_segments = 12
+rings = 6
+
+[node name="PortalArch" type="Node3D"]
+script = ExtResource("1_anchor")
+
+[node name="PostLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-2.25, 2.25, 0)
+mesh = SubResource("BoxMesh_post")
+material_override = ExtResource("2_wood")
+
+[node name="PostRight" type="MeshInstance3D" parent="."]
+position = Vector3(2.25, 2.25, 0)
+mesh = SubResource("BoxMesh_post")
+material_override = ExtResource("2_wood")
+
+[node name="TopBeam" type="MeshInstance3D" parent="."]
+position = Vector3(0, 4.25, 0)
+mesh = SubResource("BoxMesh_top")
+material_override = ExtResource("2_wood")
+
+[node name="Lamp" type="MeshInstance3D" parent="."]
+position = Vector3(0, 4.35, -0.65)
+mesh = SubResource("SphereMesh_lamp")
+material_override = ExtResource("3_cyan")
+
+[node name="ArchBody" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 1
+
+[node name="LeftCollision" type="CollisionShape3D" parent="ArchBody"]
+position = Vector3(-2.25, 2.25, 0)
+shape = SubResource("BoxShape_post")
+
+[node name="RightCollision" type="CollisionShape3D" parent="ArchBody"]
+position = Vector3(2.25, 2.25, 0)
+shape = SubResource("BoxShape_post")

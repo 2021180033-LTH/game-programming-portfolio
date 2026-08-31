@@ -1,0 +1,293 @@
+[gd_scene load_steps=29 format=3]
+
+[ext_resource type="Script" path="res://gameplay/world/surface_anchor.gd" id="1_anchor"]
+[ext_resource type="Material" path="res://art/materials/wall_cream.tres" id="2_wall"]
+[ext_resource type="Material" path="res://art/materials/roof_orange.tres" id="3_roof"]
+[ext_resource type="Material" path="res://art/materials/wood.tres" id="4_wood"]
+[ext_resource type="Material" path="res://art/materials/accent_cyan.tres" id="5_glass"]
+[ext_resource type="Material" path="res://art/materials/path_white.tres" id="6_trim"]
+[ext_resource type="Material" path="res://art/materials/wood_light.tres" id="7_wood_light"]
+[ext_resource type="Material" path="res://art/materials/leaf_green.tres" id="8_leaf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_walls"]
+size = Vector3(5.9, 3.5, 4.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wing"]
+size = Vector3(2.1, 2.7, 3.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_roof"]
+size = Vector3(3.75, 0.42, 5.8)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wing_roof"]
+size = Vector3(1.55, 0.32, 3.75)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dormer"]
+size = Vector3(1.5, 1.25, 1.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_dormer_roof"]
+size = Vector3(1.05, 0.24, 1.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_door"]
+size = Vector3(1.18, 2.25, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_window"]
+size = Vector3(1.2, 1.05, 0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_trim_h"]
+size = Vector3(1.5, 0.18, 0.18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_trim_v"]
+size = Vector3(0.18, 1.5, 0.18)
+
+[sub_resource type="BoxMesh" id="BoxMesh_deck"]
+size = Vector3(2.85, 0.3, 1.35)
+
+[sub_resource type="BoxMesh" id="BoxMesh_step"]
+size = Vector3(3.15, 0.2, 0.55)
+
+[sub_resource type="BoxMesh" id="BoxMesh_awning"]
+size = Vector3(1.95, 0.22, 1.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_chimney"]
+size = Vector3(0.62, 1.8, 0.62)
+
+[sub_resource type="BoxMesh" id="BoxMesh_chimney_cap"]
+size = Vector3(0.82, 0.22, 0.82)
+
+[sub_resource type="BoxMesh" id="BoxMesh_planter"]
+size = Vector3(1.0, 0.28, 0.34)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ridge"]
+size = Vector3(0.24, 0.24, 5.9)
+
+[sub_resource type="SphereMesh" id="SphereMesh_shrub"]
+radius = 0.32
+height = 0.64
+radial_segments = 10
+rings = 5
+
+[sub_resource type="BoxShape3D" id="BoxShape_house"]
+size = Vector3(5.9, 3.5, 4.8)
+
+[sub_resource type="BoxShape3D" id="BoxShape_wing"]
+size = Vector3(2.1, 2.7, 3.2)
+
+[node name="EvergreenHouse" type="Node3D"]
+script = ExtResource("1_anchor")
+
+[node name="Foundation" type="MeshInstance3D" parent="."]
+position = Vector3(-0.25, 0.22, 0)
+scale = Vector3(4.1, 2.4, 29)
+mesh = SubResource("BoxMesh_trim_h")
+material_override = ExtResource("7_wood_light")
+
+[node name="Walls" type="MeshInstance3D" parent="."]
+position = Vector3(-0.25, 1.75, 0)
+mesh = SubResource("BoxMesh_walls")
+material_override = ExtResource("2_wall")
+
+[node name="WingWalls" type="MeshInstance3D" parent="."]
+position = Vector3(2.55, 1.35, 0.55)
+mesh = SubResource("BoxMesh_wing")
+material_override = ExtResource("2_wall")
+
+[node name="RoofLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-1.75, 4.28, 0)
+rotation = Vector3(0, 0, -0.42)
+mesh = SubResource("BoxMesh_roof")
+material_override = ExtResource("3_roof")
+
+[node name="RoofRight" type="MeshInstance3D" parent="."]
+position = Vector3(1.05, 4.28, 0)
+rotation = Vector3(0, 0, 0.42)
+mesh = SubResource("BoxMesh_roof")
+material_override = ExtResource("3_roof")
+
+[node name="RoofRidge" type="MeshInstance3D" parent="."]
+position = Vector3(-0.35, 5.02, 0)
+mesh = SubResource("BoxMesh_ridge")
+material_override = ExtResource("6_trim")
+
+[node name="WingRoofLeft" type="MeshInstance3D" parent="."]
+position = Vector3(2.0, 3.42, 0.55)
+rotation = Vector3(0, 0, -0.4)
+mesh = SubResource("BoxMesh_wing_roof")
+material_override = ExtResource("3_roof")
+
+[node name="WingRoofRight" type="MeshInstance3D" parent="."]
+position = Vector3(3.1, 3.42, 0.55)
+rotation = Vector3(0, 0, 0.4)
+mesh = SubResource("BoxMesh_wing_roof")
+material_override = ExtResource("3_roof")
+
+[node name="DormerBody" type="MeshInstance3D" parent="."]
+position = Vector3(-1.3, 3.9, -2.22)
+mesh = SubResource("BoxMesh_dormer")
+material_override = ExtResource("2_wall")
+
+[node name="DormerRoofLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-1.68, 4.63, -2.25)
+rotation = Vector3(0, 0, -0.48)
+mesh = SubResource("BoxMesh_dormer_roof")
+material_override = ExtResource("3_roof")
+
+[node name="DormerRoofRight" type="MeshInstance3D" parent="."]
+position = Vector3(-0.92, 4.63, -2.25)
+rotation = Vector3(0, 0, 0.48)
+mesh = SubResource("BoxMesh_dormer_roof")
+material_override = ExtResource("3_roof")
+
+[node name="DormerWindow" type="MeshInstance3D" parent="."]
+position = Vector3(-1.3, 4.05, -2.74)
+scale = Vector3(0.62, 0.56, 1)
+mesh = SubResource("BoxMesh_window")
+material_override = ExtResource("5_glass")
+
+[node name="Door" type="MeshInstance3D" parent="."]
+position = Vector3(-0.62, 1.14, -2.5)
+mesh = SubResource("BoxMesh_door")
+material_override = ExtResource("4_wood")
+
+[node name="DoorFrameTop" type="MeshInstance3D" parent="."]
+position = Vector3(-0.62, 2.36, -2.63)
+scale = Vector3(0.94, 1, 1)
+mesh = SubResource("BoxMesh_trim_h")
+material_override = ExtResource("6_trim")
+
+[node name="DoorFrameLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-1.3, 1.25, -2.63)
+scale = Vector3(1, 1.55, 1)
+mesh = SubResource("BoxMesh_trim_v")
+material_override = ExtResource("6_trim")
+
+[node name="DoorFrameRight" type="MeshInstance3D" parent="."]
+position = Vector3(0.06, 1.25, -2.63)
+scale = Vector3(1, 1.55, 1)
+mesh = SubResource("BoxMesh_trim_v")
+material_override = ExtResource("6_trim")
+
+[node name="DoorAwning" type="MeshInstance3D" parent="."]
+position = Vector3(-0.62, 2.72, -2.87)
+rotation = Vector3(-0.2, 0, 0)
+mesh = SubResource("BoxMesh_awning")
+material_override = ExtResource("3_roof")
+
+[node name="WindowLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-2.16, 2.08, -2.5)
+mesh = SubResource("BoxMesh_window")
+material_override = ExtResource("5_glass")
+
+[node name="WindowRight" type="MeshInstance3D" parent="."]
+position = Vector3(1.15, 2.08, -2.5)
+mesh = SubResource("BoxMesh_window")
+material_override = ExtResource("5_glass")
+
+[node name="WindowLeftTopFrame" type="MeshInstance3D" parent="."]
+position = Vector3(-2.16, 2.68, -2.62)
+scale = Vector3(0.93, 1, 1)
+mesh = SubResource("BoxMesh_trim_h")
+material_override = ExtResource("6_trim")
+
+[node name="WindowLeftBottomFrame" type="MeshInstance3D" parent="."]
+position = Vector3(-2.16, 1.48, -2.62)
+scale = Vector3(0.93, 1, 1)
+mesh = SubResource("BoxMesh_trim_h")
+material_override = ExtResource("6_trim")
+
+[node name="WindowRightTopFrame" type="MeshInstance3D" parent="."]
+position = Vector3(1.15, 2.68, -2.62)
+scale = Vector3(0.93, 1, 1)
+mesh = SubResource("BoxMesh_trim_h")
+material_override = ExtResource("6_trim")
+
+[node name="WindowRightBottomFrame" type="MeshInstance3D" parent="."]
+position = Vector3(1.15, 1.48, -2.62)
+scale = Vector3(0.93, 1, 1)
+mesh = SubResource("BoxMesh_trim_h")
+material_override = ExtResource("6_trim")
+
+[node name="WindowMullionLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-2.16, 2.08, -2.62)
+scale = Vector3(1, 0.72, 1)
+mesh = SubResource("BoxMesh_trim_v")
+material_override = ExtResource("6_trim")
+
+[node name="WindowMullionRight" type="MeshInstance3D" parent="."]
+position = Vector3(1.15, 2.08, -2.62)
+scale = Vector3(1, 0.72, 1)
+mesh = SubResource("BoxMesh_trim_v")
+material_override = ExtResource("6_trim")
+
+[node name="WingSideWindow" type="MeshInstance3D" parent="."]
+position = Vector3(3.63, 1.7, 0.55)
+rotation = Vector3(0, 1.5708, 0)
+scale = Vector3(0.8, 0.8, 1)
+mesh = SubResource("BoxMesh_window")
+material_override = ExtResource("5_glass")
+
+[node name="FrontTrim" type="MeshInstance3D" parent="."]
+position = Vector3(-0.25, 3.38, -2.52)
+scale = Vector3(3.7, 1, 1)
+mesh = SubResource("BoxMesh_trim_h")
+material_override = ExtResource("7_wood_light")
+
+[node name="CornerPostLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-3.12, 1.72, -2.52)
+scale = Vector3(1.15, 2.28, 1.15)
+mesh = SubResource("BoxMesh_trim_v")
+material_override = ExtResource("4_wood")
+
+[node name="CornerPostRight" type="MeshInstance3D" parent="."]
+position = Vector3(2.62, 1.72, -2.52)
+scale = Vector3(1.15, 2.28, 1.15)
+mesh = SubResource("BoxMesh_trim_v")
+material_override = ExtResource("4_wood")
+
+[node name="PorchDeck" type="MeshInstance3D" parent="."]
+position = Vector3(-0.62, 0.18, -3.0)
+mesh = SubResource("BoxMesh_deck")
+material_override = ExtResource("7_wood_light")
+
+[node name="PorchStep" type="MeshInstance3D" parent="."]
+position = Vector3(-0.62, 0.1, -3.78)
+mesh = SubResource("BoxMesh_step")
+material_override = ExtResource("4_wood")
+
+[node name="WindowPlanter" type="MeshInstance3D" parent="."]
+position = Vector3(1.15, 1.42, -2.72)
+mesh = SubResource("BoxMesh_planter")
+material_override = ExtResource("4_wood")
+
+[node name="PlanterShrubLeft" type="MeshInstance3D" parent="."]
+position = Vector3(0.87, 1.68, -2.76)
+scale = Vector3(0.7, 0.7, 0.7)
+mesh = SubResource("SphereMesh_shrub")
+material_override = ExtResource("8_leaf")
+
+[node name="PlanterShrubRight" type="MeshInstance3D" parent="."]
+position = Vector3(1.43, 1.68, -2.76)
+scale = Vector3(0.7, 0.7, 0.7)
+mesh = SubResource("SphereMesh_shrub")
+material_override = ExtResource("8_leaf")
+
+[node name="Chimney" type="MeshInstance3D" parent="."]
+position = Vector3(1.42, 4.75, 0.75)
+mesh = SubResource("BoxMesh_chimney")
+material_override = ExtResource("4_wood")
+
+[node name="ChimneyCap" type="MeshInstance3D" parent="."]
+position = Vector3(1.42, 5.7, 0.75)
+mesh = SubResource("BoxMesh_chimney_cap")
+material_override = ExtResource("6_trim")
+
+[node name="HouseBody" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HouseBody"]
+position = Vector3(-0.25, 1.75, 0)
+shape = SubResource("BoxShape_house")
+
+[node name="WingCollision" type="CollisionShape3D" parent="HouseBody"]
+position = Vector3(2.55, 1.35, 0.55)
+shape = SubResource("BoxShape_wing")

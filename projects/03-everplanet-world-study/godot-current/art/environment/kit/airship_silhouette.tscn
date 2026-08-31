@@ -1,0 +1,84 @@
+[gd_scene load_steps=10 format=3]
+
+[ext_resource type="Material" path="res://art/materials/airship_blue.tres" id="1_blue"]
+[ext_resource type="Material" path="res://art/materials/cloth_cream.tres" id="2_sail"]
+[ext_resource type="Material" path="res://art/materials/roof_orange.tres" id="3_orange"]
+[ext_resource type="Material" path="res://art/materials/accent_cyan.tres" id="4_cyan"]
+[ext_resource type="Material" path="res://art/materials/wood.tres" id="5_wood"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_body"]
+radius = 1.0
+height = 2.0
+radial_segments = 20
+rings = 10
+
+[sub_resource type="BoxMesh" id="BoxMesh_wing"]
+size = Vector3(4.8, 0.24, 3.5)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_mast"]
+top_radius = 0.16
+bottom_radius = 0.2
+height = 4.8
+radial_segments = 8
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_propeller"]
+top_radius = 0.12
+bottom_radius = 0.16
+height = 5.6
+radial_segments = 8
+
+[node name="AirshipSilhouette" type="Node3D"]
+
+[node name="FishBody" type="MeshInstance3D" parent="."]
+scale = Vector3(5.4, 2.35, 2.35)
+mesh = SubResource("SphereMesh_body")
+material_override = ExtResource("1_blue")
+
+[node name="Belly" type="MeshInstance3D" parent="."]
+position = Vector3(0.2, -1.15, 0)
+scale = Vector3(3.8, 0.8, 1.85)
+mesh = SubResource("SphereMesh_body")
+material_override = ExtResource("2_sail")
+
+[node name="Nose" type="MeshInstance3D" parent="."]
+position = Vector3(-5.0, 0, 0)
+scale = Vector3(0.75, 1.35, 1.35)
+mesh = SubResource("SphereMesh_body")
+material_override = ExtResource("3_orange")
+
+[node name="EyeNear" type="MeshInstance3D" parent="."]
+position = Vector3(-4.25, 0.65, -1.95)
+scale = Vector3(0.3, 0.3, 0.15)
+mesh = SubResource("SphereMesh_body")
+material_override = ExtResource("4_cyan")
+
+[node name="LeftWing" type="MeshInstance3D" parent="."]
+position = Vector3(0.4, 0, -3.25)
+rotation = Vector3(0.22, 0, 0)
+mesh = SubResource("BoxMesh_wing")
+material_override = ExtResource("2_sail")
+
+[node name="RightWing" type="MeshInstance3D" parent="."]
+position = Vector3(0.4, 0, 3.25)
+rotation = Vector3(-0.22, 0, 0)
+mesh = SubResource("BoxMesh_wing")
+material_override = ExtResource("2_sail")
+
+[node name="TailUpper" type="MeshInstance3D" parent="."]
+position = Vector3(4.7, 1.8, 0)
+rotation = Vector3(0, 0, -0.62)
+scale = Vector3(0.85, 1, 1)
+mesh = SubResource("BoxMesh_wing")
+material_override = ExtResource("3_orange")
+
+[node name="Mast" type="MeshInstance3D" parent="."]
+position = Vector3(0, 3.2, 0)
+mesh = SubResource("CylinderMesh_mast")
+material_override = ExtResource("5_wood")
+
+[node name="Propeller" type="MeshInstance3D" parent="."]
+position = Vector3(5.7, 0, 0)
+rotation = Vector3(1.5708, 0, 0)
+mesh = SubResource("CylinderMesh_propeller")
+material_override = ExtResource("3_orange")
+

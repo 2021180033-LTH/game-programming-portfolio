@@ -1,0 +1,91 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://ui/dialogue_panel.gd" id="1_dialogue"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_dialogue"]
+bg_color = Color(0.045, 0.075, 0.105, 0.96)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.38, 0.77, 0.76, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+
+[node name="DialoguePanel" type="Control" groups=["dialogue_ui"]]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_dialogue")
+
+[node name="Panel" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.66
+anchor_right = 0.85
+anchor_bottom = 0.94
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+theme_override_styles/panel = SubResource("StyleBox_dialogue")
+
+[node name="Margin" type="MarginContainer" parent="Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 16
+
+[node name="VBox" type="VBoxContainer" parent="Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Speaker" type="Label" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.49, 0.96, 0.9, 1)
+theme_override_font_sizes/font_size = 22
+text = "이름"
+
+[node name="Body" type="Label" parent="Panel/Margin/VBox"]
+custom_minimum_size = Vector2(0, 70)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.95, 0.97, 1, 1)
+theme_override_font_sizes/font_size = 19
+text = "대화 내용"
+autowrap_mode = 3
+vertical_alignment = 1
+
+[node name="Hint" type="Label" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.66, 0.72, 0.78, 1)
+theme_override_font_sizes/font_size = 13
+text = "E / Enter / Space"
+horizontal_alignment = 2
+
+[node name="Buttons" type="HBoxContainer" parent="Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 2
+
+[node name="Secondary" type="Button" parent="Panel/Margin/VBox/Buttons"]
+visible = false
+custom_minimum_size = Vector2(110, 36)
+layout_mode = 2
+text = "거절"
+
+[node name="Primary" type="Button" parent="Panel/Margin/VBox/Buttons"]
+custom_minimum_size = Vector2(110, 36)
+layout_mode = 2
+text = "다음"
+
+[connection signal="pressed" from="Panel/Margin/VBox/Buttons/Secondary" to="." method="_on_secondary_pressed"]
+[connection signal="pressed" from="Panel/Margin/VBox/Buttons/Primary" to="." method="_on_primary_pressed"]

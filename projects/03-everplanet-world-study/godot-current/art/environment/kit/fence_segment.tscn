@@ -1,0 +1,93 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://gameplay/world/surface_anchor.gd" id="1_anchor"]
+[ext_resource type="Material" path="res://art/materials/fence_wood_dark.tres" id="2_wood_dark"]
+[ext_resource type="Material" path="res://art/materials/fence_wood_light.tres" id="3_wood_light"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_post"]
+top_radius = 0.22
+bottom_radius = 0.3
+height = 2.1
+radial_segments = 7
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rail"]
+top_radius = 0.16
+bottom_radius = 0.18
+height = 5.3
+radial_segments = 6
+rings = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_post_cap"]
+radius = 0.27
+height = 0.34
+radial_segments = 7
+rings = 4
+
+[sub_resource type="BoxShape3D" id="BoxShape_fence"]
+size = Vector3(5.35, 1.65, 0.34)
+
+[node name="FenceSegment" type="Node3D"]
+script = ExtResource("1_anchor")
+align_up_to_surface = true
+
+[node name="PostLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-2.45, 1.05, 0)
+rotation = Vector3(0.025, -0.04, 0.06)
+mesh = SubResource("CylinderMesh_post")
+material_override = ExtResource("2_wood_dark")
+
+[node name="PostRight" type="MeshInstance3D" parent="."]
+position = Vector3(2.45, 0.99, 0)
+rotation = Vector3(-0.02, 0.05, -0.05)
+scale = Vector3(0.96, 0.94, 0.96)
+mesh = SubResource("CylinderMesh_post")
+material_override = ExtResource("2_wood_dark")
+
+[node name="PostMiddle" type="MeshInstance3D" parent="."]
+position = Vector3(0.04, 0.91, 0.035)
+rotation = Vector3(0.02, -0.02, 0.035)
+scale = Vector3(0.82, 0.86, 0.82)
+mesh = SubResource("CylinderMesh_post")
+material_override = ExtResource("2_wood_dark")
+
+[node name="RailLower" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.72, 0.015)
+rotation = Vector3(0.018, 0.035, 1.548)
+mesh = SubResource("CylinderMesh_rail")
+material_override = ExtResource("3_wood_light")
+
+[node name="RailUpper" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.38, -0.015)
+rotation = Vector3(-0.015, -0.03, 1.586)
+scale = Vector3(0.94, 1.0, 0.94)
+mesh = SubResource("CylinderMesh_rail")
+material_override = ExtResource("3_wood_light")
+
+[node name="CapLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-2.51, 2.08, 0.02)
+rotation = Vector3(0.02, 0.12, 0.05)
+mesh = SubResource("SphereMesh_post_cap")
+material_override = ExtResource("3_wood_light")
+
+[node name="CapMiddle" type="MeshInstance3D" parent="."]
+position = Vector3(0.01, 1.8, 0.05)
+rotation = Vector3(-0.02, -0.14, 0.04)
+scale = Vector3(0.82, 0.82, 0.82)
+mesh = SubResource("SphereMesh_post_cap")
+material_override = ExtResource("3_wood_light")
+
+[node name="CapRight" type="MeshInstance3D" parent="."]
+position = Vector3(2.5, 1.97, -0.01)
+rotation = Vector3(0.02, 0.08, -0.04)
+scale = Vector3(0.94, 0.94, 0.94)
+mesh = SubResource("SphereMesh_post_cap")
+material_override = ExtResource("3_wood_light")
+
+[node name="FenceBody" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FenceBody"]
+position = Vector3(0, 1.08, 0)
+shape = SubResource("BoxShape_fence")

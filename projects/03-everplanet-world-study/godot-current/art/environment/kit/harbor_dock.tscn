@@ -1,0 +1,85 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://gameplay/world/surface_anchor.gd" id="1_anchor"]
+[ext_resource type="Material" path="res://art/materials/wood.tres" id="2_wood"]
+[ext_resource type="Material" path="res://art/materials/wood_light.tres" id="3_wood_light"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_deck"]
+size = Vector3(7.0, 0.42, 10.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_plank"]
+size = Vector3(6.9, 0.12, 0.18)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_post"]
+top_radius = 0.22
+bottom_radius = 0.3
+height = 3.2
+radial_segments = 8
+
+[sub_resource type="BoxShape3D" id="BoxShape_dock"]
+size = Vector3(7.0, 0.42, 10.5)
+
+[node name="HarborDock" type="Node3D"]
+script = ExtResource("1_anchor")
+surface_offset = 0.15
+
+[node name="Deck" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.21, 0)
+mesh = SubResource("BoxMesh_deck")
+material_override = ExtResource("2_wood")
+
+[node name="PlankLines" type="Node3D" parent="."]
+
+[node name="LineA" type="MeshInstance3D" parent="PlankLines"]
+position = Vector3(0, 0.45, -3.8)
+mesh = SubResource("BoxMesh_plank")
+material_override = ExtResource("3_wood_light")
+
+[node name="LineB" type="MeshInstance3D" parent="PlankLines"]
+position = Vector3(0, 0.45, -1.9)
+mesh = SubResource("BoxMesh_plank")
+material_override = ExtResource("3_wood_light")
+
+[node name="LineC" type="MeshInstance3D" parent="PlankLines"]
+position = Vector3(0, 0.45, 0)
+mesh = SubResource("BoxMesh_plank")
+material_override = ExtResource("3_wood_light")
+
+[node name="LineD" type="MeshInstance3D" parent="PlankLines"]
+position = Vector3(0, 0.45, 1.9)
+mesh = SubResource("BoxMesh_plank")
+material_override = ExtResource("3_wood_light")
+
+[node name="LineE" type="MeshInstance3D" parent="PlankLines"]
+position = Vector3(0, 0.45, 3.8)
+mesh = SubResource("BoxMesh_plank")
+material_override = ExtResource("3_wood_light")
+
+[node name="PostLeftNear" type="MeshInstance3D" parent="."]
+position = Vector3(-3.2, -0.75, -4.6)
+mesh = SubResource("CylinderMesh_post")
+material_override = ExtResource("2_wood")
+
+[node name="PostRightNear" type="MeshInstance3D" parent="."]
+position = Vector3(3.2, -0.75, -4.6)
+mesh = SubResource("CylinderMesh_post")
+material_override = ExtResource("2_wood")
+
+[node name="PostLeftFar" type="MeshInstance3D" parent="."]
+position = Vector3(-3.2, -0.75, 4.6)
+mesh = SubResource("CylinderMesh_post")
+material_override = ExtResource("2_wood")
+
+[node name="PostRightFar" type="MeshInstance3D" parent="."]
+position = Vector3(3.2, -0.75, 4.6)
+mesh = SubResource("CylinderMesh_post")
+material_override = ExtResource("2_wood")
+
+[node name="DockBody" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DockBody"]
+position = Vector3(0, 0.21, 0)
+shape = SubResource("BoxShape_dock")
+

@@ -1,0 +1,2 @@
+/Game/EverPlanet/Tests/M1/Blueprints/BP_M1SphericalCharacter.BP_M1SphericalCharacter
+/Game/EverPlanet/Tests/M1/Blueprints/BP_M1SphericalGameMode.BP_M1SphericalGameMode

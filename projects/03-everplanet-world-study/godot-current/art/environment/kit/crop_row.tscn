@@ -1,0 +1,82 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://gameplay/world/surface_anchor.gd" id="1_anchor"]
+[ext_resource type="Material" path="res://art/materials/dirt_warm.tres" id="2_dirt"]
+[ext_resource type="Material" path="res://art/materials/leaf_green.tres" id="3_leaf"]
+[ext_resource type="Material" path="res://art/materials/roof_orange.tres" id="4_crop"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bed"]
+size = Vector3(7.2, 0.08, 1.35)
+
+[sub_resource type="SphereMesh" id="SphereMesh_crop"]
+radius = 0.34
+height = 0.52
+radial_segments = 10
+rings = 5
+
+[node name="CropRow" type="Node3D"]
+script = ExtResource("1_anchor")
+surface_offset = 0.018
+align_up_to_surface = true
+
+[node name="SoilBedVisual" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.01, 0)
+cast_shadow = 0
+mesh = SubResource("BoxMesh_bed")
+material_override = ExtResource("2_dirt")
+
+[node name="Crop1" type="MeshInstance3D" parent="."]
+position = Vector3(-2.8, 0.34, 0)
+mesh = SubResource("SphereMesh_crop")
+material_override = ExtResource("4_crop")
+
+[node name="Leaf1" type="MeshInstance3D" parent="."]
+position = Vector3(-2.8, 0.68, 0)
+scale = Vector3(0.65, 0.28, 1.1)
+mesh = SubResource("SphereMesh_crop")
+material_override = ExtResource("3_leaf")
+
+[node name="Crop2" type="MeshInstance3D" parent="."]
+position = Vector3(-1.4, 0.34, 0)
+mesh = SubResource("SphereMesh_crop")
+material_override = ExtResource("4_crop")
+
+[node name="Leaf2" type="MeshInstance3D" parent="."]
+position = Vector3(-1.4, 0.68, 0)
+scale = Vector3(0.65, 0.28, 1.1)
+mesh = SubResource("SphereMesh_crop")
+material_override = ExtResource("3_leaf")
+
+[node name="Crop3" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.34, 0)
+mesh = SubResource("SphereMesh_crop")
+material_override = ExtResource("4_crop")
+
+[node name="Leaf3" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.68, 0)
+scale = Vector3(0.65, 0.28, 1.1)
+mesh = SubResource("SphereMesh_crop")
+material_override = ExtResource("3_leaf")
+
+[node name="Crop4" type="MeshInstance3D" parent="."]
+position = Vector3(1.4, 0.34, 0)
+mesh = SubResource("SphereMesh_crop")
+material_override = ExtResource("4_crop")
+
+[node name="Leaf4" type="MeshInstance3D" parent="."]
+position = Vector3(1.4, 0.68, 0)
+scale = Vector3(0.65, 0.28, 1.1)
+mesh = SubResource("SphereMesh_crop")
+material_override = ExtResource("3_leaf")
+
+[node name="Crop5" type="MeshInstance3D" parent="."]
+position = Vector3(2.8, 0.34, 0)
+mesh = SubResource("SphereMesh_crop")
+material_override = ExtResource("4_crop")
+
+[node name="Leaf5" type="MeshInstance3D" parent="."]
+position = Vector3(2.8, 0.68, 0)
+scale = Vector3(0.65, 0.28, 1.1)
+mesh = SubResource("SphereMesh_crop")
+material_override = ExtResource("3_leaf")
+

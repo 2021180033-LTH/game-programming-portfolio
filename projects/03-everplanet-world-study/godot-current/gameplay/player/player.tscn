@@ -1,0 +1,85 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="PackedScene" path="res://gameplay/player/chibi_player_visual.tscn" id="2_chibi"]
+
+[ext_resource type="Script" path="res://gameplay/player/player.gd" id="1_player"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape_player"]
+radius = 0.32
+height = 1.8
+
+[sub_resource type="StandardMaterial3D" id="Material_body"]
+albedo_color = Color(0.16, 0.66, 0.83, 1)
+roughness = 0.82
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_body"]
+material = SubResource("Material_body")
+radius = 0.29
+height = 1.25
+radial_segments = 16
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="Material_head"]
+albedo_color = Color(1, 0.78, 0.58, 1)
+roughness = 0.9
+
+[sub_resource type="SphereMesh" id="SphereMesh_head"]
+material = SubResource("Material_head")
+radius = 0.34
+height = 0.68
+radial_segments = 16
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="Material_face"]
+albedo_color = Color(0.08, 0.12, 0.18, 1)
+roughness = 0.7
+
+[sub_resource type="SphereMesh" id="SphereMesh_face"]
+material = SubResource("Material_face")
+radius = 0.075
+height = 0.12
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereShape3D" id="SphereShape_interaction"]
+radius = 1.45
+
+[node name="Player" type="CharacterBody3D" groups=["player"]]
+collision_layer = 1
+collision_mask = 2
+floor_snap_length = 0.35
+floor_max_angle = 0.802851
+script = ExtResource("1_player")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.9, 0)
+shape = SubResource("CapsuleShape_player")
+
+[node name="VisualRoot" type="Node3D" parent="."]
+
+[node name="ChibiVisual" parent="VisualRoot" instance=ExtResource("2_chibi")]
+
+[node name="Body" type="MeshInstance3D" parent="VisualRoot"]
+visible = false
+position = Vector3(0, 0.64, 0)
+mesh = SubResource("CapsuleMesh_body")
+
+[node name="Head" type="MeshInstance3D" parent="VisualRoot"]
+visible = false
+position = Vector3(0, 1.43, 0)
+mesh = SubResource("SphereMesh_head")
+
+[node name="FacingMark" type="MeshInstance3D" parent="VisualRoot"]
+visible = false
+position = Vector3(0, 1.43, -0.32)
+scale = Vector3(1, 1, 0.55)
+mesh = SubResource("SphereMesh_face")
+
+[node name="InteractionArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea"]
+position = Vector3(0, 0.85, 0)
+shape = SubResource("SphereShape_interaction")

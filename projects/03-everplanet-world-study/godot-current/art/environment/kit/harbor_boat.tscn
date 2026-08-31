@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Material" path="res://art/materials/wood.tres" id="1_wood"]
+[ext_resource type="Material" path="res://art/materials/wood_light.tres" id="2_wood_light"]
+[ext_resource type="Material" path="res://art/materials/wall_cream.tres" id="3_cream"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_hull"]
+radius = 1.0
+height = 2.0
+radial_segments = 16
+rings = 8
+
+[sub_resource type="BoxMesh" id="BoxMesh_seat"]
+size = Vector3(1.75, 0.16, 0.28)
+
+[node name="HarborBoat" type="Node3D"]
+
+[node name="Hull" type="MeshInstance3D" parent="."]
+scale = Vector3(2.9, 0.62, 1.18)
+mesh = SubResource("SphereMesh_hull")
+material_override = ExtResource("1_wood")
+
+[node name="InnerHull" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.48, 0)
+scale = Vector3(2.25, 0.18, 0.78)
+mesh = SubResource("SphereMesh_hull")
+material_override = ExtResource("3_cream")
+
+[node name="SeatFront" type="MeshInstance3D" parent="."]
+position = Vector3(-0.85, 0.75, 0)
+mesh = SubResource("BoxMesh_seat")
+material_override = ExtResource("2_wood_light")
+
+[node name="SeatBack" type="MeshInstance3D" parent="."]
+position = Vector3(0.85, 0.75, 0)
+mesh = SubResource("BoxMesh_seat")
+material_override = ExtResource("2_wood_light")
+

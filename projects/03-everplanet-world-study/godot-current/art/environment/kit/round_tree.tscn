@@ -1,0 +1,202 @@
+[gd_scene load_steps=14 format=3]
+
+[ext_resource type="Script" path="res://gameplay/world/surface_anchor.gd" id="1_anchor"]
+[ext_resource type="Material" path="res://art/materials/tree_bark.tres" id="2_bark"]
+[ext_resource type="Material" path="res://art/materials/canopy_shadow.tres" id="3_shadow"]
+[ext_resource type="Material" path="res://art/materials/canopy_mid.tres" id="4_mid"]
+[ext_resource type="Material" path="res://art/materials/canopy_highlight.tres" id="5_highlight"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_trunk_lower"]
+top_radius = 0.31
+bottom_radius = 0.52
+height = 2.9
+radial_segments = 9
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_trunk_upper"]
+top_radius = 0.2
+bottom_radius = 0.36
+height = 1.75
+radial_segments = 8
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_branch"]
+top_radius = 0.11
+bottom_radius = 0.23
+height = 1.65
+radial_segments = 7
+rings = 1
+
+[sub_resource type="CylinderShape3D" id="CylinderShape_trunk"]
+radius = 0.48
+height = 3.6
+
+[sub_resource type="SphereMesh" id="SphereMesh_crown_core"]
+radius = 1.0
+height = 2.0
+radial_segments = 12
+rings = 6
+
+[sub_resource type="SphereMesh" id="SphereMesh_crown_lobe"]
+radius = 1.0
+height = 2.0
+radial_segments = 9
+rings = 5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_leaf_drop"]
+top_radius = 0.48
+bottom_radius = 0.08
+height = 1.1
+radial_segments = 7
+rings = 1
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_leaf_tip"]
+top_radius = 0.08
+bottom_radius = 0.45
+height = 1.05
+radial_segments = 7
+rings = 1
+
+[node name="RoundTree" type="Node3D"]
+script = ExtResource("1_anchor")
+align_up_to_surface = true
+
+[node name="TrunkLower" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.45, 0)
+mesh = SubResource("CylinderMesh_trunk_lower")
+material_override = ExtResource("2_bark")
+
+[node name="TrunkUpper" type="MeshInstance3D" parent="."]
+position = Vector3(0.15, 3.35, 0.03)
+rotation = Vector3(0.02, 0.08, -0.1)
+mesh = SubResource("CylinderMesh_trunk_upper")
+material_override = ExtResource("2_bark")
+
+[node name="BranchLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-0.62, 3.25, 0.02)
+rotation = Vector3(0.12, -0.18, 1.02)
+mesh = SubResource("CylinderMesh_branch")
+material_override = ExtResource("2_bark")
+
+[node name="BranchRight" type="MeshInstance3D" parent="."]
+position = Vector3(0.74, 3.5, -0.12)
+rotation = Vector3(-0.08, 0.24, -0.98)
+scale = Vector3(0.9, 0.92, 0.9)
+mesh = SubResource("CylinderMesh_branch")
+material_override = ExtResource("2_bark")
+
+[node name="TrunkBody" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TrunkBody"]
+position = Vector3(0, 1.8, 0)
+shape = SubResource("CylinderShape_trunk")
+
+[node name="CrownRig" type="Node3D" parent="."]
+position = Vector3(0.08, 4.72, 0)
+rotation = Vector3(0, 0.1, 0)
+
+[node name="CoreShadow" type="MeshInstance3D" parent="CrownRig"]
+position = Vector3(0.05, -0.05, 0.05)
+scale = Vector3(2.15, 1.28, 1.78)
+mesh = SubResource("SphereMesh_crown_core")
+material_override = ExtResource("3_shadow")
+
+[node name="LowerLeft" type="MeshInstance3D" parent="CrownRig"]
+position = Vector3(-1.48, -0.18, 0.1)
+rotation = Vector3(0.06, -0.18, 0.12)
+scale = Vector3(1.16, 1.0, 1.02)
+mesh = SubResource("SphereMesh_crown_lobe")
+material_override = ExtResource("4_mid")
+
+[node name="LowerRight" type="MeshInstance3D" parent="CrownRig"]
+position = Vector3(1.48, -0.05, -0.18)
+rotation = Vector3(-0.05, 0.2, -0.12)
+scale = Vector3(1.22, 1.08, 1.04)
+mesh = SubResource("SphereMesh_crown_lobe")
+material_override = ExtResource("4_mid")
+
+[node name="LowerFront" type="MeshInstance3D" parent="CrownRig"]
+position = Vector3(-0.22, -0.3, 1.18)
+rotation = Vector3(0.12, -0.16, 0.04)
+scale = Vector3(1.32, 0.92, 1.0)
+mesh = SubResource("SphereMesh_crown_lobe")
+material_override = ExtResource("4_mid")
+
+[node name="LowerBack" type="MeshInstance3D" parent="CrownRig"]
+position = Vector3(0.35, 0.08, -1.15)
+rotation = Vector3(-0.12, 0.16, -0.04)
+scale = Vector3(1.18, 0.98, 0.92)
+mesh = SubResource("SphereMesh_crown_lobe")
+material_override = ExtResource("3_shadow")
+
+[node name="UpperLeft" type="MeshInstance3D" parent="CrownRig"]
+position = Vector3(-0.92, 0.72, 0.08)
+rotation = Vector3(0.08, 0.22, 0.08)
+scale = Vector3(1.18, 1.02, 1.0)
+mesh = SubResource("SphereMesh_crown_lobe")
+material_override = ExtResource("5_highlight")
+
+[node name="UpperRight" type="MeshInstance3D" parent="CrownRig"]
+position = Vector3(0.82, 0.83, -0.2)
+rotation = Vector3(-0.08, -0.18, -0.09)
+scale = Vector3(1.12, 1.0, 0.96)
+mesh = SubResource("SphereMesh_crown_lobe")
+material_override = ExtResource("5_highlight")
+
+[node name="TopCrest" type="MeshInstance3D" parent="CrownRig"]
+position = Vector3(-0.18, 1.42, 0.05)
+rotation = Vector3(0.04, 0.12, -0.03)
+scale = Vector3(1.06, 0.9, 0.92)
+mesh = SubResource("SphereMesh_crown_lobe")
+material_override = ExtResource("5_highlight")
+
+[node name="SkirtLeft" type="MeshInstance3D" parent="CrownRig"]
+position = Vector3(-1.75, -0.7, 0.35)
+rotation = Vector3(0.08, -0.2, 0.18)
+scale = Vector3(0.9, 1.0, 0.76)
+mesh = SubResource("CylinderMesh_leaf_drop")
+material_override = ExtResource("4_mid")
+
+[node name="SkirtFront" type="MeshInstance3D" parent="CrownRig"]
+position = Vector3(-0.1, -0.82, 1.42)
+rotation = Vector3(-0.12, 0.12, 0)
+scale = Vector3(0.9, 1.08, 0.78)
+mesh = SubResource("CylinderMesh_leaf_drop")
+material_override = ExtResource("4_mid")
+
+[node name="SkirtRight" type="MeshInstance3D" parent="CrownRig"]
+position = Vector3(1.7, -0.58, 0.05)
+rotation = Vector3(-0.05, 0.18, -0.2)
+scale = Vector3(0.92, 1.0, 0.78)
+mesh = SubResource("CylinderMesh_leaf_drop")
+material_override = ExtResource("4_mid")
+
+[node name="SkirtBack" type="MeshInstance3D" parent="CrownRig"]
+position = Vector3(0.4, -0.48, -1.35)
+rotation = Vector3(0.14, -0.1, -0.05)
+scale = Vector3(0.82, 0.92, 0.72)
+mesh = SubResource("CylinderMesh_leaf_drop")
+material_override = ExtResource("3_shadow")
+
+[node name="TipLeft" type="MeshInstance3D" parent="CrownRig"]
+position = Vector3(-0.9, 1.68, 0.12)
+rotation = Vector3(0.05, -0.16, -0.18)
+scale = Vector3(0.7, 0.9, 0.62)
+mesh = SubResource("CylinderMesh_leaf_tip")
+material_override = ExtResource("5_highlight")
+
+[node name="TipCenter" type="MeshInstance3D" parent="CrownRig"]
+position = Vector3(-0.08, 2.08, -0.02)
+rotation = Vector3(-0.04, 0.1, 0.03)
+scale = Vector3(0.68, 0.92, 0.6)
+mesh = SubResource("CylinderMesh_leaf_tip")
+material_override = ExtResource("5_highlight")
+
+[node name="TipRight" type="MeshInstance3D" parent="CrownRig"]
+position = Vector3(0.82, 1.72, -0.15)
+rotation = Vector3(-0.04, 0.18, 0.2)
+scale = Vector3(0.66, 0.86, 0.58)
+mesh = SubResource("CylinderMesh_leaf_tip")
+material_override = ExtResource("5_highlight")

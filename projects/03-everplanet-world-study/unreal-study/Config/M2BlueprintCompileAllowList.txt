@@ -1,0 +1,2 @@
+/Game/EverPlanet/Tests/M2/Blueprints/BP_M2GlobeCameraCharacter.BP_M2GlobeCameraCharacter
+/Game/EverPlanet/Tests/M2/Blueprints/BP_M2GlobeCameraGameMode.BP_M2GlobeCameraGameMode

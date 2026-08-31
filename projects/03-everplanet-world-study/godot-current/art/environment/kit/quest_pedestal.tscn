@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://gameplay/world/surface_anchor.gd" id="1_anchor"]
+[ext_resource type="Material" path="res://art/materials/stone.tres" id="2_stone"]
+[ext_resource type="Material" path="res://art/materials/wood_light.tres" id="3_rim"]
+[ext_resource type="Material" path="res://art/materials/quest_glow.tres" id="4_glow"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_base"]
+top_radius = 0.95
+bottom_radius = 1.2
+height = 1.4
+radial_segments = 10
+
+[sub_resource type="SphereMesh" id="SphereMesh_orb"]
+radius = 0.62
+height = 1.24
+radial_segments = 16
+rings = 8
+
+[sub_resource type="CylinderShape3D" id="CylinderShape_base"]
+radius = 1.2
+height = 1.4
+
+[node name="QuestPedestal" type="Node3D"]
+script = ExtResource("1_anchor")
+
+[node name="Base" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.7, 0)
+mesh = SubResource("CylinderMesh_base")
+material_override = ExtResource("2_stone")
+
+[node name="Rim" type="MeshInstance3D" parent="."]
+position = Vector3(0, 1.42, 0)
+scale = Vector3(1.15, 0.18, 1.15)
+mesh = SubResource("CylinderMesh_base")
+material_override = ExtResource("3_rim")
+
+[node name="GlowOrb" type="MeshInstance3D" parent="."]
+position = Vector3(0, 2.45, 0)
+mesh = SubResource("SphereMesh_orb")
+material_override = ExtResource("4_glow")
+
+[node name="GlowLight" type="OmniLight3D" parent="."]
+position = Vector3(0, 2.45, 0)
+light_color = Color(0.15, 1, 0.68, 1)
+light_energy = 2.2
+omni_range = 5.0
+
+[node name="PedestalBody" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PedestalBody"]
+position = Vector3(0, 0.7, 0)
+shape = SubResource("CylinderShape_base")
+

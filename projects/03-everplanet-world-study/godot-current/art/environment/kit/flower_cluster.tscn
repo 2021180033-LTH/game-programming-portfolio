@@ -1,0 +1,181 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://gameplay/world/surface_anchor.gd" id="1_anchor"]
+[ext_resource type="Material" path="res://art/materials/canopy_mid.tres" id="2_leaf"]
+[ext_resource type="Material" path="res://art/materials/flower_pink.tres" id="3_pink"]
+[ext_resource type="Material" path="res://art/materials/flower_yellow.tres" id="4_yellow"]
+[ext_resource type="Material" path="res://art/materials/flower_lilac.tres" id="5_lilac"]
+[ext_resource type="Material" path="res://art/materials/cloth_cream.tres" id="6_center"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_stem"]
+top_radius = 0.025
+bottom_radius = 0.045
+height = 0.72
+radial_segments = 6
+rings = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_leaf"]
+radius = 0.12
+height = 0.24
+radial_segments = 8
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_petal"]
+radius = 0.12
+height = 0.24
+radial_segments = 8
+rings = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_center"]
+radius = 0.07
+height = 0.14
+radial_segments = 8
+rings = 4
+
+[node name="FlowerCluster" type="Node3D"]
+script = ExtResource("1_anchor")
+align_up_to_surface = true
+
+[node name="GroundLeaves" type="Node3D" parent="."]
+
+[node name="LeafLeft" type="MeshInstance3D" parent="GroundLeaves"]
+position = Vector3(-0.3, 0.07, 0.07)
+rotation = Vector3(0.08, -0.48, -0.08)
+scale = Vector3(2.4, 0.28, 0.62)
+mesh = SubResource("SphereMesh_leaf")
+material_override = ExtResource("2_leaf")
+
+[node name="LeafCenter" type="MeshInstance3D" parent="GroundLeaves"]
+position = Vector3(0.05, 0.06, 0.05)
+rotation = Vector3(-0.05, 0.72, 0.04)
+scale = Vector3(2.0, 0.24, 0.55)
+mesh = SubResource("SphereMesh_leaf")
+material_override = ExtResource("2_leaf")
+
+[node name="LeafRight" type="MeshInstance3D" parent="GroundLeaves"]
+position = Vector3(0.38, 0.065, -0.17)
+rotation = Vector3(0.06, -0.95, 0.04)
+scale = Vector3(1.8, 0.24, 0.52)
+mesh = SubResource("SphereMesh_leaf")
+material_override = ExtResource("2_leaf")
+
+[node name="StemPink" type="MeshInstance3D" parent="."]
+position = Vector3(-0.32, 0.36, 0.05)
+rotation = Vector3(0.04, 0, -0.05)
+mesh = SubResource("CylinderMesh_stem")
+material_override = ExtResource("2_leaf")
+
+[node name="BloomPink" type="Node3D" parent="."]
+position = Vector3(-0.34, 0.78, 0.05)
+rotation = Vector3(0.02, 0.18, -0.03)
+
+[node name="PetalLeft" type="MeshInstance3D" parent="BloomPink"]
+position = Vector3(-0.12, 0, 0)
+scale = Vector3(1.0, 0.28, 0.58)
+mesh = SubResource("SphereMesh_petal")
+material_override = ExtResource("3_pink")
+
+[node name="PetalRight" type="MeshInstance3D" parent="BloomPink"]
+position = Vector3(0.12, 0, 0)
+scale = Vector3(1.0, 0.28, 0.58)
+mesh = SubResource("SphereMesh_petal")
+material_override = ExtResource("3_pink")
+
+[node name="PetalFront" type="MeshInstance3D" parent="BloomPink"]
+position = Vector3(0, 0, 0.12)
+scale = Vector3(0.58, 0.28, 1.0)
+mesh = SubResource("SphereMesh_petal")
+material_override = ExtResource("3_pink")
+
+[node name="PetalBack" type="MeshInstance3D" parent="BloomPink"]
+position = Vector3(0, 0, -0.12)
+scale = Vector3(0.58, 0.28, 1.0)
+mesh = SubResource("SphereMesh_petal")
+material_override = ExtResource("3_pink")
+
+[node name="Center" type="MeshInstance3D" parent="BloomPink"]
+position = Vector3(0, 0.035, 0)
+mesh = SubResource("SphereMesh_center")
+material_override = ExtResource("6_center")
+
+[node name="StemYellow" type="MeshInstance3D" parent="."]
+position = Vector3(0.12, 0.27, 0.2)
+rotation = Vector3(-0.04, 0, 0.055)
+scale = Vector3(0.88, 0.75, 0.88)
+mesh = SubResource("CylinderMesh_stem")
+material_override = ExtResource("2_leaf")
+
+[node name="BloomYellow" type="Node3D" parent="."]
+position = Vector3(0.14, 0.59, 0.2)
+rotation = Vector3(-0.03, -0.22, 0.04)
+scale = Vector3(0.86, 0.86, 0.86)
+
+[node name="PetalLeft" type="MeshInstance3D" parent="BloomYellow"]
+position = Vector3(-0.12, 0, 0)
+scale = Vector3(1.0, 0.28, 0.58)
+mesh = SubResource("SphereMesh_petal")
+material_override = ExtResource("4_yellow")
+
+[node name="PetalRight" type="MeshInstance3D" parent="BloomYellow"]
+position = Vector3(0.12, 0, 0)
+scale = Vector3(1.0, 0.28, 0.58)
+mesh = SubResource("SphereMesh_petal")
+material_override = ExtResource("4_yellow")
+
+[node name="PetalFront" type="MeshInstance3D" parent="BloomYellow"]
+position = Vector3(0, 0, 0.12)
+scale = Vector3(0.58, 0.28, 1.0)
+mesh = SubResource("SphereMesh_petal")
+material_override = ExtResource("4_yellow")
+
+[node name="PetalBack" type="MeshInstance3D" parent="BloomYellow"]
+position = Vector3(0, 0, -0.12)
+scale = Vector3(0.58, 0.28, 1.0)
+mesh = SubResource("SphereMesh_petal")
+material_override = ExtResource("4_yellow")
+
+[node name="Center" type="MeshInstance3D" parent="BloomYellow"]
+position = Vector3(0, 0.035, 0)
+mesh = SubResource("SphereMesh_center")
+material_override = ExtResource("6_center")
+
+[node name="StemLilac" type="MeshInstance3D" parent="."]
+position = Vector3(0.44, 0.34, -0.2)
+rotation = Vector3(0.03, 0, -0.065)
+scale = Vector3(0.92, 0.92, 0.92)
+mesh = SubResource("CylinderMesh_stem")
+material_override = ExtResource("2_leaf")
+
+[node name="BloomLilac" type="Node3D" parent="."]
+position = Vector3(0.41, 0.72, -0.2)
+rotation = Vector3(0.02, 0.38, -0.04)
+scale = Vector3(0.92, 0.92, 0.92)
+
+[node name="PetalLeft" type="MeshInstance3D" parent="BloomLilac"]
+position = Vector3(-0.12, 0, 0)
+scale = Vector3(1.0, 0.28, 0.58)
+mesh = SubResource("SphereMesh_petal")
+material_override = ExtResource("5_lilac")
+
+[node name="PetalRight" type="MeshInstance3D" parent="BloomLilac"]
+position = Vector3(0.12, 0, 0)
+scale = Vector3(1.0, 0.28, 0.58)
+mesh = SubResource("SphereMesh_petal")
+material_override = ExtResource("5_lilac")
+
+[node name="PetalFront" type="MeshInstance3D" parent="BloomLilac"]
+position = Vector3(0, 0, 0.12)
+scale = Vector3(0.58, 0.28, 1.0)
+mesh = SubResource("SphereMesh_petal")
+material_override = ExtResource("5_lilac")
+
+[node name="PetalBack" type="MeshInstance3D" parent="BloomLilac"]
+position = Vector3(0, 0, -0.12)
+scale = Vector3(0.58, 0.28, 1.0)
+mesh = SubResource("SphereMesh_petal")
+material_override = ExtResource("5_lilac")
+
+[node name="Center" type="MeshInstance3D" parent="BloomLilac"]
+position = Vector3(0, 0.035, 0)
+mesh = SubResource("SphereMesh_center")
+material_override = ExtResource("6_center")

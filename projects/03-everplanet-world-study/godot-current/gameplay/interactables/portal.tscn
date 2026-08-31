@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://gameplay/interactables/portal.gd" id="1_portal"]
+
+[sub_resource type="SphereShape3D" id="SphereShape_portal"]
+radius = 1.25
+
+[sub_resource type="StandardMaterial3D" id="Material_portal"]
+transparency = 1
+albedo_color = Color(0.23, 0.94, 0.94, 0.75)
+emission_enabled = true
+emission = Color(0.08, 0.83, 0.92, 1)
+emission_energy_multiplier = 2.5
+roughness = 0.3
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_portal"]
+material = SubResource("Material_portal")
+top_radius = 0.85
+bottom_radius = 0.85
+height = 0.08
+radial_segments = 32
+rings = 1
+
+[node name="Portal" type="Area3D" groups=["interactable"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_portal")
+
+[node name="InteractionShape" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.65, 0)
+shape = SubResource("SphereShape_portal")
+
+[node name="Visual" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.05, 0)
+mesh = SubResource("CylinderMesh_portal")
+
+[node name="Glow" type="OmniLight3D" parent="."]
+position = Vector3(0, 0.45, 0)
+light_color = Color(0.25, 0.92, 1, 1)
+light_energy = 1.2
+omni_range = 2.4
+shadow_enabled = false

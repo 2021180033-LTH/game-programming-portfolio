@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://gameplay/world/surface_anchor.gd" id="1_anchor"]
+[ext_resource type="Material" path="res://art/materials/path_town_organic.tres" id="2_path"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_path"]
+size = Vector2(4.45, 4.6)
+subdivide_width = 12
+subdivide_depth = 12
+
+[node name="WhitePathPatch" type="Node3D"]
+script = ExtResource("1_anchor")
+surface_offset = 0.035
+align_up_to_surface = true
+
+[node name="VisualOnly" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_path")
+material_override = ExtResource("2_path")

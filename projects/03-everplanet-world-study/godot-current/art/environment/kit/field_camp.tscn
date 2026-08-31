@@ -1,0 +1,96 @@
+[gd_scene load_steps=11 format=3]
+
+[ext_resource type="Script" path="res://gameplay/world/surface_anchor.gd" id="1_anchor"]
+[ext_resource type="Material" path="res://art/materials/cloth_cream.tres" id="2_cloth"]
+[ext_resource type="Material" path="res://art/materials/wood.tres" id="3_wood"]
+[ext_resource type="Material" path="res://art/materials/stone.tres" id="4_stone"]
+[ext_resource type="Material" path="res://art/materials/roof_orange.tres" id="5_fire"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_tent_panel"]
+size = Vector3(2.8, 0.16, 3.4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_log"]
+size = Vector3(1.7, 0.22, 0.22)
+
+[sub_resource type="SphereMesh" id="SphereMesh_stone"]
+radius = 0.32
+height = 0.36
+radial_segments = 8
+rings = 4
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_flame"]
+top_radius = 0.02
+bottom_radius = 0.38
+height = 1.15
+radial_segments = 10
+
+[sub_resource type="BoxShape3D" id="BoxShape_tent"]
+size = Vector3(3.2, 2.25, 3.45)
+
+[node name="FieldCamp" type="Node3D"]
+script = ExtResource("1_anchor")
+
+[node name="TentLeft" type="MeshInstance3D" parent="."]
+position = Vector3(-0.88, 1.15, 0)
+rotation = Vector3(0, 0, -0.84)
+mesh = SubResource("BoxMesh_tent_panel")
+material_override = ExtResource("2_cloth")
+
+[node name="TentRight" type="MeshInstance3D" parent="."]
+position = Vector3(0.88, 1.15, 0)
+rotation = Vector3(0, 0, 0.84)
+mesh = SubResource("BoxMesh_tent_panel")
+material_override = ExtResource("2_cloth")
+
+[node name="TentBody" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TentBody"]
+position = Vector3(0, 1.12, 0)
+shape = SubResource("BoxShape_tent")
+
+[node name="FireLogA" type="MeshInstance3D" parent="."]
+position = Vector3(4.2, 0.2, 0.2)
+rotation = Vector3(0, 0.62, 0)
+mesh = SubResource("BoxMesh_log")
+material_override = ExtResource("3_wood")
+
+[node name="FireLogB" type="MeshInstance3D" parent="."]
+position = Vector3(4.2, 0.2, 0.2)
+rotation = Vector3(0, -0.62, 0)
+mesh = SubResource("BoxMesh_log")
+material_override = ExtResource("3_wood")
+
+[node name="FireStoneNorth" type="MeshInstance3D" parent="."]
+position = Vector3(4.2, 0.2, -0.82)
+mesh = SubResource("SphereMesh_stone")
+material_override = ExtResource("4_stone")
+
+[node name="FireStoneSouth" type="MeshInstance3D" parent="."]
+position = Vector3(4.2, 0.2, 1.22)
+mesh = SubResource("SphereMesh_stone")
+material_override = ExtResource("4_stone")
+
+[node name="FireStoneWest" type="MeshInstance3D" parent="."]
+position = Vector3(3.2, 0.2, 0.2)
+mesh = SubResource("SphereMesh_stone")
+material_override = ExtResource("4_stone")
+
+[node name="FireStoneEast" type="MeshInstance3D" parent="."]
+position = Vector3(5.2, 0.2, 0.2)
+mesh = SubResource("SphereMesh_stone")
+material_override = ExtResource("4_stone")
+
+[node name="Flame" type="MeshInstance3D" parent="."]
+position = Vector3(4.2, 0.68, 0.2)
+mesh = SubResource("CylinderMesh_flame")
+material_override = ExtResource("5_fire")
+
+[node name="FireLight" type="OmniLight3D" parent="."]
+position = Vector3(4.2, 1.15, 0.2)
+light_color = Color(1, 0.43, 0.12, 1)
+light_energy = 1.8
+omni_range = 6.0
+shadow_enabled = true
+

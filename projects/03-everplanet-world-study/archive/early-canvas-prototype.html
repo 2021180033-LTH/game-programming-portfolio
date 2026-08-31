@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"/>
+<title>행성 RPG 최종 통합 빌드</title>
+<style>
+body{margin:0;background:#04070f;overflow:hidden;font-family:sans-serif}
+canvas{display:block;margin:0 auto;background:#04070f}
+</style>
+</head>
+<body>
+<canvas id="game" width="960" height="600"></canvas>
+<script>
+const canvas=document.getElementById("game"),ctx=canvas.getContext("2d");
+const VIEW_W=canvas.width,VIEW_H=canvas.height;
+
+const ITEM_NAMES={potion:"물약",scorpion_tail:"전갈 꼬리",ice_crystal:"얼음 결정",ember_core:"엠버 코어",void_fragment:"보이드 파편",
+wooden_sword:"나무 검",iron_sword:"철 검",flame_sword:"화염 검",lava_sword:"용암 검",rift_blade:"균열검",
+cloth_armor:"천 갑옷",leather_armor:"가죽 갑옷",lava_armor:"용암 갑옷",rift_armor:"균열 갑옷",
+star_ring:"별의 반지",ember_ring:"엠버 반지",void_ring:"보이드 반지",
+slime_heart_ring:"슬라임 심장 반지",ruin_guard_ring:"유적 수호 반지",frost_core_ring:"서리 핵 반지",volcano_heart_ring:"화산 심장 반지",rift_shard_ring:"균열 조각 반지"};
+
+const EQUIPMENT={
+wooden_sword:{name:"나무 검",slot:"weapon",atk:4,def:0,mag:0},iron_sword:{name:"철 검",slot:"weapon",atk:8,def:0,mag:0},
+flame_sword:{name:"화염 검",slot:"weapon",atk:12,def:0,mag:3},lava_sword:{name:"용암 검",slot:"weapon",atk:16,def:0,mag:4},
+rift_blade:{name:"균열검",slot:"weapon",atk:22,def:0,mag:8},
+cloth_armor:{name:"천 갑옷",slot:"armor",atk:0,def:2,mag:0},leather_armor:{name:"가죽 갑옷",slot:"armor",atk:0,def:4,mag:0},
+lava_armor:{name:"용암 갑옷",slot:"armor",atk:0,def:8,mag:0},rift_armor:{name:"균열 갑옷",slot:"armor",atk:0,def:12,mag:0},
+star_ring:{name:"별의 반지",slot:"accessory",atk:2,def:2,mag:2},ember_ring:{name:"엠버 반지",slot:"accessory",atk:5,def:0,mag:3},
+void_ring:{name:"보이드 반지",slot:"accessory",atk:3,def:5,mag:5},
+slime_heart_ring:{name:"슬라임 심장 반지",slot:"accessory",atk:2,def:2,mag:2},ruin_guard_ring:{name:"유적 수호 반지",slot:"accessory",atk:4,def:2,mag:0},
+frost_core_ring:{name:"서리 핵 반지",slot:"accessory",atk:0,def:2,mag:5},volcano_heart_ring:{name:"화산 심장 반지",slot:"accessory",atk:6,def:0,mag:0},
+rift_shard_ring:{name:"균열 조각 반지",slot:"accessory",atk:4,def:4,mag:4}};
+
+const SKILL_TREES={
+warrior:[
+{id:"w1",name:"검 수련",type:"패시브",max:3,req:null,gx:1,gy:0,desc:"공격력 +4"},
+{id:"w2",name:"강인한 신체",type:"패시브",max:3,req:null,gx:3,gy:0,desc:"최대 체력 +25"},
+{id:"w3",name:"회전 베기 강화",type:"패시브",max:3,req:"w1",gx:1,gy:1,desc:"스킬 피해 +20%"},
+{id:"w4",name:"대시 강화",type:"패시브",max:2,req:"w2",gx:3,gy:1,desc:"대시 쿨감 / 거리 증가"},
+{id:"w5",name:"전투 함성",type:"버프",max:1,req:"w3",gx:2,gy:2,desc:"R: 5초 공격력 +30%"},
+{id:"w6",name:"강철 피부",type:"패시브",max:2,req:"w4",gx:4,gy:2,desc:"방어력 +4"},
+{id:"w7",name:"지진 베기",type:"액티브",max:1,req:"w5",gx:2,gy:3,desc:"C: 광역 강력 공격"},
+{id:"w8",name:"분노",type:"패시브",max:2,req:"w7",gx:2,gy:4,desc:"치명타율 +5%"}],
+mage:[
+{id:"m1",name:"마법 수련",type:"패시브",max:3,req:null,gx:1,gy:0,desc:"마법력 +4"},
+{id:"m2",name:"명상",type:"패시브",max:3,req:null,gx:3,gy:0,desc:"최대 마력 +20"},
+{id:"m3",name:"화염 폭발 강화",type:"패시브",max:3,req:"m1",gx:1,gy:1,desc:"스킬 피해 +20%"},
+{id:"m4",name:"얼음 화살 강화",type:"패시브",max:2,req:"m2",gx:3,gy:1,desc:"얼음 화살 쿨감 / 피해 증가"},
+{id:"m5",name:"마법 보호막",type:"버프",max:1,req:"m3",gx:2,gy:2,desc:"R: 5초 피해 50% 감소"},
+{id:"m6",name:"원소 집중",type:"패시브",max:2,req:"m4",gx:4,gy:2,desc:"스킬 피해 +10%"},
+{id:"m7",name:"유성 낙하",type:"액티브",max:1,req:"m5",gx:2,gy:3,desc:"C: 광역 마법 공격"},
+{id:"m8",name:"비전 충전",type:"패시브",max:2,req:"m7",gx:2,gy:4,desc:"마력 재생 +2"}],
+archer:[
+{id:"a1",name:"활 수련",type:"패시브",max:3,req:null,gx:1,gy:0,desc:"공격력 +4"},
+{id:"a2",name:"가벼운 발걸음",type:"패시브",max:2,req:null,gx:3,gy:0,desc:"이동 속도 +10"},
+{id:"a3",name:"화살비 강화",type:"패시브",max:3,req:"a1",gx:1,gy:1,desc:"스킬 피해 +20%"},
+{id:"a4",name:"빠른 사격 강화",type:"패시브",max:2,req:"a2",gx:3,gy:1,desc:"빠른 사격 쿨감"},
+{id:"a5",name:"회피 구르기",type:"버프",max:1,req:"a3",gx:2,gy:2,desc:"R: 대시 + 무적"},
+{id:"a6",name:"치명 조준",type:"패시브",max:2,req:"a4",gx:4,gy:2,desc:"치명타율 +6%"},
+{id:"a7",name:"연속 사격",type:"액티브",max:1,req:"a5",gx:2,gy:3,desc:"C: 화살 5발 연사"},
+{id:"a8",name:"관통 화살",type:"패시브",max:2,req:"a7",gx:2,gy:4,desc:"스킬 피해 +10% / 치명 +3%"}]};
+
+const MONSTER_TYPES={
+slime:{name:"슬라임",r:16,hp:30,speed:62,damage:6,exp:10,gold:3,aggro:220,behavior:"melee",attackRange:34,attackCooldownMax:.9,color:"#59d17a",drops:[{item:"potion",chance:.03}]},
+vine_rat:{name:"덩굴쥐",r:14,hp:26,speed:128,damage:7,exp:12,gold:5,aggro:260,behavior:"melee",attackRange:30,attackCooldownMax:.7,color:"#a3e07c",drops:[{item:"potion",chance:.05}]},
+big_slime:{name:"대형 슬라임",r:30,hp:190,speed:42,damage:14,exp:48,gold:26,aggro:260,behavior:"melee",attackRange:46,attackCooldownMax:1.05,elite:true,color:"#2fae62",drops:[{item:"potion",chance:.25},{item:"leather_armor",chance:.18}]},
+slime_king:{name:"슬라임 킹",r:42,hp:420,speed:56,damage:16,exp:220,gold:150,aggro:520,behavior:"boss",attackRange:280,attackCooldownMax:1.45,projectileSpeed:220,projectileRadius:7,projectileColor:"#8fff8f",intro:"슬라임 킹: 이 초원은 내 것이다!",color:"#36d07a",drops:[{item:"potion",chance:1},{item:"iron_sword",chance:.35}]},
+scorpion:{name:"전갈",r:17,hp:62,speed:88,damage:11,exp:19,gold:9,aggro:260,behavior:"melee",attackRange:36,attackCooldownMax:.85,color:"#d98f3a",drops:[{item:"scorpion_tail",chance:.65},{item:"potion",chance:.03}]},
+sand_wolf:{name:"모래늑대",r:19,hp:78,speed:116,damage:13,exp:24,gold:11,aggro:320,behavior:"melee",attackRange:40,attackCooldownMax:.75,color:"#c7b17c",drops:[{item:"potion",chance:.1}]},
+sand_golem:{name:"샌드 골렘",r:31,hp:240,speed:40,damage:18,exp:62,gold:36,aggro:270,behavior:"melee",attackRange:48,attackCooldownMax:1.05,elite:true,color:"#b99a6b",drops:[{item:"potion",chance:.15},{item:"iron_sword",chance:.22}]},
+sand_queen:{name:"샌드 퀸",r:44,hp:650,speed:60,damage:20,exp:300,gold:220,aggro:540,behavior:"boss",attackRange:320,attackCooldownMax:1.4,projectileSpeed:230,projectileRadius:8,projectileColor:"#ffdf8f",intro:"샌드 퀸: 심판을 받아라!",color:"#e6b64f",drops:[{item:"potion",chance:1},{item:"iron_sword",chance:1}]},
+ice_slime:{name:"얼음슬라임",r:17,hp:95,speed:70,damage:14,exp:30,gold:12,aggro:250,behavior:"melee",attackRange:36,attackCooldownMax:.85,slow:true,color:"#8fe7ff",drops:[{item:"ice_crystal",chance:.18},{item:"potion",chance:.05}]},
+frost_wolf:{name:"서리늑대",r:19,hp:125,speed:126,damage:18,exp:42,gold:17,aggro:330,behavior:"melee",attackRange:40,attackCooldownMax:.72,color:"#b9d7ff",drops:[{item:"potion",chance:.12}]},
+ice_golem:{name:"얼음골렘",r:28,hp:275,speed:44,damage:24,exp:75,gold:38,aggro:270,behavior:"melee",attackRange:48,attackCooldownMax:1.05,elite:true,color:"#b8c8e8",drops:[{item:"ice_crystal",chance:.65}]},
+frost_giant:{name:"프로스트 자이언트",r:46,hp:980,speed:58,damage:27,exp:480,gold:360,aggro:560,behavior:"boss",attackRange:330,attackCooldownMax:1.35,projectileSpeed:235,projectileRadius:8,projectileColor:"#bffcff",slow:true,intro:"프로스트: 얼어붙어라!",color:"#7fb8ff",drops:[{item:"potion",chance:1},{item:"star_ring",chance:.65}]},
+lava_slime:{name:"용암슬라임",r:18,hp:135,speed:76,damage:20,exp:56,gold:21,aggro:270,behavior:"melee",attackRange:38,attackCooldownMax:.82,color:"#ff7b4d",drops:[{item:"ember_core",chance:.22},{item:"potion",chance:.06}]},
+flame_imp:{name:"불꽃임프",r:17,hp:115,speed:94,damage:22,exp:62,gold:26,aggro:300,behavior:"ranged",attackRange:270,attackCooldownMax:1.2,projectileSpeed:225,projectileRadius:6,projectileColor:"#ffb36b",color:"#ff9558",drops:[{item:"ember_core",chance:.33}]},
+lava_golem:{name:"용암골렘",r:32,hp:350,speed:42,damage:30,exp:105,gold:55,aggro:290,behavior:"melee",attackRange:50,attackCooldownMax:1.08,elite:true,color:"#c65b32",drops:[{item:"ember_core",chance:.8},{item:"lava_armor",chance:.25}]},
+ignis:{name:"이그니스",r:48,hp:1250,speed:62,damage:33,exp:650,gold:520,aggro:580,behavior:"boss",attackRange:340,attackCooldownMax:1.28,projectileSpeed:245,projectileRadius:9,projectileColor:"#ff7b4d",intro:"이그니스: 심장은 내 것이다!",color:"#ff5e3a",drops:[{item:"flame_sword",chance:1},{item:"potion",chance:1}]},
+shadow_soldier:{name:"그림자 병사",r:19,hp:185,speed:102,damage:26,exp:95,gold:35,aggro:330,behavior:"melee",attackRange:40,attackCooldownMax:.72,color:"#5f4b8b",drops:[{item:"potion",chance:.12}]},
+void_sentinel:{name:"공허의 파수꾼",r:22,hp:170,speed:70,damage:28,exp:110,gold:42,aggro:350,behavior:"ranged",attackRange:290,attackCooldownMax:1.15,projectileSpeed:230,projectileRadius:7,projectileColor:"#c4a3ff",color:"#8b5cf6",drops:[{item:"void_fragment",chance:.45}]},
+rift_guardian:{name:"균열 수호자",r:33,hp:430,speed:44,damage:34,exp:160,gold:70,aggro:300,behavior:"melee",attackRange:52,attackCooldownMax:1.1,elite:true,color:"#46355e",drops:[{item:"void_fragment",chance:1},{item:"potion",chance:.25}]},
+rift_king:{name:"균열의 왕",r:50,hp:1850,speed:64,damage:38,exp:950,gold:850,aggro:600,behavior:"boss",attackRange:350,attackCooldownMax:1.22,projectileSpeed:250,projectileRadius:9,projectileColor:"#b58cff",intro:"균열의 왕: 핵은 내 것이다!",color:"#7c3aed",drops:[{item:"rift_blade",chance:1},{item:"potion",chance:1}]},
+cave_king:{name:"슬라임 동굴 군주",r:40,hp:600,speed:58,damage:20,exp:300,gold:200,aggro:520,behavior:"boss",attackRange:300,attackCooldownMax:1.4,projectileSpeed:220,projectileRadius:8,projectileColor:"#aef7c0",intro:"동굴 군주: 여긴 내 둥지다!",color:"#7ddf9a",drops:[{item:"slime_heart_ring",chance:1},{item:"potion",chance:1}]},
+ruin_lord:{name:"유적의 군주",r:42,hp:900,speed:60,damage:26,exp:420,gold:280,aggro:540,behavior:"boss",attackRange:320,attackCooldownMax:1.35,projectileSpeed:230,projectileRadius:8,projectileColor:"#ffe6a3",intro:"유적의 군주: 성역을 밟느냐!",color:"#d8c6a3",drops:[{item:"ruin_guard_ring",chance:1},{item:"potion",chance:1}]},
+frost_lord:{name:"얼음 심장의 군주",r:44,hp:1300,speed:60,damage:30,exp:560,gold:360,aggro:560,behavior:"boss",attackRange:330,attackCooldownMax:1.3,projectileSpeed:235,projectileRadius:8,projectileColor:"#bffcff",slow:true,intro:"얼음 군주: 심연으로 가라!",color:"#9fd3ef",drops:[{item:"frost_core_ring",chance:1},{item:"potion",chance:1}]},
+magma_lord:{name:"화산 심장의 군주",r:46,hp:1700,speed:62,damage:34,exp:700,gold:460,aggro:580,behavior:"boss",attackRange:340,attackCooldownMax:1.28,projectileSpeed:245,projectileRadius:9,projectileColor:"#ff9558",intro:"화산 군주: 잿더미로!",color:"#ff5e3a",drops:[{item:"volcano_heart_ring",chance:1},{item:"potion",chance:1}]},
+void_lord:{name:"균열 심연의 군주",r:48,hp:2200,speed:64,damage:40,exp:900,gold:600,aggro:600,behavior:"boss",attackRange:350,attackCooldownMax:1.22,projectileSpeed:250,projectileRadius:9,projectileColor:"#b58cff",intro:"심연의 군주: 별은 내 것이다!",color:"#7c3aed",drops:[{item:"rift_shard_ring",chance:1},{item:"potion",chance:1}]}};
+
+const PLANETS={
+town:{id:"town",name:"시작의 별",theme:"town",minLevel:1,w:1500,h:1000,base:"#3f8f5b",entry:{x:1200,y:500},
+npcs:[{id:"elder",name:"장로",x:500,y:500,r:22,color:"#f2e2c4",dialog:"별의 핵이 흔들리고 있다네."},
+{id:"merchant",name:"상인",x:760,y:430,r:22,color:"#ffd166",dialog:"필요한 물건이 있으면 말하게."},
+{id:"smith",name:"강화 대장장이",x:1020,y:560,r:22,color:"#ffb08a",dialog:"장비를 강화하고 싶나?"}],
+portals:[{x:1350,y:300,r:46,to:"grass",label:"초원의 별"},{x:1350,y:500,r:46,to:"desert",label:"모래의 별"},{x:1350,y:700,r:46,to:"ice",label:"얼음의 별"},{x:1350,y:880,r:46,to:"volcano",label:"화산의 별"},{x:1350,y:940,r:46,to:"rift",label:"균열의 별"}],spawnGroups:[]},
+grass:{id:"grass",name:"초원의 별",theme:"grass",minLevel:2,w:1900,h:1250,base:"#3d9c58",entry:{x:230,y:620},
+npcs:[{id:"lia",name:"모험가 리아",x:520,y:520,r:22,color:"#ff9fc8",dialog:"몬스터가 사나워지고 있어."}],
+portals:[{x:180,y:620,r:46,to:"town",label:"시작의 별"},{x:950,y:980,r:46,to:"grass_d",label:"슬라임 동굴",dungeon:true}],
+spawnGroups:[["slime",6],["vine_rat",4],["big_slime",1],["slime_king",1,true]]},
+desert:{id:"desert",name:"모래의 별",theme:"desert",minLevel:6,w:2000,h:1300,base:"#c8a25a",entry:{x:230,y:650},
+npcs:[{id:"researcher",name:"사막 연구자",x:560,y:520,r:22,color:"#e8c07f",dialog:"유적이 이상하게 작동해."}],
+portals:[{x:180,y:650,r:46,to:"town",label:"시작의 별"},{x:1000,y:1000,r:46,to:"desert_d",label:"유적 지하",dungeon:true}],
+spawnGroups:[["scorpion",6],["sand_wolf",5],["sand_golem",1],["sand_queen",1,true]]},
+ice:{id:"ice",name:"얼음의 별",theme:"ice",minLevel:12,w:2000,h:1300,base:"#7fb6d9",entry:{x:230,y:650},
+npcs:[{id:"traveler",name:"얼음 여행자",x:560,y:520,r:22,color:"#bffcff",dialog:"얼음골렘이 내려오고 있어."}],
+portals:[{x:180,y:650,r:46,to:"town",label:"시작의 별"},{x:1000,y:1000,r:46,to:"ice_d",label:"얼음 균열",dungeon:true}],
+spawnGroups:[["ice_slime",6],["frost_wolf",5],["ice_golem",1],["frost_giant",1,true]]},
+volcano:{id:"volcano",name:"화산의 별",theme:"volcano",minLevel:18,w:2000,h:1300,base:"#7c3f2b",entry:{x:230,y:650},
+npcs:[{id:"blacksmith",name:"불꽃 대장장이",x:560,y:520,r:22,color:"#ffb08a",dialog:"화산 열기가 심상치 않다."}],
+portals:[{x:180,y:650,r:46,to:"town",label:"시작의 별"},{x:1000,y:1000,r:46,to:"volcano_d",label:"화산 심부",dungeon:true}],
+spawnGroups:[["lava_slime",6],["flame_imp",4],["lava_golem",2],["ignis",1,true]]},
+rift:{id:"rift",name:"균열의 별",theme:"rift",minLevel:24,w:2100,h:1350,base:"#2a1b3f",entry:{x:230,y:680},
+npcs:[{id:"rift_watcher",name:"균열 관찰자",x:560,y:540,r:24,color:"#d8c7ff",dialog:"균열이 별을 갉아먹고 있다."}],
+portals:[{x:180,y:680,r:46,to:"town",label:"시작의 별"},{x:1050,y:1050,r:46,to:"rift_d",label:"붕괴된 핵",dungeon:true}],
+spawnGroups:[["shadow_soldier",6],["void_sentinel",4],["rift_guardian",2],["rift_king",1,true]]},
+grass_d:{id:"grass_d",name:"슬라임 동굴",theme:"dungeon",minLevel:4,monMult:1.5,w:1200,h:900,base:"#1f2f24",entry:{x:180,y:450},npcs:[],portals:[{x:150,y:450,r:46,to:"grass",label:"동굴 출구"}],spawnGroups:[["slime",6],["vine_rat",4],["big_slime",2],["cave_king",1,true]]},
+desert_d:{id:"desert_d",name:"유적 지하",theme:"dungeon",minLevel:8,monMult:1.6,w:1200,h:900,base:"#3a2c1a",entry:{x:180,y:450},npcs:[],portals:[{x:150,y:450,r:46,to:"desert",label:"유적 출구"}],spawnGroups:[["scorpion",6],["sand_wolf",4],["sand_golem",2],["ruin_lord",1,true]]},
+ice_d:{id:"ice_d",name:"얼음 균열",theme:"dungeon",minLevel:14,monMult:1.7,w:1200,h:900,base:"#1c2b3a",entry:{x:180,y:450},npcs:[],portals:[{x:150,y:450,r:46,to:"ice",label:"균열 출구"}],spawnGroups:[["ice_slime",6],["frost_wolf",4],["ice_golem",2],["frost_lord",1,true]]},
+volcano_d:{id:"volcano_d",name:"화산 심부",theme:"dungeon",minLevel:20,monMult:1.8,w:1200,h:900,base:"#3a1c14",entry:{x:180,y:450},npcs:[],portals:[{x:150,y:450,r:46,to:"volcano",label:"심부 출구"}],spawnGroups:[["lava_slime",6],["flame_imp",4],["lava_golem",2],["magma_lord",1,true]]},
+rift_d:{id:"rift_d",name:"붕괴된 핵",theme:"dungeon",minLevel:26,monMult:2,w:1200,h:900,base:"#180f26",entry:{x:180,y:450},npcs:[],portals:[{x:150,y:450,r:46,to:"rift",label:"핵 출구"}],spawnGroups:[["shadow_soldier",6],["void_sentinel",4],["rift_guardian",2],["void_lord",1,true]]}};
+
+let currentPlanetId="town",planet=PLANETS.town,currentSpawns=[];
+let keys={};
+let inventory={potion:3,scorpion_tail:0,ice_crystal:0,ember_core:0,void_fragment:0,
+wooden_sword:0,iron_sword:0,flame_sword:0,lava_sword:0,rift_blade:0,
+cloth_armor:0,leather_armor:0,lava_armor:0,rift_armor:0,
+star_ring:0,ember_ring:0,void_ring:0,
+slime_heart_ring:0,ruin_guard_ring:0,frost_core_ring:0,volcano_heart_ring:0,rift_shard_ring:0};
+let equipment={weapon:null,armor:null,accessory:null};
+let enhance={weapon:0,armor:0,accessory:0};
+let player={x:0,y:0,r:16,speed:200,angle:0,level:1,exp:0,expNeed:60,maxHp:100,hp:100,maxMp:50,mp:50,damage:18,magicDamage:15,defense:2,gold:30,attackCooldown:0,attackSpeed:.38,attackRange:58,hurtCooldown:0,slowTimer:0,skillF:0,skillQ:0,skillR:0,skillC:0,healBuffer:0,sp:0,buffDamageTimer:0,shieldTimer:0,bonusSpeed:0,bonusCrit:0,bonusSkillDmg:0,bonusMpRegen:0};
+player.baseDamage=player.damage;player.baseMagicDamage=player.magicDamage;player.baseDefense=player.defense;
+let playerClass=null,classSelected=false;
+let learnedSkills={},skillTreeOpen=false,skillCursor=0;
+let shopOpen=false,enhanceOpen=false;
+const SHOP_ITEMS=[{id:"potion",name:"물약",cost:30},{id:"iron_sword",name:"철 검",cost:120},{id:"leather_armor",name:"가죽 갑옷",cost:140},{id:"star_ring",name:"별의 반지",cost:220}];
+
+let quests={
+m1:{id:"m1",kind:"main",name:"초원의 조사",offerNpc:"elder",turnNpc:"elder",desc:"초원의 별에서 슬라임 5마리 처치",objective:{type:"kill",target:"slime",count:5},reward:{exp:60,gold:40,potion:1},state:0,progress:0,dialogAccept:"슬라임이 많아졌네. 5마리 퇴치해주게.",dialogComplete:"좋아. 아직 끝나지 않았네."},
+m2:{id:"m2",kind:"main",name:"초원의 왕",offerNpc:"elder",turnNpc:"elder",desc:"초원의 별에서 슬라임 킹 처치",objective:{type:"kill",target:"slime_king",count:1},reward:{exp:180,gold:130,potion:1},state:0,progress:0,dialogAccept:"슬라임 킹이 힘을 흡수하고 있네.",dialogComplete:"초원이 안정됐군. 다음은 모래의 별."},
+m3:{id:"m3",kind:"main",name:"사막의 징조",offerNpc:"elder",turnNpc:"researcher",desc:"모래의 별에서 전갈 5마리 처치",objective:{type:"kill",target:"scorpion",count:5},reward:{exp:140,gold:90,potion:1},state:0,progress:0,dialogAccept:"전갈이 유적을 공격하네. 연구자를 도와주게.",dialogComplete:"유적 반응이 강해지고 있어."},
+m4:{id:"m4",kind:"main",name:"모래의 여왕",offerNpc:"researcher",turnNpc:"researcher",desc:"모래의 별에서 샌드 퀸 처치",objective:{type:"kill",target:"sand_queen",count:1},reward:{exp:320,gold:240,potion:2},state:0,progress:0,dialogAccept:"샌드 퀸이 핵심을 오염시켜.",dialogComplete:"유적이 안정됐어. 다음은 얼음의 별."},
+m5:{id:"m5",kind:"main",name:"얼음의 한기",offerNpc:"researcher",turnNpc:"traveler",desc:"얼음의 별에서 얼음슬라임 6마리 처치",objective:{type:"kill",target:"ice_slime",count:6},reward:{exp:220,gold:150,potion:1},state:0,progress:0,dialogAccept:"얼음슬라임이 길을 막아. 여행자를 도와줘.",dialogComplete:"고마워! 문제는 프로스트야."},
+m6:{id:"m6",kind:"main",name:"얼음 거인 토벌",offerNpc:"traveler",turnNpc:"traveler",desc:"얼음의 별에서 프로스트 자이언트 처치",objective:{type:"kill",target:"frost_giant",count:1},reward:{exp:520,gold:420,potion:2},state:0,progress:0,dialogAccept:"프로스트가 얼음 핵을 삼키고 있어.",dialogComplete:"얼음의 별이 숨을 되찾았어!"},
+m7:{id:"m7",kind:"main",name:"화산의 조사",offerNpc:"blacksmith",turnNpc:"blacksmith",desc:"화산의 별에서 용암슬라임 6마리 처치",objective:{type:"kill",target:"lava_slime",count:6},reward:{exp:320,gold:220,potion:2},state:0,progress:0,dialogAccept:"용암슬라임이 입구를 막아.",dialogComplete:"좋아. 문제는 이그니스야."},
+m8:{id:"m8",kind:"main",name:"이그니스 토벌",offerNpc:"blacksmith",turnNpc:"blacksmith",desc:"화산의 별에서 이그니스 처치",objective:{type:"kill",target:"ignis",count:1},reward:{exp:750,gold:600,potion:3},state:0,progress:0,dialogAccept:"이그니스가 심장을 삼키고 있어.",dialogComplete:"화산이 진정됐어."},
+m9:{id:"m9",kind:"main",name:"균열의 입구",offerNpc:"rift_watcher",turnNpc:"rift_watcher",desc:"균열의 별에서 그림자 병사 6마리 처치",objective:{type:"kill",target:"shadow_soldier",count:6},reward:{exp:420,gold:300,potion:2},state:0,progress:0,dialogAccept:"그림자 병사가 입구를 지켜.",dialogComplete:"균열의 왕이 모습을 드러낼 것이다."},
+m10:{id:"m10",kind:"main",name:"균열의 왕 토벌",offerNpc:"rift_watcher",turnNpc:"rift_watcher",desc:"균열의 별에서 균열의 왕 처치",objective:{type:"kill",target:"rift_king",count:1},reward:{exp:1200,gold:900,potion:3},state:0,progress:0,dialogAccept:"균열의 왕을 쓰러뜨려야 해.",dialogComplete:"균열이 봉인됐다. 별들이 평화로워졌다."},
+gs1:{id:"gs1",kind:"side",name:"덩굴쥐 소탕",offerNpc:"lia",turnNpc:"lia",desc:"덩굴쥐 3마리 처치",objective:{type:"kill",target:"vine_rat",count:3},reward:{exp:50,gold:40,potion:1},state:0,progress:0,dialogAccept:"덩굴쥐가 길을 파헤쳐.",dialogComplete:"길이 안전해졌어!"},
+ds1:{id:"ds1",kind:"side",name:"전갈 꼬리 수집",offerNpc:"researcher",turnNpc:"researcher",desc:"전갈 꼬리 3개 수집",objective:{type:"collect",item:"scorpion_tail",count:3},reward:{exp:90,gold:80,potion:1},state:0,progress:0,dialogAccept:"전갈 꼬리 3개 모아줘.",dialogComplete:"응급약을 만들 수 있겠어."},
+is1:{id:"is1",kind:"side",name:"얼음 결정 수집",offerNpc:"traveler",turnNpc:"traveler",desc:"얼음 결정 3개 수집",objective:{type:"collect",item:"ice_crystal",count:3},reward:{exp:130,gold:110,potion:1},state:0,progress:0,dialogAccept:"얼음 결정 3개 모아줄래?",dialogComplete:"난로를 만들 수 있겠어."},
+vs1:{id:"vs1",kind:"side",name:"엠버 코어 수집",offerNpc:"blacksmith",turnNpc:"blacksmith",desc:"엠버 코어 3개 수집",objective:{type:"collect",item:"ember_core",count:3},reward:{exp:250,gold:200,potion:2},state:0,progress:0,dialogAccept:"엠버 코어 3개 모아줘.",dialogComplete:"화산 폭발을 늦출 수 있겠어."},
+fs1:{id:"fs1",kind:"side",name:"보이드 파편 수집",offerNpc:"rift_watcher",turnNpc:"rift_watcher",desc:"보이드 파편 3개 수집",objective:{type:"collect",item:"void_fragment",count:3},reward:{exp:350,gold:280,potion:2},state:0,progress:0,dialogAccept:"보이드 파편 3개 모아다오.",dialogComplete:"균열 확장을 늦출 수 있다."},
+d1:{id:"d1",kind:"side",name:"동굴의 군주",offerNpc:"lia",turnNpc:"lia",desc:"슬라임 동굴 군주 처치",objective:{type:"kill",target:"cave_king",count:1},reward:{exp:200,gold:150,potion:1},state:0,progress:0,dialogAccept:"동굴 깊숙한 곳에서 군주 기운이 느껴져.",dialogComplete:"동굴이 잠잠해졌어!"},
+d2:{id:"d2",kind:"side",name:"유적의 군주",offerNpc:"researcher",turnNpc:"researcher",desc:"유적의 군주 처치",objective:{type:"kill",target:"ruin_lord",count:1},reward:{exp:300,gold:220,potion:1},state:0,progress:0,dialogAccept:"유적 지하에서 군주가 깨어났어.",dialogComplete:"유적 에너지가 안정됐어!"},
+d3:{id:"d3",kind:"side",name:"얼음 심장의 군주",offerNpc:"traveler",turnNpc:"traveler",desc:"얼음 심장의 군주 처치",objective:{type:"kill",target:"frost_lord",count:1},reward:{exp:420,gold:300,potion:2},state:0,progress:0,dialogAccept:"얼음 균열에서 군주가 한기를 뿜어.",dialogComplete:"한기가 누그러졌어!"},
+d4:{id:"d4",kind:"side",name:"화산 심장의 군주",offerNpc:"blacksmith",turnNpc:"blacksmith",desc:"화산 심장의 군주 처치",objective:{type:"kill",target:"magma_lord",count:1},reward:{exp:560,gold:400,potion:2},state:0,progress:0,dialogAccept:"화산 심부에서 군주가 심장을 쥐고 있어.",dialogComplete:"화산이 안정됐네!"},
+d5:{id:"d5",kind:"side",name:"균열 심연의 군주",offerNpc:"rift_watcher",turnNpc:"rift_watcher",desc:"균열 심연의 군주 처치",objective:{type:"kill",target:"void_lord",count:1},reward:{exp:800,gold:600,potion:3},state:0,progress:0,dialogAccept:"붕괴된 핵에서 군주가 별을 갉아먹고 있다.",dialogComplete:"균열 근원이 약해졌다!"}};
+
+let monsters=[],projectiles=[],particles=[],floats=[],decorations=[],spawnState=[];
+let camera={x:0,y:0};
+let dialog=null,dialogQueue=[],message=null;
+let gameOver=false,gameCleared=false,ending=false;
+let time=0,last=performance.now();
+
+init();requestAnimationFrame(loop);
+
+function init(){
+loadPlanet("town");refreshQuestAvailability();
+if(!equipment.weapon){equipment.weapon="wooden_sword";inventory.wooden_sword=1;}
+recalcStats();
+window.addEventListener("keydown",(e)=>{
+if(["Space","ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].includes(e.code))e.preventDefault();
+if(!classSelected){if(e.code==="Digit1")applyClass("warrior");if(e.code==="Digit2")applyClass("mage");if(e.code==="Digit3")applyClass("archer");return;}
+if(gameOver){if(e.code==="Enter")respawn();return;}
+if(dialog){if(["KeyE","Enter","Space"].includes(e.code)){if(dialogQueue.length>0)dialog={name:dialog.name,text:dialogQueue.shift()};else dialog=null;}return;}
+if(ending){if(["KeyE","Enter","Space"].includes(e.code))ending=false;return;}
+if(shopOpen){if(e.code==="KeyE"||e.code==="Escape")shopOpen=false;if(e.code==="Digit1")buyShopItem("potion");if(e.code==="Digit2")buyShopItem("iron_sword");if(e.code==="Digit3")buyShopItem("leather_armor");if(e.code==="Digit4")buyShopItem("star_ring");return;}
+if(enhanceOpen){if(e.code==="KeyE"||e.code==="Escape")enhanceOpen=false;if(e.code==="Digit1")enhanceSlot("weapon");if(e.code==="Digit2")enhanceSlot("armor");if(e.code==="Digit3")enhanceSlot("accessory");return;}
+if(e.code==="KeyK"){skillTreeOpen=!skillTreeOpen;skillCursor=0;return;}
+if(skillTreeOpen){
+if(e.code==="Escape"){skillTreeOpen=false;return;}
+const tree=SKILL_TREES[playerClass]||[];if(!tree.length)return;
+if(["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(e.code)){
+const cp=skillPos(tree[skillCursor]);let best=-1,bestD=Infinity;
+tree.forEach((s,i)=>{if(i===skillCursor)return;const p=skillPos(s);const dx=p.x-cp.x,dy=p.y-cp.y;let ok=false;
+if(e.code==="ArrowLeft")ok=dx<0&&Math.abs(dx)>=Math.abs(dy);
+if(e.code==="ArrowRight")ok=dx>0&&Math.abs(dx)>=Math.abs(dy);
+if(e.code==="ArrowUp")ok=dy<0&&Math.abs(dy)>=Math.abs(dx);
+if(e.code==="ArrowDown")ok=dy>0&&Math.abs(dy)>=Math.abs(dx);
+if(ok){const d=dx*dx+dy*dy;if(d<bestD){bestD=d;best=i;}}});
+if(best>=0)skillCursor=best;return;}
+if(e.code==="Enter"||e.code==="Space"){learnSkill(tree[skillCursor]);return;}
+return;}
+keys[e.code]=true;
+if(e.code==="KeyE")interact();
+if(e.code==="Digit1")usePotion();
+if(e.code==="KeyP")saveGame();
+if(e.code==="KeyO")loadGame();
+});
+window.addEventListener("keyup",(e)=>{keys[e.code]=false;});
+}
+
+function loadPlanet(id){currentPlanetId=id;planet=PLANETS[id];
+monsters=[];projectiles=[];particles=[];floats=[];
+decorations=generateDecorations();buildSpawns();
+player.x=planet.entry.x;player.y=planet.entry.y;
+refreshQuestAvailability();
+if(planet.minLevel&&player.level<planet.minLevel)showMessage(`경고: 권장 레벨 ${planet.minLevel} 이상 / 현재 Lv.${player.level}`,3.5);
+else showMessage(`${planet.name}에 도착했다.`);}
+
+function buildSpawns(){currentSpawns=[];
+for(const g of planet.spawnGroups||[]){const type=g[0],count=g[1],boss=!!g[2];
+for(let i=0;i<count;i++){
+if(boss)currentSpawns.push({type,x:planet.w-260,y:planet.h/2});
+else{let x=0,y=0,t=0;do{x=rand(80,planet.w-80);y=rand(80,planet.h-80);t++;}while(dist({x,y},planet.entry)<240&&t<25);currentSpawns.push({type,x,y});}}}
+spawnState=currentSpawns.map(()=>({alive:false,timer:0}));
+for(let i=0;i<currentSpawns.length;i++)spawnMonster(i);}
+
+function loop(now){const dt=Math.min(.033,(now-last)/1000);last=now;update(dt);render();requestAnimationFrame(loop);}
+
+function update(dt){time+=dt;
+if(message){message.time-=dt;if(message.time<=0)message=null;}
+if(!classSelected)return;if(gameOver)return;
+updatePlayer(dt);updateMonsterRespawn(dt);updateMonsters(dt);updateProjectiles(dt);updateParticles(dt);updateFloats(dt);updateCamera();}
+
+function updatePlayer(dt){
+player.attackCooldown=Math.max(0,player.attackCooldown-dt);
+player.hurtCooldown=Math.max(0,player.hurtCooldown-dt);
+player.slowTimer=Math.max(0,player.slowTimer-dt);
+player.skillF=Math.max(0,player.skillF-dt);player.skillQ=Math.max(0,player.skillQ-dt);
+player.skillR=Math.max(0,player.skillR-dt);player.skillC=Math.max(0,player.skillC-dt);
+player.buffDamageTimer=Math.max(0,player.buffDamageTimer-dt);
+player.shieldTimer=Math.max(0,player.shieldTimer-dt);
+player.mp=Math.min(player.maxMp,player.mp+(6+(player.bonusMpRegen||0))*dt);
+player.hp=Math.min(player.maxHp,player.hp+1.1*dt);
+if(player.healBuffer>0){const a=Math.min(player.healBuffer,22*dt);player.hp=Math.min(player.maxHp,player.hp+a);player.healBuffer-=a;if(player.hp>=player.maxHp)player.healBuffer=0;}
+let dx=0,dy=0;
+if(keys.KeyW||keys.ArrowUp)dy-=1;if(keys.KeyS||keys.ArrowDown)dy+=1;
+if(keys.KeyA||keys.ArrowLeft)dx-=1;if(keys.KeyD||keys.ArrowRight)dx+=1;
+if(dx!==0||dy!==0){const len=Math.hypot(dx,dy);dx/=len;dy/=len;
+const speed=(player.speed+(player.bonusSpeed||0))*(player.slowTimer>0?.55:1);
+player.x+=dx*speed*dt;player.y+=dy*speed*dt;player.angle=Math.atan2(dy,dx);}
+player.x=clamp(player.x,player.r,planet.w-player.r);player.y=clamp(player.y,player.r,planet.h-player.r);
+if(keys.Space&&player.attackCooldown<=0)meleeAttack();
+if(classSelected&&keys.KeyF&&player.skillF<=0)useClassSkillF();
+if(classSelected&&keys.KeyQ&&player.skillQ<=0)useClassSkillQ();
+if(classSelected&&keys.KeyR&&player.skillR<=0)useSkillR();
+if(classSelected&&keys.KeyC&&player.skillC<=0)useSkillC();}
+
+function meleeAttack(){player.attackCooldown=player.attackSpeed;
+addBurst(player.x+Math.cos(player.angle)*28,player.y+Math.sin(player.angle)*28,"rgba(210,245,255,.95)",8);
+for(const m of monsters){if(m.dead)continue;const d=dist(player,m);
+if(d<player.attackRange+m.r){const crit=Math.random()<getCritChance();
+const dmg=Math.round(player.damage*rand(.92,1.08)*(crit?1.7:1)*(player.buffDamageTimer>0?1.3:1));
+hitMonster(m,dmg,crit);}}
+monsters=monsters.filter(m=>!m.dead);}
+
+function useClassSkillF(){if(!classSelected)return;
+if(playerClass==="warrior"){if(player.mp<12)return;player.skillF=2.5;player.mp-=12;
+addBurst(player.x,player.y,"rgba(255,220,120,.95)",20);
+for(const m of monsters){if(m.dead)continue;if(dist(player,m)<105)hitMonster(m,sdmg(player.damage*1.6),false);}
+monsters=monsters.filter(m=>!m.dead);}
+if(playerClass==="mage"){if(player.mp<18)return;player.skillF=3;player.mp-=18;
+addBurst(player.x,player.y,"rgba(255,120,60,.95)",24);
+for(const m of monsters){if(m.dead)continue;if(dist(player,m)<130)hitMonster(m,sdmg(player.magicDamage*1.7),false);}
+monsters=monsters.filter(m=>!m.dead);}
+if(playerClass==="archer"){if(player.mp<14)return;player.skillF=2.2;player.mp-=14;
+for(const sp of[-.35,0,.35]){const a=player.angle+sp;
+shootProjectile(player.x,player.y,player.x+Math.cos(a)*120,player.y+Math.sin(a)*120,340,6,sdmg(player.damage*.85),"#ffd166",true,false);}}}
+
+function useClassSkillQ(){if(!classSelected)return;
+if(playerClass==="warrior"){if(player.mp<8)return;
+player.skillQ=1.4-.3*L("w4");player.mp-=8;
+const d=145+30*L("w4");
+player.x+=Math.cos(player.angle)*d;player.y+=Math.sin(player.angle)*d;
+player.x=clamp(player.x,player.r,planet.w-player.r);player.y=clamp(player.y,player.r,planet.h-player.r);
+player.hurtCooldown=Math.max(player.hurtCooldown,.35);
+addBurst(player.x,player.y,"rgba(180,220,255,.95)",12);}
+if(playerClass==="mage"){if(player.mp<8)return;
+player.skillQ=.9-.15*L("m4");player.mp-=8;
+shootProjectile(player.x,player.y,player.x+Math.cos(player.angle)*120,player.y+Math.sin(player.angle)*120,360,8,sdmg(player.magicDamage*1.35*(1+.15*L("m4"))),"#8fe7ff",true,false);}
+if(playerClass==="archer"){if(player.mp<5)return;
+player.skillQ=.45-.1*L("a4");player.mp-=5;
+shootProjectile(player.x,player.y,player.x+Math.cos(player.angle)*120,player.y+Math.sin(player.angle)*120,390,6,sdmg(player.damage*1.15),"#fff2b0",true,false);}}
+
+function useSkillR(){if(playerClass==="warrior"&&L("w5")>0){player.skillR=8;player.buffDamageTimer=5;addBurst(player.x,player.y,"rgba(255,180,80,.95)",20);showMessage("전투 함성! 공격력 증가!");}
+else if(playerClass==="mage"&&L("m5")>0){player.skillR=10;player.shieldTimer=5;addBurst(player.x,player.y,"rgba(120,200,255,.95)",20);showMessage("마법 보호막!");}
+else if(playerClass==="archer"&&L("a5")>0){player.skillR=4;player.x+=Math.cos(player.angle)*140;player.y+=Math.sin(player.angle)*140;player.x=clamp(player.x,player.r,planet.w-player.r);player.y=clamp(player.y,player.r,planet.h-player.r);player.hurtCooldown=Math.max(player.hurtCooldown,.4);addBurst(player.x,player.y,"rgba(180,255,180,.95)",12);}}
+
+function useSkillC(){if(playerClass==="warrior"&&L("w7")>0){player.skillC=6;addBurst(player.x,player.y,"rgba(255,120,60,.95)",26);
+for(const m of monsters){if(m.dead)continue;if(dist(player,m)<120)hitMonster(m,sdmg(player.damage*2.5),false);}monsters=monsters.filter(m=>!m.dead);}
+if(playerClass==="mage"&&L("m7")>0){player.skillC=7;addBurst(player.x,player.y,"rgba(255,90,90,.95)",30);
+for(const m of monsters){if(m.dead)continue;if(dist(player,m)<140)hitMonster(m,sdmg(player.magicDamage*3),false);}monsters=monsters.filter(m=>!m.dead);}
+if(playerClass==="archer"&&L("a7")>0){player.skillC=6;
+for(let i=-2;i<=2;i++){const a=player.angle+i*.18;
+shootProjectile(player.x,player.y,player.x+Math.cos(a)*120,player.y+Math.sin(a)*120,380,6,sdmg(player.damage*.9),"#fff2b0",true,false);}}}
+
+function hitMonster(m,dmg,crit){m.hp-=dmg;m.hitFlash=.1;
+addFloat(m.x,m.y-m.r-18,dmg,crit?"#ffd166":"#fff");
+addBurst(m.x,m.y,"rgba(255,255,255,.85)",crit?12:6);
+if(m.hp<=0)killMonster(m);}
+
+function killMonster(m){if(m.dead)return;m.dead=true;
+spawnState[m.spawnIndex].alive=false;
+if(m.def.behavior==="boss")spawnState[m.spawnIndex].timer=25;
+else if(m.def.elite)spawnState[m.spawnIndex].timer=12;
+else spawnState[m.spawnIndex].timer=rand(3,6);
+if(m.eliteMod==="explosive"&&dist(player,m)<110){damagePlayer(18,false);addBurst(m.x,m.y,"rgba(255,120,60,.95)",22);addFloat(player.x,player.y-50,"폭발!","#ff9c6b");}
+const expGain=Math.round(m.def.exp*(m.expMult||1));
+const goldGain=Math.round(m.def.gold*(m.goldMult||1));
+gainExp(expGain);player.gold+=goldGain;
+addFloat(m.x,m.y-m.r-34,`+${goldGain}G`,"#ffd166");
+for(const drop of m.def.drops){if(Math.random()<drop.chance){addInventory(drop.item,1);addFloat(m.x,m.y-m.r-52,`+${ITEM_NAMES[drop.item]||drop.item}`,"#9dff8f");}}
+updateKillQuests(m.type);
+if(m.def.behavior==="boss")showMessage(`${m.def.name}을 처치했다!`);}
+
+function damagePlayer(amount,slow){if(player.hurtCooldown>0||gameOver)return;
+player.hurtCooldown=.45;
+let actual=Math.max(1,Math.round(amount-player.defense));
+if(player.shieldTimer>0)actual=Math.max(1,Math.round(actual*.5));
+player.hp-=actual;
+if(slow){player.slowTimer=1.25;addFloat(player.x,player.y-56,"냉기 감속!","#8fe7ff");}
+addFloat(player.x,player.y-36,actual,"#ff6d6d");
+addBurst(player.x,player.y,"rgba(255,90,90,.9)",10);
+if(player.hp<=0){player.hp=0;gameOver=true;}}
+
+function updateMonsterRespawn(dt){for(let i=0;i<spawnState.length;i++){const s=spawnState[i];
+if(!s.alive){s.timer-=dt;if(s.timer<=0)spawnMonster(i);}}}
+
+function spawnMonster(i){const spawn=currentSpawns[i];const def=MONSTER_TYPES[spawn.type];
+const baseMult=planet.monMult||1;
+let hp=Math.round(def.hp*baseMult);
+let speedOverride=null,prefix="",eliteMod=null,goldMult=baseMult,expMult=baseMult;
+const canElite=def.behavior!=="boss"&&!def.elite;
+if(canElite&&Math.random()<.14){const mods=["tough","swift","explosive","golden"];
+eliteMod=mods[Math.floor(Math.random()*mods.length)];
+if(eliteMod==="tough"){hp=Math.round(hp*1.35);prefix="단단한 ";}
+if(eliteMod==="swift"){speedOverride=def.speed*1.25;prefix="신속한 ";}
+if(eliteMod==="explosive")prefix="폭발하는 ";
+if(eliteMod==="golden"){goldMult=baseMult*1.6;expMult=baseMult*1.4;prefix="황금빛 ";}}
+monsters.push({type:spawn.type,def,x:spawn.x,y:spawn.y,spawnX:spawn.x,spawnY:spawn.y,r:def.r,hp,maxHp:hp,attackCooldown:.5,hitFlash:0,dead:false,spawnIndex:i,introShown:false,wanderTimer:0,wanderX:spawn.x,wanderY:spawn.y,speedOverride,eliteMod,prefix,goldMult,expMult});
+spawnState[i].alive=true;}
+
+function updateMonsters(dt){for(const m of monsters){if(m.dead)continue;
+m.hitFlash=Math.max(0,m.hitFlash-dt);m.attackCooldown=Math.max(0,m.attackCooldown-dt);
+const def=m.def;
+if(def.behavior==="boss"&&!m.introShown&&dist(player,m)<def.aggro){m.introShown=true;showMessage(def.intro||`${def.name}이 나타났다!`,2.5);}
+const distToPlayer=dist(player,m);const distToSpawn=dist({x:m.spawnX,y:m.spawnY},m);
+let targetX=null,targetY=null;
+if(distToSpawn>720){targetX=m.spawnX;targetY=m.spawnY;m.hp=Math.min(m.maxHp,m.hp+14*dt);}
+else if(distToPlayer<def.aggro||def.behavior==="boss"){
+const keep=def.behavior==="ranged"&&distToPlayer<def.attackRange*.62;
+if(!keep){targetX=player.x;targetY=player.y;}}
+else{m.wanderTimer-=dt;
+if(m.wanderTimer<=0){m.wanderX=m.spawnX+rand(-170,170);m.wanderY=m.spawnY+rand(-170,170);m.wanderTimer=rand(1.3,3.2);}
+if(dist(m,{x:m.wanderX,y:m.wanderY})>14){targetX=m.wanderX;targetY=m.wanderY;}}
+if(targetX!==null&&targetY!==null){const dx=targetX-m.x,dy=targetY-m.y,len=Math.hypot(dx,dy);
+if(len>1){const ms=m.speedOverride||def.speed;m.x+=(dx/len)*ms*dt;m.y+=(dy/len)*ms*dt;}}
+m.x=clamp(m.x,m.r,planet.w-m.r);m.y=clamp(m.y,m.r,planet.h-m.r);
+if(def.behavior==="melee"){if(distToPlayer<def.attackRange+player.r&&m.attackCooldown<=0){m.attackCooldown=def.attackCooldownMax;damagePlayer(def.damage,!!def.slow);}}
+if(def.behavior==="ranged"){if(distToPlayer<def.attackRange&&m.attackCooldown<=0){m.attackCooldown=def.attackCooldownMax;
+shootProjectile(m.x,m.y,player.x,player.y,def.projectileSpeed,def.projectileRadius,def.damage,def.projectileColor,false,!!def.slow);}}
+if(def.behavior==="boss"){if(distToPlayer<76&&m.attackCooldown<=0){m.attackCooldown=def.attackCooldownMax*.6;damagePlayer(def.damage,!!def.slow);}
+else if(distToPlayer<def.attackRange&&m.attackCooldown<=0){m.attackCooldown=def.attackCooldownMax;
+const ba=Math.atan2(player.y-m.y,player.x-m.x);
+for(const sp of[-.35,0,.35]){const a=ba+sp;
+shootProjectile(m.x,m.y,m.x+Math.cos(a)*100,m.y+Math.sin(a)*100,def.projectileSpeed,def.projectileRadius,def.damage,def.projectileColor,false,!!def.slow);}}}}
+monsters=monsters.filter(m=>!m.dead);}
+
+function shootProjectile(x,y,tx,ty,speed,radius,damage,color,friendly,slow){const a=Math.atan2(ty-y,tx-x);
+projectiles.push({x,y,vx:Math.cos(a)*speed,vy:Math.sin(a)*speed,radius,damage,color,friendly,slow,life:2.4});}
+
+function updateProjectiles(dt){for(const p of projectiles){p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=dt;
+if(p.life<=0){p.dead=true;continue;}
+if(p.friendly){for(const m of monsters){if(m.dead)continue;
+if(dist(p,m)<p.radius+m.r){const crit=Math.random()<.08;hitMonster(m,Math.round(p.damage*rand(.92,1.08)*(crit?1.6:1)),crit);p.dead=true;break;}}}
+else{if(dist(p,player)<p.radius+player.r){damagePlayer(p.damage,p.slow);p.dead=true;}}}
+projectiles=projectiles.filter(p=>!p.dead);monsters=monsters.filter(m=>!m.dead);}
+
+function updateParticles(dt){for(const p of particles){p.x+=p.vx*dt;p.y+=p.vy*dt;p.life-=dt;}particles=particles.filter(p=>p.life>0);}
+function updateFloats(dt){for(const f of floats){f.y-=32*dt;f.life-=dt;}floats=floats.filter(f=>f.life>0);}
+function updateCamera(){camera.x=clamp(player.x-VIEW_W/2,0,Math.max(0,planet.w-VIEW_W));camera.y=clamp(player.y-VIEW_H/2,0,Math.max(0,planet.h-VIEW_H));}
+
+function interact(){const n=planet.npcs.find(n=>dist(player,n)<player.r+n.r+30);
+if(n){interactNPC(n);return;}
+const p=planet.portals.find(p=>dist(player,p)<player.r+p.r+20);
+if(p)loadPlanet(p.to);}
+
+function interactNPC(npc){
+if(npc.id==="merchant"){shopOpen=true;return;}
+if(npc.id==="smith"){enhanceOpen=true;return;}
+const ready=Object.values(quests).find(q=>q.state===3&&q.turnNpc===npc.id);
+if(ready){completeQuest(ready);showDialog(npc.name,ready.dialogComplete||"고맙네.");return;}
+const offer=Object.values(quests).filter(q=>q.state===1&&q.offerNpc===npc.id).sort((a,b)=>{if(a.kind===b.kind)return a.id.localeCompare(b.id);return a.kind==="main"?-1:1;})[0];
+if(offer){acceptQuest(offer);showDialog(npc.name,offer.dialogAccept||"부탁하네.");return;}
+const active=Object.values(quests).find(q=>q.state===2&&(q.offerNpc===npc.id||q.turnNpc===npc.id));
+if(active){showDialog(npc.name,activeHint(active));return;}
+showDialog(npc.name,npc.dialog);}
+
+function acceptQuest(q){q.state=2;q.progress=0;
+if(q.objective.type==="collect"){q.progress=Math.min(q.objective.count,inventory[q.objective.item]||0);if(q.progress>=q.objective.count)q.state=3;}
+showMessage(`퀘스트 수락: ${q.name}`);refreshQuestAvailability();}
+
+function completeQuest(q){q.state=4;
+if(q.objective.type==="collect"){inventory[q.objective.item]-=q.objective.count;if(inventory[q.objective.item]<0)inventory[q.objective.item]=0;}
+if(q.reward.exp)gainExp(q.reward.exp);if(q.reward.gold)player.gold+=q.reward.gold;if(q.reward.potion)addInventory("potion",q.reward.potion);
+showMessage(`퀘스트 완료: ${q.name}`);
+if(q.id==="m10"){gameCleared=true;ending=true;showMessage("월드 메인 퀘스트 클리어!");}
+refreshQuestAvailability();}
+
+function refreshQuestAvailability(){const u=id=>{if(quests[id].state===0)quests[id].state=1;};
+u("m1");u("gs1");
+if(isQuestDone("m1"))u("m2");
+if(isQuestDone("m2")){u("m3");u("ds1");u("d1");}
+if(isQuestDone("m3"))u("m4");
+if(isQuestDone("m4")){u("m5");u("is1");u("d2");}
+if(isQuestDone("m5"))u("m6");
+if(isQuestDone("m6")){u("m7");u("vs1");u("d3");}
+if(isQuestDone("m7"))u("m8");
+if(isQuestDone("m8")){u("m9");u("d4");}
+if(isQuestDone("m9")){u("m10");u("fs1");u("d5");}}
+
+function isQuestDone(id){return quests[id].state===4;}
+
+function updateKillQuests(t){for(const q of Object.values(quests)){
+if(q.state===2&&q.objective.type==="kill"&&q.objective.target===t){
+if(q.progress<q.objective.count){q.progress++;if(q.progress>=q.objective.count){q.state=3;showMessage(`퀘스트 완료 준비: ${q.name}`);}}}}}
+
+function addInventory(item,amount){const before=inventory[item]||0;inventory[item]=before+amount;
+if(EQUIPMENT[item])equipItem(item);
+updateCollectQuests(item);}
+
+function updateCollectQuests(item){for(const q of Object.values(quests)){
+if(q.state===2&&q.objective.type==="collect"&&q.objective.item===item){
+q.progress=Math.min(q.objective.count,inventory[item]||0);
+if(q.progress>=q.objective.count){q.state=3;showMessage(`퀘스트 완료 준비: ${q.name}`);}}}}
+
+function gainExp(amount){player.exp+=amount;
+while(player.exp>=player.expNeed){player.exp-=player.expNeed;player.level++;player.sp+=1;
+player.expNeed=Math.floor(player.expNeed*1.4);
+player.baseDamage+=5;player.baseMagicDamage+=4;player.baseDefense+=1;
+player.maxHp+=20;player.hp=player.maxHp;player.maxMp+=7;player.mp=player.maxMp;
+recalcStats();showMessage(`레벨 업! Lv.${player.level}`);addBurst(player.x,player.y,"rgba(255,225,120,.95)",24);}}
+
+function usePotion(){if(inventory.potion<=0){showMessage("물약이 없다.");return;}
+const missing=player.maxHp-player.hp;
+if(missing<=0){showMessage("체력이 이미 가득 찼다.");return;}
+if(player.healBuffer>=missing){showMessage("이미 회복 중이다.");return;}
+inventory.potion--;player.healBuffer=Math.min(player.healBuffer+80,missing);
+showMessage("물약 사용: 체력이 서서히 회복된다.");addFloat(player.x,player.y-40,"회복 시작","#9dff8f");}
+
+function respawn(){gameOver=false;player.slowTimer=0;player.healBuffer=0;
+player.hp=player.maxHp;player.mp=player.maxMp;player.gold=Math.floor(player.gold*.9);
+loadPlanet("town");showMessage("시작의 별에서 부활했다. 골드의 10%를 잃었다.");}
+
+function saveGame(){const data={currentPlanetId,player,inventory,equipment,enhance,learnedSkills,playerClass,classSelected,gameCleared,
+quests:Object.fromEntries(Object.values(quests).map(q=>[q.id,{state:q.state,progress:q.progress}]))};
+localStorage.setItem("planetRPGFinalSave",JSON.stringify(data));showMessage("저장 완료");}
+
+function loadGame(){const raw=localStorage.getItem("planetRPGFinalSave");
+if(!raw){showMessage("저장 데이터를 찾을 수 없다.");return;}
+try{const data=JSON.parse(raw);
+Object.assign(player,data.player);
+if(player.baseDamage===undefined)player.baseDamage=player.damage;
+if(player.baseMagicDamage===undefined)player.baseMagicDamage=player.magicDamage;
+if(player.baseDefense===undefined)player.baseDefense=player.defense;
+if(player.healBuffer===undefined)player.healBuffer=0;
+if(player.sp===undefined)player.sp=0;
+inventory=Object.assign({},inventory,data.inventory);
+equipment=Object.assign({weapon:null,armor:null,accessory:null},data.equipment||{});
+enhance=Object.assign({weapon:0,armor:0,accessory:0},data.enhance||{});
+learnedSkills=data.learnedSkills||{};
+playerClass=data.playerClass||"warrior";
+classSelected=data.classSelected!==undefined?data.classSelected:true;
+gameCleared=data.gameCleared||false;
+for(const id in data.quests){if(quests[id]){quests[id].state=data.quests[id].state;quests[id].progress=data.quests[id].progress;}}
+loadPlanet(data.currentPlanetId);
+player.x=data.player.x;player.y=data.player.y;
+recalcStats();refreshQuestAvailability();
+showMessage("로드 완료");}catch(e){showMessage("로드 실패");}}
+
+function L(id){return learnedSkills[id]||0;}
+function getSkillBonuses(){const b={atk:0,def:0,mag:0,speed:0,crit:0,skillDmg:0,mpRegen:0};
+if(playerClass==="warrior"){b.atk+=L("w1")*4;b.def+=L("w6")*4;b.crit+=L("w8")*.05;b.skillDmg+=L("w3")*.2;}
+if(playerClass==="mage"){b.mag+=L("m1")*4;b.skillDmg+=L("m3")*.2+L("m6")*.1;b.mpRegen+=L("m8")*2;}
+if(playerClass==="archer"){b.atk+=L("a1")*4;b.speed+=L("a2")*10;b.crit+=L("a6")*.06+L("a8")*.03;b.skillDmg+=L("a3")*.2+L("a8")*.1;}
+return b;}
+function sdmg(base){return Math.round(base*(1+(player.bonusSkillDmg||0))*(player.buffDamageTimer>0?1.3:1));}
+function getCritChance(){return .12+(player.bonusCrit||0);}
+
+function recalcStats(){let atk=0,def=0,mag=0;
+for(const slot in equipment){const id=equipment[slot];
+if(id&&EQUIPMENT[id]){atk+=EQUIPMENT[id].atk||0;def+=EQUIPMENT[id].def||0;mag+=EQUIPMENT[id].mag||0;}}
+if(equipment.weapon)atk+=enhance.weapon*3;
+if(equipment.armor)def+=enhance.armor*2;
+if(equipment.accessory){atk+=enhance.accessory;def+=enhance.accessory;mag+=enhance.accessory;}
+const b=getSkillBonuses();
+player.damage=player.baseDamage+atk+b.atk;
+player.magicDamage=player.baseMagicDamage+mag+b.mag;
+player.defense=player.baseDefense+def+b.def;
+player.bonusSpeed=b.speed;player.bonusCrit=b.crit;player.bonusSkillDmg=b.skillDmg;player.bonusMpRegen=b.mpRegen;}
+
+function equipItem(itemId){const d=EQUIPMENT[itemId];if(!d)return;
+const slot=d.slot;const cur=equipment[slot];
+const ns=(d.atk||0)+(d.def||0)+(d.mag||0);
+if(!cur){equipment[slot]=itemId;recalcStats();showMessage(`${d.name} 장착!`);return;}
+const cd=EQUIPMENT[cur];const cs=(cd.atk||0)+(cd.def||0)+(cd.mag||0);
+if(ns>cs){equipment[slot]=itemId;recalcStats();showMessage(`${cd.name} → ${d.name} 장착!`);}}
+
+function learnSkill(skill){if(!skill)return;const lv=L(skill.id);
+if(lv>=skill.max){showMessage("최대 레벨이다.");return;}
+if(player.sp<1){showMessage("스킬 포인트가 부족하다.");return;}
+if(skill.req&&L(skill.req)<=0){const r=(SKILL_TREES[playerClass]||[]).find(s=>s.id===skill.req);showMessage(`선결 스킬 필요: ${r?r.name:skill.req}`);return;}
+player.sp--;learnedSkills[skill.id]=lv+1;
+if(skill.id==="w2"){player.maxHp+=25;player.hp+=25;}
+if(skill.id==="m2"){player.maxMp+=20;player.mp+=20;}
+recalcStats();showMessage(`${skill.name} 습득!`);}
+
+function applyClass(id){playerClass=id;classSelected=true;
+if(id==="warrior"){player.maxHp=150;player.hp=150;player.maxMp=45;player.mp=45;player.speed=190;player.baseDamage=24;player.baseMagicDamage=8;player.baseDefense=6;}
+if(id==="mage"){player.maxHp=85;player.hp=85;player.maxMp=95;player.mp=95;player.speed=195;player.baseDamage=12;player.baseMagicDamage=28;player.baseDefense=1;}
+if(id==="archer"){player.maxHp=105;player.hp=105;player.maxMp=65;player.mp=65;player.speed=215;player.baseDamage=19;player.baseMagicDamage=14;player.baseDefense=3;}
+player.skillF=0;player.skillQ=0;player.skillR=0;player.skillC=0;
+recalcStats();showMessage(`${getClassName()} 선택!`);}
+
+function getClassName(){if(playerClass==="warrior")return"전사";if(playerClass==="mage")return"마법사";if(playerClass==="archer")return"궁수";return"선택 전";}
+function getClassSkillNames(){if(playerClass==="warrior")return{f:"회전 베기",q:"대시",r:L("w5")>0?"함성":"미배움",c:L("w7")>0?"지진":"미배움"};
+if(playerClass==="mage")return{f:"화염 폭발",q:"얼음 화살",r:L("m5")>0?"보호막":"미배움",c:L("m7")>0?"유성":"미배움"};
+if(playerClass==="archer")return{f:"화살비",q:"빠른 사격",r:L("a5")>0?"회피":"미배움",c:L("a7")>0?"연사":"미배움"};
+return{f:"-",q:"-",r:"-",c:"-"};}
+
+function buyShopItem(id){const it=SHOP_ITEMS.find(x=>x.id===id);if(!it)return;
+if(player.gold<it.cost){showMessage("골드가 부족하다.");return;}
+player.gold-=it.cost;addInventory(id,1);showMessage(`${it.name} 구매 완료!`);}
+
+function enhanceSlot(slot){if(!equipment[slot]){showMessage("해당 슬롯에 장비가 없다.");return;}
+if(enhance[slot]>=5){showMessage("최대 강화 수치다.");return;}
+const cost=80*(enhance[slot]+1);
+if(player.gold<cost){showMessage(`골드 부족. 필요: ${cost}`);return;}
+player.gold-=cost;enhance[slot]++;recalcStats();
+showMessage(`${EQUIPMENT[equipment[slot]].name} +${enhance[slot]} 강화 성공!`);}
+
+function generateDecorations(){const arr=[];
+for(let i=0;i<130;i++){const x=rand(40,planet.w-40),y=rand(40,planet.h-40);
+if(dist({x,y},planet.entry)<130)continue;
+let type="rock";
+if(planet.theme==="town")type=["flower","tree","rock","house"][Math.floor(rand(0,4))];
+else if(planet.theme==="grass")type=["flower","tree","rock","bush"][Math.floor(rand(0,4))];
+else if(planet.theme==="desert")type=["cactus","rock","bones","ruins"][Math.floor(rand(0,4))];
+else if(planet.theme==="ice")type=["crystal","snowtree","rock","ice_flower"][Math.floor(rand(0,4))];
+else if(planet.theme==="volcano")type=["lava_rock","flame","obsidian","vent"][Math.floor(rand(0,4))];
+else if(planet.theme==="rift")type=["rift_stone","void_crystal","dark_tree","crack"][Math.floor(rand(0,4))];
+else if(planet.theme==="dungeon")type=["rock","bones","crack","crystal"][Math.floor(rand(0,4))];
+arr.push({x,y,r:rand(8,28),type});}
+return arr;}
+
+function render(){ctx.clearRect(0,0,VIEW_W,VIEW_H);
+ctx.fillStyle="#04070f";ctx.fillRect(0,0,VIEW_W,VIEW_H);
+ctx.save();ctx.translate(-camera.x,-camera.y);
+drawWorld();drawDecorations();drawPortals();drawNPCs();drawMonsters();drawProjectiles();drawPlayer();drawParticles();drawFloats();
+ctx.restore();
+drawUI();drawStoryGoal();drawDialog();drawMessage();drawGameOver();drawEnding();drawShop();drawEnhance();drawSkillTree();drawClassSelect();}
+
+function drawWorld(){ctx.fillStyle=planet.base;ctx.fillRect(0,0,planet.w,planet.h);
+ctx.strokeStyle="rgba(255,255,255,.14)";ctx.lineWidth=6;ctx.strokeRect(0,0,planet.w,planet.h);
+ctx.fillStyle="rgba(255,255,255,.04)";
+for(let x=0;x<planet.w;x+=130)for(let y=0;y<planet.h;y+=130)if((x+y)%260===0)ctx.fillRect(x,y,130,130);}
+
+function drawDecorations(){for(const d of decorations){
+if(d.type==="flower"){ctx.fillStyle="#ffc7e2";ctx.beginPath();ctx.arc(d.x,d.y,d.r*.25,0,7);ctx.fill();ctx.fillStyle="#fff3a3";ctx.beginPath();ctx.arc(d.x,d.y,d.r*.1,0,7);ctx.fill();}
+if(d.type==="tree"){ctx.fillStyle="#7a4c24";ctx.fillRect(d.x-4,d.y,8,d.r);ctx.fillStyle="#2f9e55";ctx.beginPath();ctx.arc(d.x,d.y-d.r*.35,d.r*.65,0,7);ctx.fill();}
+if(d.type==="bush"){ctx.fillStyle="#2f8f4f";ctx.beginPath();ctx.arc(d.x,d.y,d.r*.45,0,7);ctx.fill();}
+if(d.type==="rock"){ctx.fillStyle="#9aa4b2";ctx.beginPath();ctx.arc(d.x,d.y,d.r*.45,0,7);ctx.fill();}
+if(d.type==="house"){ctx.fillStyle="#b98b5f";ctx.fillRect(d.x-d.r,d.y-d.r*.6,d.r*2,d.r*1.3);ctx.fillStyle="#7d4b32";ctx.beginPath();ctx.moveTo(d.x-d.r*1.15,d.y-d.r*.6);ctx.lineTo(d.x,d.y-d.r*1.5);ctx.lineTo(d.x+d.r*1.15,d.y-d.r*.6);ctx.closePath();ctx.fill();}
+if(d.type==="cactus"){ctx.fillStyle="#3fa05a";ctx.fillRect(d.x-d.r*.18,d.y-d.r,d.r*.36,d.r*1.6);ctx.fillRect(d.x-d.r*.65,d.y-d.r*.35,d.r*.5,d.r*.22);ctx.fillRect(d.x+d.r*.18,d.y-d.r*.62,d.r*.5,d.r*.22);}
+if(d.type==="bones"){ctx.fillStyle="rgba(245,240,220,.85)";ctx.fillRect(d.x-d.r*.55,d.y,d.r*1.1,3);ctx.fillRect(d.x-1.5,d.y-d.r*.35,3,d.r*.8);}
+if(d.type==="ruins"){ctx.fillStyle="#cfc3a8";ctx.fillRect(d.x-d.r*.35,d.y-d.r,d.r*.7,d.r*1.35);ctx.fillStyle="#b3a584";ctx.fillRect(d.x-d.r*.55,d.y-d.r*1.15,d.r*1.1,d.r*.22);}
+if(d.type==="crystal"){ctx.fillStyle="rgba(160,240,255,.9)";ctx.beginPath();ctx.moveTo(d.x,d.y-d.r);ctx.lineTo(d.x+d.r*.55,d.y+d.r*.55);ctx.lineTo(d.x-d.r*.55,d.y+d.r*.55);ctx.closePath();ctx.fill();}
+if(d.type==="snowtree"){ctx.fillStyle="#6d5234";ctx.fillRect(d.x-4,d.y,8,d.r);ctx.fillStyle="#dff5ff";ctx.beginPath();ctx.moveTo(d.x,d.y-d.r*1.35);ctx.lineTo(d.x+d.r*.75,d.y);ctx.lineTo(d.x-d.r*.75,d.y);ctx.closePath();ctx.fill();}
+if(d.type==="ice_flower"){ctx.fillStyle="#e8fbff";ctx.beginPath();ctx.arc(d.x,d.y,d.r*.24,0,7);ctx.fill();ctx.fillStyle="#bfeaff";ctx.beginPath();ctx.arc(d.x,d.y,d.r*.1,0,7);ctx.fill();}
+if(d.type==="lava_rock"){ctx.fillStyle="#5b2c1c";ctx.beginPath();ctx.arc(d.x,d.y,d.r*.48,0,7);ctx.fill();}
+if(d.type==="flame"){ctx.fillStyle="rgba(255,140,66,.85)";ctx.beginPath();ctx.moveTo(d.x,d.y-d.r);ctx.lineTo(d.x+d.r*.45,d.y+d.r*.45);ctx.lineTo(d.x-d.r*.45,d.y+d.r*.45);ctx.closePath();ctx.fill();}
+if(d.type==="obsidian"){ctx.fillStyle="#2d2438";ctx.beginPath();ctx.moveTo(d.x,d.y-d.r);ctx.lineTo(d.x+d.r*.6,d.y+d.r*.25);ctx.lineTo(d.x,d.y+d.r*.7);ctx.lineTo(d.x-d.r*.6,d.y+d.r*.25);ctx.closePath();ctx.fill();}
+if(d.type==="vent"){ctx.fillStyle="rgba(255,90,30,.35)";ctx.beginPath();ctx.arc(d.x,d.y,d.r*.75,0,7);ctx.fill();ctx.fillStyle="rgba(255,180,90,.7)";ctx.beginPath();ctx.arc(d.x,d.y,d.r*.25,0,7);ctx.fill();}
+if(d.type==="rift_stone"){ctx.fillStyle="#3b2b57";ctx.beginPath();ctx.arc(d.x,d.y,d.r*.48,0,7);ctx.fill();}
+if(d.type==="void_crystal"){ctx.fillStyle="rgba(180,140,255,.9)";ctx.beginPath();ctx.moveTo(d.x,d.y-d.r);ctx.lineTo(d.x+d.r*.55,d.y+d.r*.55);ctx.lineTo(d.x-d.r*.55,d.y+d.r*.55);ctx.closePath();ctx.fill();}
+if(d.type==="dark_tree"){ctx.fillStyle="#241b33";ctx.fillRect(d.x-4,d.y,8,d.r);ctx.fillStyle="#5b3f86";ctx.beginPath();ctx.arc(d.x,d.y-d.r*.35,d.r*.65,0,7);ctx.fill();}
+if(d.type==="crack"){ctx.strokeStyle="rgba(190,120,255,.75)";ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(d.x-d.r*.6,d.y);ctx.lineTo(d.x-d.r*.15,d.y-d.r*.25);ctx.lineTo(d.x+d.r*.2,d.y+d.r*.15);ctx.lineTo(d.x+d.r*.6,d.y-d.r*.35);ctx.stroke();}}}
+
+function drawPortals(){for(const p of planet.portals){const pulse=.75+Math.sin(time*4+p.x)*.14;
+ctx.save();
+ctx.globalAlpha=.22;ctx.fillStyle=p.dungeon?"#c48bff":"#7fdcff";ctx.beginPath();ctx.arc(p.x,p.y,p.r+16,0,7);ctx.fill();
+ctx.globalAlpha=.88;ctx.fillStyle=p.dungeon?"#3a1b52":"#123d5f";ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,7);ctx.fill();
+ctx.globalAlpha=pulse;ctx.strokeStyle=p.dungeon?"#e0b3ff":"#9feaff";ctx.lineWidth=5;ctx.beginPath();ctx.arc(p.x,p.y,p.r-7,0,7);ctx.stroke();
+ctx.globalAlpha=1;ctx.fillStyle="#fff";ctx.font="bold 15px sans-serif";ctx.textAlign="center";
+ctx.fillText(p.label,p.x,p.y-p.r-16);ctx.restore();}}
+
+function drawNPCs(){for(const n of planet.npcs){ctx.save();
+ctx.fillStyle="rgba(0,0,0,.18)";ctx.beginPath();ctx.ellipse(n.x,n.y+n.r+4,n.r*.75,5,0,0,7);ctx.fill();
+ctx.fillStyle=n.color;ctx.beginPath();ctx.arc(n.x,n.y,n.r,0,7);ctx.fill();
+ctx.fillStyle="#20283b";ctx.fillRect(n.x-7,n.y-6,4,7);ctx.fillRect(n.x+3,n.y-6,4,7);
+if(npcHasExclamation(n.id)){ctx.fillStyle="#ffd166";ctx.font="bold 28px sans-serif";ctx.textAlign="center";ctx.fillText("!",n.x,n.y-n.r-18);}
+ctx.fillStyle="#fff";ctx.font="13px sans-serif";ctx.textAlign="center";ctx.fillText(n.name,n.x,n.y+n.r+22);ctx.restore();}}
+
+function npcHasExclamation(id){return Object.values(quests).some(q=>(q.state===1&&q.offerNpc===id)||(q.state===3&&q.turnNpc===id));}
+
+function drawMonsters(){for(const m of monsters){if(m.dead)continue;ctx.save();
+ctx.fillStyle="rgba(0,0,0,.18)";ctx.beginPath();ctx.ellipse(m.x,m.y+m.r+4,m.r*.75,5,0,0,7);ctx.fill();
+ctx.fillStyle=m.hitFlash>0?"#fff":m.def.color;ctx.beginPath();ctx.arc(m.x,m.y,m.r,0,7);ctx.fill();
+ctx.fillStyle="#151b28";ctx.fillRect(m.x-m.r*.34,m.y-m.r*.22,m.r*.18,m.r*.32);ctx.fillRect(m.x+m.r*.16,m.y-m.r*.22,m.r*.18,m.r*.32);
+if(m.def.behavior==="boss"){ctx.fillStyle="#dff6ff";ctx.beginPath();ctx.moveTo(m.x-m.r*.55,m.y-m.r*.72);ctx.lineTo(m.x-m.r*.82,m.y-m.r*1.28);ctx.lineTo(m.x-m.r*.18,m.y-m.r*.82);ctx.closePath();ctx.fill();
+ctx.beginPath();ctx.moveTo(m.x+m.r*.55,m.y-m.r*.72);ctx.lineTo(m.x+m.r*.82,m.y-m.r*1.28);ctx.lineTo(m.x+m.r*.18,m.y-m.r*.82);ctx.closePath();ctx.fill();}
+if(m.hp<m.maxHp||m.def.behavior==="boss"||m.def.elite){const w=m.r*2.2;
+ctx.fillStyle="rgba(0,0,0,.35)";ctx.fillRect(m.x-w/2,m.y-m.r-18,w,6);
+ctx.fillStyle="#ff5f5f";ctx.fillRect(m.x-w/2,m.y-m.r-18,w*Math.max(0,m.hp/m.maxHp),6);}
+ctx.fillStyle="rgba(255,255,255,.92)";ctx.font="12px sans-serif";ctx.textAlign="center";
+ctx.fillText((m.prefix||"")+m.def.name,m.x,m.y-m.r-26);ctx.restore();}}
+
+function drawProjectiles(){for(const p of projectiles){ctx.save();
+ctx.globalAlpha=.28;ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,p.radius*2.1,0,7);ctx.fill();
+ctx.globalAlpha=1;ctx.beginPath();ctx.arc(p.x,p.y,p.radius,0,7);ctx.fill();ctx.restore();}}
+
+function drawPlayer(){ctx.save();
+ctx.fillStyle="rgba(0,0,0,.2)";ctx.beginPath();ctx.ellipse(player.x,player.y+player.r+4,player.r*.8,5,0,0,7);ctx.fill();
+const hurt=player.hurtCooldown>0,slowed=player.slowTimer>0;
+ctx.fillStyle=hurt?"#ff9c9c":slowed?"#8fd8ff":"#ffd166";ctx.beginPath();ctx.arc(player.x,player.y,player.r,0,7);ctx.fill();
+ctx.fillStyle="#20283b";ctx.fillRect(player.x-6,player.y-5,4,7);ctx.fillRect(player.x+2,player.y-5,4,7);
+const sx=player.x+Math.cos(player.angle)*(player.r+9),sy=player.y+Math.sin(player.angle)*(player.r+9);
+ctx.strokeStyle="#dff3ff";ctx.lineWidth=5;ctx.lineCap="round";
+ctx.beginPath();ctx.moveTo(sx,sy);ctx.lineTo(sx+Math.cos(player.angle)*17,sy+Math.sin(player.angle)*17);ctx.stroke();ctx.restore();}
+
+function drawParticles(){for(const p of particles){ctx.globalAlpha=Math.max(0,p.life/p.maxLife);ctx.fillStyle=p.color;ctx.fillRect(p.x,p.y,3,3);ctx.globalAlpha=1;}}
+function drawFloats(){for(const f of floats){ctx.globalAlpha=Math.max(0,f.life);ctx.fillStyle=f.color;ctx.font="bold 15px sans-serif";ctx.textAlign="center";ctx.fillText(f.text,f.x,f.y);ctx.globalAlpha=1;}}
+
+function drawUI(){ctx.save();
+ctx.fillStyle="rgba(0,0,0,.38)";roundRect(12,12,280,90,14);ctx.fill();
+ctx.strokeStyle="rgba(255,255,255,.14)";ctx.lineWidth=2;roundRect(12,12,280,90,14);ctx.stroke();
+ctx.fillStyle="#fff";ctx.font="bold 16px sans-serif";ctx.textAlign="left";ctx.fillText(planet.name,26,36);
+ctx.font="12px sans-serif";ctx.fillStyle="#d7e4ff";ctx.fillText(`${getClassName()} Lv.${player.level} · 골드 ${player.gold}`,26,54);
+drawBar(26,62,230,10,player.exp/player.expNeed,"#9dff8f","EXP");
+if(gameCleared){ctx.fillStyle="rgba(255,255,255,.92)";ctx.font="bold 18px sans-serif";ctx.textAlign="center";ctx.fillText("월드 메인 클리어!",VIEW_W/2,32);}
+ctx.restore();
+drawMinimap();drawQuestTracker();drawActionBar();drawOrbs();}
+
+function drawBar(x,y,w,h,pct,color,label){ctx.save();
+ctx.fillStyle="rgba(255,255,255,.15)";roundRect(x,y,w,h,h/2);ctx.fill();
+ctx.fillStyle=color;roundRect(x,y,Math.max(0,Math.min(1,pct))*w,h,h/2);ctx.fill();
+ctx.fillStyle="#fff";ctx.font="11px sans-serif";ctx.textAlign="left";ctx.fillText(label,x+7,y+h-4);ctx.restore();}
+
+function drawMinimap(){const mmW=190,mmH=135,x=VIEW_W-mmW-12,y=12;ctx.save();
+ctx.fillStyle="rgba(0,0,0,.38)";roundRect(x,y,mmW,mmH,14);ctx.fill();
+ctx.strokeStyle="rgba(255,255,255,.14)";ctx.lineWidth=2;roundRect(x,y,mmW,mmH,14);ctx.stroke();
+ctx.save();roundRect(x+3,y+3,mmW-6,mmH-6,10);ctx.clip();
+const pad=8,s=Math.min((mmW-pad*2)/planet.w,(mmH-pad*2)/planet.h);
+const ox=x+pad+((mmW-pad*2)-planet.w*s)/2,oy=y+pad+((mmH-pad*2)-planet.h*s)/2;
+ctx.globalAlpha=.8;ctx.fillStyle=planet.base;ctx.fillRect(ox,oy,planet.w*s,planet.h*s);ctx.globalAlpha=1;
+for(const p of planet.portals){ctx.fillStyle=p.dungeon?"#c48bff":"#7fdcff";ctx.fillRect(ox+p.x*s-2,oy+p.y*s-2,4,4);}
+for(const n of planet.npcs){ctx.fillStyle="#ffd166";ctx.fillRect(ox+n.x*s-2,oy+n.y*s-2,4,4);}
+for(const m of monsters){if(m.dead)continue;
+if(m.def.behavior==="boss"){ctx.fillStyle="#c48bff";ctx.fillRect(ox+m.x*s-2.5,oy+m.y*s-2.5,5,5);}
+else{ctx.fillStyle="#ff6d6d";ctx.fillRect(ox+m.x*s-1.5,oy+m.y*s-1.5,3,3);}}
+ctx.fillStyle="#fff";ctx.fillRect(ox+player.x*s-2.5,oy+player.y*s-2.5,5,5);
+ctx.restore();
+ctx.fillStyle="rgba(255,255,255,.85)";ctx.font="11px sans-serif";ctx.textAlign="center";ctx.fillText("미니맵",x+mmW/2,y+mmH-8);ctx.restore();}
+
+function drawQuestTracker(){const w=270,x=VIEW_W-w-12,y=156;ctx.save();
+ctx.fillStyle="rgba(0,0,0,.35)";roundRect(x,y,w,250,14);ctx.fill();
+ctx.strokeStyle="rgba(255,255,255,.12)";ctx.lineWidth=2;roundRect(x,y,w,250,14);ctx.stroke();
+ctx.fillStyle="#fff";ctx.font="bold 16px sans-serif";ctx.textAlign="left";ctx.fillText("퀘스트",x+16,y+28);
+const list=Object.values(quests).filter(q=>[1,2,3].includes(q.state)).sort((a,b)=>{if(a.kind===b.kind)return a.id.localeCompare(b.id);return a.kind==="main"?-1:1;});
+let yy=y+56;
+if(list.length===0){ctx.font="13px sans-serif";ctx.fillStyle="#d7e4ff";ctx.fillText("NPC의 ! 표시를 확인하세요.",x+16,yy);}
+for(const q of list.slice(0,6)){const st=q.state===1?"수락":q.state===2?"진행":"보고";
+ctx.font="bold 13px sans-serif";ctx.fillStyle=q.kind==="main"?"#ffd166":"#9fd8ff";ctx.fillText(`[${st}] ${q.name}`,x+16,yy);yy+=18;
+ctx.font="12px sans-serif";ctx.fillStyle="#fff";ctx.fillText(getQuestProgressText(q),x+24,yy);yy+=24;}
+ctx.restore();}
+
+function drawActionBar(){const slot=56,gap=8;const sn=getClassSkillNames();
+const slots=[{key:"Space",label:"기본",type:"n"},{key:"F",label:sn.f,type:"F"},{key:"Q",label:sn.q,type:"Q"},{key:"R",label:sn.r,type:"R"},{key:"C",label:sn.c,type:"C"},{key:"1",label:"물약",type:"P"},{key:"E",label:"대화",type:"n"},{key:"K",label:"스킬",type:"K"}];
+const total=slots.length*slot+(slots.length-1)*gap;
+const x=(VIEW_W-total)/2,y=VIEW_H-78;
+ctx.save();
+ctx.fillStyle="rgba(0,0,0,.38)";roundRect(x-12,y-10,total+24,slot+24,16);ctx.fill();
+ctx.strokeStyle="rgba(255,255,255,.14)";ctx.lineWidth=2;roundRect(x-12,y-10,total+24,slot+24,16);ctx.stroke();
+for(let i=0;i<slots.length;i++){const s=slots[i],sx=x+i*(slot+gap);
+ctx.fillStyle="rgba(255,255,255,.10)";roundRect(sx,y,slot,slot,10);ctx.fill();
+ctx.strokeStyle="rgba(255,255,255,.18)";ctx.lineWidth=2;roundRect(sx,y,slot,slot,10);ctx.stroke();
+ctx.fillStyle="#ffd166";ctx.font="bold 11px sans-serif";ctx.textAlign="left";ctx.fillText(s.key,sx+6,y+14);
+ctx.fillStyle="#fff";ctx.font="11px sans-serif";ctx.textAlign="center";
+ctx.fillText(s.label.length>5?s.label.slice(0,5):s.label,sx+slot/2,y+slot/2+4);
+let cd=0,max=1;
+if(s.type==="F"){cd=player.skillF;max=3;}if(s.type==="Q"){cd=player.skillQ;max=1.5;}
+if(s.type==="R"){cd=player.skillR;max=10;}if(s.type==="C"){cd=player.skillC;max=7;}
+if(cd>0){const h=slot*Math.min(1,cd/max);ctx.fillStyle="rgba(0,0,0,.55)";ctx.fillRect(sx,y+slot-h,slot,h);
+ctx.fillStyle="#fff";ctx.font="bold 14px sans-serif";ctx.fillText(cd.toFixed(1),sx+slot/2,y+slot/2+5);}
+if(s.type==="P"){ctx.fillStyle="#9dff8f";ctx.font="bold 13px sans-serif";ctx.textAlign="right";ctx.fillText(inventory.potion,sx+slot-6,y+slot-6);}
+if(s.type==="K"){ctx.fillStyle="rgba(0,0,0,.35)";roundRect(sx,y,slot,slot,10);ctx.fill();
+ctx.fillStyle="#c7d2e8";ctx.font="10px sans-serif";ctx.textAlign="center";ctx.fillText("트리",sx+slot/2,y+slot-8);}}
+ctx.restore();}
+
+function drawOrbs(){drawOrb(72,VIEW_H-72,42,player.hp/player.maxHp,"#3d0a10","#ff5a5a","HP",`${Math.ceil(player.hp)}`);
+drawOrb(VIEW_W-72,VIEW_H-72,42,player.mp/player.maxMp,"#0a1e3a","#57b3ff","MP",`${Math.ceil(player.mp)}`);
+if(player.healBuffer>0){ctx.save();ctx.fillStyle="rgba(120,255,150,.9)";ctx.font="bold 12px sans-serif";ctx.textAlign="center";ctx.fillText(`+${Math.ceil(player.healBuffer)}`,72,VIEW_H-122);ctx.restore();}}
+
+function drawOrb(x,y,r,pct,dark,light,label,val){pct=clamp(pct,0,1);ctx.save();
+ctx.beginPath();ctx.arc(x,y,r+6,0,7);ctx.fillStyle="rgba(0,0,0,.42)";ctx.fill();
+ctx.strokeStyle="rgba(255,255,255,.22)";ctx.lineWidth=3;ctx.stroke();
+ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fillStyle=dark;ctx.fill();
+if(pct>0){ctx.save();ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.clip();
+const h=r*2*pct,wave=Math.sin(time*2.8+x*.1)*1.5,top=y+r-h+wave;
+const g=ctx.createLinearGradient(0,y+r,0,top);g.addColorStop(0,light);g.addColorStop(1,dark);
+ctx.fillStyle=g;ctx.fillRect(x-r,top,r*2,h+12);
+ctx.globalAlpha=.22;ctx.fillStyle="#fff";ctx.beginPath();ctx.ellipse(x,top,r*.82,5,0,0,7);ctx.fill();ctx.restore();}
+ctx.globalAlpha=.22;ctx.beginPath();ctx.arc(x-r*.35,y-r*.38,r*.28,0,7);ctx.fillStyle="#fff";ctx.fill();ctx.globalAlpha=1;
+ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.strokeStyle="rgba(255,255,255,.35)";ctx.lineWidth=2;ctx.stroke();
+ctx.fillStyle="rgba(255,255,255,.9)";ctx.font="bold 11px sans-serif";ctx.textAlign="center";ctx.fillText(label,x,y-r-10);
+ctx.fillStyle="#fff";ctx.font="bold 13px sans-serif";ctx.fillText(val,x,y+5);ctx.restore();}
+
+function drawStoryGoal(){const goal=getMainGoal();if(!goal)return;ctx.save();
+ctx.font="bold 15px sans-serif";const t=`메인 목표: ${goal}`,w=ctx.measureText(t).width+46;
+ctx.fillStyle="rgba(0,0,0,.45)";roundRect(VIEW_W/2-w/2,116,w,36,18);ctx.fill();
+ctx.fillStyle="#ffd166";ctx.textAlign="center";ctx.fillText(t,VIEW_W/2,139);ctx.restore();}
+
+function getMainGoal(){if(gameCleared)return"자유 모험: 모든 별을 탐험하자.";
+const q=Object.values(quests).filter(q=>q.kind==="main"&&[1,2,3].includes(q.state)).sort((a,b)=>a.id.localeCompare(b.id))[0];
+if(!q)return"시작의 별: 장로에게 메인 퀘스트 수락";
+if(q.state===1)return`${q.name} 수락: ${findNpcName(q.offerNpc)}에게 가기`;
+if(q.state===3)return`${q.name} 보고: ${findNpcName(q.turnNpc)}에게 가기`;
+return`${q.name}: ${q.desc}`;}
+
+function findNpcName(id){for(const p of Object.values(PLANETS)){const n=p.npcs.find(n=>n.id===id);if(n)return n.name;}return"NPC";}
+
+function getQuestProgressText(q){if(q.state===3)return"NPC에게 보고 가능";
+if(q.objective.type==="kill")return`${q.progress}/${q.objective.count} 처치`;
+if(q.objective.type==="collect"){const h=inventory[q.objective.item]||0;return`${h}/${q.objective.count} 수집`;}
+return q.desc;}
+
+function activeHint(q){if(q.state===3)return"이제 나에게 보고하게.";
+if(q.objective.type==="kill")return`${q.desc} (${q.progress}/${q.objective.count})`;
+if(q.objective.type==="collect"){const h=inventory[q.objective.item]||0;return`${q.desc} (${h}/${q.objective.count})`;}
+return q.desc;}
+
+function drawDialog(){if(!dialog)return;ctx.save();
+ctx.fillStyle="rgba(0,0,0,.58)";roundRect(60,VIEW_H-130,VIEW_W-120,100,16);ctx.fill();
+ctx.fillStyle="#ffd166";ctx.font="bold 18px sans-serif";ctx.textAlign="left";ctx.fillText(dialog.name,86,VIEW_H-98);
+ctx.fillStyle="#fff";ctx.font="15px sans-serif";wrapText(dialog.text,86,VIEW_H-72,VIEW_W-180,22);
+ctx.fillStyle="#b7c6e2";ctx.font="12px sans-serif";ctx.textAlign="right";ctx.fillText("E / Enter / Space 닫기",VIEW_W-86,VIEW_H-44);ctx.restore();}
+
+function drawMessage(){if(!message)return;ctx.save();
+ctx.globalAlpha=Math.min(1,message.time*2);ctx.font="bold 16px sans-serif";
+const w=ctx.measureText(message.text).width+60;
+ctx.fillStyle="rgba(0,0,0,.42)";roundRect(VIEW_W/2-w/2,74,w,42,21);ctx.fill();
+ctx.fillStyle="#fff";ctx.textAlign="center";ctx.fillText(message.text,VIEW_W/2,101);ctx.restore();}
+
+function drawGameOver(){if(!gameOver)return;ctx.save();
+ctx.fillStyle="rgba(0,0,0,.58)";ctx.fillRect(0,0,VIEW_W,VIEW_H);
+ctx.fillStyle="#fff";ctx.textAlign="center";
+ctx.font="bold 52px sans-serif";ctx.fillText("사망",VIEW_W/2,VIEW_H/2-24);
+ctx.font="20px sans-serif";ctx.fillText("Enter를 눌러 시작의 별에서 부활",VIEW_W/2,VIEW_H/2+24);ctx.restore();}
+
+function drawEnding(){if(!ending)return;ctx.save();
+ctx.fillStyle="rgba(5,0,15,.78)";ctx.fillRect(0,0,VIEW_W,VIEW_H);
+ctx.fillStyle="#fff";ctx.textAlign="center";
+ctx.font="bold 52px sans-serif";ctx.fillText("균열이 봉인되었다",VIEW_W/2,VIEW_H/2-60);
+ctx.font="24px sans-serif";ctx.fillText("별들이 다시 평화를 되찾았다.",VIEW_W/2,VIEW_H/2-10);
+ctx.font="20px sans-serif";ctx.fillText(`Lv.${player.level} · 골드 ${player.gold} · 물약 ${inventory.potion}`,VIEW_W/2,VIEW_H/2+34);
+ctx.font="18px sans-serif";ctx.fillStyle="#c8b7ff";ctx.fillText("Enter / E / Space를 눌러 계속",VIEW_W/2,VIEW_H/2+84);ctx.restore();}
+
+function drawShop(){if(!shopOpen)return;ctx.save();
+ctx.fillStyle="rgba(0,0,0,.62)";ctx.fillRect(0,0,VIEW_W,VIEW_H);
+ctx.fillStyle="#fff";ctx.textAlign="center";
+ctx.font="bold 36px sans-serif";ctx.fillText("상점",VIEW_W/2,140);
+ctx.font="18px sans-serif";ctx.fillText(`보유 골드: ${player.gold}`,VIEW_W/2,180);
+let y=240;ctx.textAlign="left";
+SHOP_ITEMS.forEach((it,i)=>{ctx.fillStyle="#ffd166";ctx.font="bold 18px sans-serif";ctx.fillText(`${i+1}. ${it.name}`,VIEW_W/2-180,y);
+ctx.fillStyle="#fff";ctx.font="16px sans-serif";ctx.fillText(`${it.cost}G`,VIEW_W/2+120,y);y+=40;});
+ctx.fillStyle="#b7c6e2";ctx.font="14px sans-serif";ctx.textAlign="center";ctx.fillText("숫자키 구매 · E/ESC 닫기",VIEW_W/2,y+20);ctx.restore();}
+
+function drawEnhance(){if(!enhanceOpen)return;ctx.save();
+ctx.fillStyle="rgba(0,0,0,.62)";ctx.fillRect(0,0,VIEW_W,VIEW_H);
+ctx.fillStyle="#fff";ctx.textAlign="center";
+ctx.font="bold 36px sans-serif";ctx.fillText("장비 강화",VIEW_W/2,140);
+ctx.font="18px sans-serif";ctx.fillText(`보유 골드: ${player.gold}`,VIEW_W/2,180);
+const wn=equipment.weapon?`${EQUIPMENT[equipment.weapon].name} +${enhance.weapon}`:"없음";
+const an=equipment.armor?`${EQUIPMENT[equipment.armor].name} +${enhance.armor}`:"없음";
+const ac=equipment.accessory?`${EQUIPMENT[equipment.accessory].name} +${enhance.accessory}`:"없음";
+ctx.textAlign="left";
+ctx.fillStyle="#ffd166";ctx.font="bold 18px sans-serif";ctx.fillText("1. 무기 강화",VIEW_W/2-220,240);
+ctx.fillStyle="#fff";ctx.font="16px sans-serif";ctx.fillText(`현재: ${wn}`,VIEW_W/2-220,265);
+ctx.fillText(enhance.weapon>=5?"최대 강화":`비용: ${80*(enhance.weapon+1)}G`,VIEW_W/2-220,290);
+ctx.fillStyle="#ffd166";ctx.font="bold 18px sans-serif";ctx.fillText("2. 방어구 강화",VIEW_W/2-220,340);
+ctx.fillStyle="#fff";ctx.font="16px sans-serif";ctx.fillText(`현재: ${an}`,VIEW_W/2-220,365);
+ctx.fillText(enhance.armor>=5?"최대 강화":`비용: ${80*(enhance.armor+1)}G`,VIEW_W/2-220,390);
+ctx.fillStyle="#ffd166";ctx.font="bold 18px sans-serif";ctx.fillText("3. 장신구 강화",VIEW_W/2-220,440);
+ctx.fillStyle="#fff";ctx.font="16px sans-serif";ctx.fillText(`현재: ${ac}`,VIEW_W/2-220,465);
+ctx.fillText(enhance.accessory>=5?"최대 강화":`비용: ${80*(enhance.accessory+1)}G`,VIEW_W/2-220,490);
+ctx.fillStyle="#b7c6e2";ctx.font="14px sans-serif";ctx.textAlign="center";ctx.fillText("숫자키 강화 · E/ESC 닫기",VIEW_W/2,540);ctx.restore();}
+
+function skillPos(s){return{x:240+s.gx*140,y:110+s.gy*86};}
+
+function drawSkillTree(){if(!skillTreeOpen)return;const tree=SKILL_TREES[playerClass]||[];ctx.save();
+ctx.fillStyle="rgba(0,0,0,.72)";ctx.fillRect(0,0,VIEW_W,VIEW_H);
+ctx.fillStyle="#ffd166";ctx.font="bold 26px sans-serif";ctx.textAlign="left";ctx.fillText(`스킬트리 - ${getClassName()}`,24,40);
+ctx.fillStyle="#fff";ctx.font="bold 16px sans-serif";ctx.textAlign="right";ctx.fillText(`남은 SP: ${player.sp}`,VIEW_W-24,40);
+for(const s of tree){if(!s.req)continue;const r=tree.find(t=>t.id===s.req);if(!r)continue;
+const a=skillPos(r),b=skillPos(s);
+ctx.strokeStyle=L(s.req)>0?"rgba(255,120,180,.9)":"rgba(255,255,255,.25)";ctx.lineWidth=3;
+ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();}
+tree.forEach((s,i)=>{const p=skillPos(s),lv=L(s.id);
+ctx.fillStyle="rgba(255,255,255,.10)";ctx.fillRect(p.x-26,p.y-26,52,52);
+let border="rgba(255,255,255,.3)";
+if(s.type==="패시브")border="rgba(120,255,150,.7)";
+if(s.type==="액티브")border="rgba(255,120,120,.8)";
+if(s.type==="버프")border="rgba(120,200,255,.8)";
+if(lv>0)border="#ffd166";
+ctx.strokeStyle=border;ctx.lineWidth=3;ctx.strokeRect(p.x-26,p.y-26,52,52);
+if(i===skillCursor){ctx.strokeStyle="#fff";ctx.lineWidth=2;ctx.strokeRect(p.x-30,p.y-30,60,60);}
+ctx.fillStyle="#fff";ctx.font="bold 12px sans-serif";ctx.textAlign="center";
+ctx.fillText(s.type.charAt(0),p.x,p.y-6);ctx.font="11px sans-serif";ctx.fillText(`${lv}/${s.max}`,p.x,p.y+14);});
+const sel=tree[skillCursor];
+if(sel){const rn=sel.req?(tree.find(t=>t.id===sel.req)||{}).name||sel.req:"없음";
+ctx.fillStyle="rgba(0,0,0,.5)";roundRect(VIEW_W/2-260,VIEW_H-120,520,90,12);ctx.fill();
+ctx.fillStyle="#ffd166";ctx.font="bold 16px sans-serif";ctx.textAlign="left";
+ctx.fillText(`${sel.name} [${sel.type}] ${L(sel.id)}/${sel.max}`,VIEW_W/2-240,VIEW_H-92);
+ctx.fillStyle="#fff";ctx.font="13px sans-serif";
+ctx.fillText(sel.desc,VIEW_W/2-240,VIEW_H-68);
+ctx.fillText(`선결 스킬: ${rn} · 소비 SP 1`,VIEW_W/2-240,VIEW_H-46);}
+ctx.fillStyle="#b7c6e2";ctx.font="12px sans-serif";ctx.textAlign="center";
+ctx.fillText("방향키 이동 · Enter/Space 습득 · K/ESC 닫기",VIEW_W/2,VIEW_H-14);ctx.restore();}
+
+function drawClassSelect(){if(classSelected)return;ctx.save();
+ctx.fillStyle="rgba(0,0,0,.72)";ctx.fillRect(0,0,VIEW_W,VIEW_H);
+ctx.fillStyle="#fff";ctx.textAlign="center";
+ctx.font="bold 42px sans-serif";ctx.fillText("직업 선택",VIEW_W/2,180);
+ctx.font="22px sans-serif";ctx.fillStyle="#ffd166";ctx.fillText("1. 전사",VIEW_W/2,260);
+ctx.fillStyle="#d7e4ff";ctx.font="16px sans-serif";ctx.fillText("HP/방어 높음. 근접 강함.",VIEW_W/2,290);ctx.fillText("F 회전베기 / Q 대시",VIEW_W/2,314);
+ctx.fillStyle="#7fdcff";ctx.font="22px sans-serif";ctx.fillText("2. 마법사",VIEW_W/2,380);
+ctx.fillStyle="#d7e4ff";ctx.font="16px sans-serif";ctx.fillText("마법 피해 높음. 체력 낮음.",VIEW_W/2,410);ctx.fillText("F 화염폭발 / Q 얼음화살",VIEW_W/2,434);
+ctx.fillStyle="#9dff8f";ctx.font="22px sans-serif";ctx.fillText("3. 궁수",VIEW_W/2,500);
+ctx.fillStyle="#d7e4ff";ctx.font="16px sans-serif";ctx.fillText("이속 빠름. 원거리 능함.",VIEW_W/2,530);ctx.fillText("F 화살비 / Q 빠른사격",VIEW_W/2,554);ctx.restore();}
+
+function showDialog(name,text){dialog={name,text};dialogQueue=[];}
+function showStory(l){if(!l||!l.length)return;dialogQueue=l.slice(1);dialog={name:planet.name,text:l[0]};}
+function showMessage(t,d){message={text:t,time:d||2.5};}
+function addFloat(x,y,t,c){floats.push({x,y,text:t,color:c,life:1});}
+function addBurst(x,y,c,n){for(let i=0;i<(n||8);i++)particles.push({x,y,vx:rand(-110,110),vy:rand(-130,40),life:rand(.18,.5),maxLife:.5,color:c});}
+function wrapText(t,x,y,mw,lh){const w=t.split(" ");let line="";
+for(let n=0;n<w.length;n++){const tl=line+w[n]+" ";const m=ctx.measureText(tl);
+if(m.width>mw&&n>0){ctx.fillText(line,x,y);line=w[n]+" ";y+=lh;}else line=tl;}
+ctx.fillText(line,x,y);}
+function roundRect(x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath();}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function rand(a,b){return Math.random()*(b-a)+a;}
+function dist(a,b){return Math.hypot(a.x-b.x,a.y-b.y);}
+</script>
+</body>
+</html>

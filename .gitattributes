@@ -1,0 +1,10 @@
+# Preserve binary portfolio artifacts exactly as copied.
+*.pdf binary
+*.docx binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.zip binary

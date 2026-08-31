@@ -1,0 +1,77 @@
+[gd_scene load_steps=9 format=3]
+
+[ext_resource type="Script" path="res://gameplay/interactables/npc.gd" id="1_npc"]
+
+[sub_resource type="SphereShape3D" id="SphereShape_talk"]
+radius = 1.35
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape_solid"]
+radius = 0.34
+height = 1.65
+
+[sub_resource type="StandardMaterial3D" id="Material_body"]
+albedo_color = Color(0.97, 0.57, 0.22, 1)
+roughness = 0.88
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_body"]
+material = SubResource("Material_body")
+radius = 0.31
+height = 1.2
+radial_segments = 16
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="Material_head"]
+albedo_color = Color(1, 0.82, 0.63, 1)
+roughness = 0.9
+
+[sub_resource type="SphereMesh" id="SphereMesh_head"]
+material = SubResource("Material_head")
+radius = 0.35
+height = 0.7
+radial_segments = 16
+rings = 8
+
+[sub_resource type="StandardMaterial3D" id="Material_marker"]
+transparency = 1
+albedo_color = Color(1, 0.9, 0.2, 0.95)
+emission_enabled = true
+emission = Color(1, 0.64, 0.06, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_marker"]
+material = SubResource("Material_marker")
+radius = 0.1
+height = 0.2
+radial_segments = 12
+rings = 6
+
+[node name="NPC" type="Area3D" groups=["interactable"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_npc")
+
+[node name="InteractionShape" type="CollisionShape3D" parent="."]
+position = Vector3(0, 0.85, 0)
+shape = SubResource("SphereShape_talk")
+
+[node name="SolidBody" type="StaticBody3D" parent="."]
+collision_layer = 2
+collision_mask = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SolidBody"]
+position = Vector3(0, 0.825, 0)
+shape = SubResource("CapsuleShape_solid")
+
+[node name="VisualRoot" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="VisualRoot"]
+position = Vector3(0, 0.62, 0)
+mesh = SubResource("CapsuleMesh_body")
+
+[node name="Head" type="MeshInstance3D" parent="VisualRoot"]
+position = Vector3(0, 1.42, 0)
+mesh = SubResource("SphereMesh_head")
+
+[node name="QuestMarker" type="MeshInstance3D" parent="VisualRoot"]
+position = Vector3(0, 2.05, 0)
+mesh = SubResource("SphereMesh_marker")
