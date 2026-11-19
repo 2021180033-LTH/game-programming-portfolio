@@ -1,0 +1,403 @@
+{
+  "generated_at_utc": "2026-10-08T07:04:20.912654+00:00",
+  "expectation": "success",
+  "status": "PASS",
+  "checks": [
+    {
+      "name": "process_not_timed_out",
+      "status": "PASS"
+    },
+    {
+      "name": "process_exit_code",
+      "status": "PASS"
+    },
+    {
+      "name": "timestamped_engine_log",
+      "status": "PASS"
+    },
+    {
+      "name": "receipt_encloses_log",
+      "status": "PASS"
+    },
+    {
+      "name": "single_game_launch",
+      "status": "PASS"
+    },
+    {
+      "name": "game_mode_smoke_launch",
+      "status": "PASS"
+    },
+    {
+      "name": "engine_initialized",
+      "status": "PASS"
+    },
+    {
+      "name": "engine_clean_shutdown",
+      "status": "PASS"
+    },
+    {
+      "name": "no_unexpected_engine_or_material_errors",
+      "status": "PASS"
+    },
+    {
+      "name": "rendering_enabled",
+      "status": "PASS"
+    },
+    {
+      "name": "no_smoke_or_load_failure",
+      "status": "PASS"
+    },
+    {
+      "name": "canonical_data_ready_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "encounter_B_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "encounter_trigger_location",
+      "status": "PASS"
+    },
+    {
+      "name": "field_return_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "victory_and_once_reward_in_log",
+      "status": "PASS"
+    },
+    {
+      "name": "smoke_result_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "smoke_result_values",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-exploration_capture_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-exploration_log_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-exploration_png_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-exploration_not_uniform",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-exploration_fresh_file",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-battle_capture_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-battle_log_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-battle_png_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-battle_not_uniform",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-battle_fresh_file",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-return_capture_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-return_log_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-return_png_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-return_not_uniform",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-return_fresh_file",
+      "status": "PASS"
+    },
+    {
+      "name": "three_distinct_captured_frames",
+      "status": "PASS"
+    },
+    {
+      "name": "actual_gameplay_and_capture_order",
+      "status": "PASS"
+    },
+    {
+      "name": "resident_atlases_ready_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "atlas_ready_token_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "all_expected_atlases_ready_before_gameplay",
+      "status": "PASS"
+    },
+    {
+      "name": "no_sprite_texture_build_after_preparation",
+      "status": "PASS"
+    },
+    {
+      "name": "no_atlas_preparation_or_attack_readiness_failure",
+      "status": "PASS"
+    },
+    {
+      "name": "south_movement_begin_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "south_movement_result_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "south_movement_tokens_unique",
+      "status": "PASS"
+    },
+    {
+      "name": "south_movement_starts_at_reward_return",
+      "status": "PASS"
+    },
+    {
+      "name": "south_movement_settles_at_capsule_barrier",
+      "status": "PASS"
+    },
+    {
+      "name": "south_movement_stationary_for_half_second",
+      "status": "PASS"
+    },
+    {
+      "name": "south_movement_log_duration_includes_stationary_period",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-south-boundary_capture_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-south-boundary_log_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "south_boundary_proves_extended_run_order",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-south-boundary_png_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-south-boundary_not_uniform",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-south-boundary_differs_from_return_frame",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-south-boundary_fresh_file",
+      "status": "PASS"
+    },
+    {
+      "name": "world_check_rows_well_formed",
+      "status": "PASS"
+    },
+    {
+      "name": "world_check_complete_unique_names",
+      "status": "PASS"
+    },
+    {
+      "name": "world_check_all_pass",
+      "status": "PASS"
+    },
+    {
+      "name": "world_check_summary_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "world_summary_token_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "world_summary_matches_rows",
+      "status": "PASS"
+    },
+    {
+      "name": "world_checks_before_exploration",
+      "status": "PASS"
+    },
+    {
+      "name": "rejection_check_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "rejection_check_token_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "exactly_one_intentional_command_rejection",
+      "status": "PASS"
+    },
+    {
+      "name": "intentional_rejection_checked_during_battle",
+      "status": "PASS"
+    },
+    {
+      "name": "presentation_records_complete_and_ordered",
+      "status": "PASS"
+    },
+    {
+      "name": "every_playback_has_passing_input_lock",
+      "status": "PASS"
+    },
+    {
+      "name": "one_playback_per_accepted_player_command",
+      "status": "PASS"
+    },
+    {
+      "name": "presentation_contains_actual_damage_and_enemy_attacks",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-0_frame_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-0_capture_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-0_log_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-0_png_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-0_not_uniform",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-0_fresh_file",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-1_frame_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-1_capture_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-1_log_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-1_png_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-1_not_uniform",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-1_fresh_file",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-2_frame_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-2_capture_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-2_log_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-2_png_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-2_not_uniform",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-2_fresh_file",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-3_frame_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-3_capture_occurs_once",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-3_log_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-3_png_dimensions",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-3_not_uniform",
+      "status": "PASS"
+    },
+    {
+      "name": "M1-action-3_fresh_file",
+      "status": "PASS"
+    },
+    {
+      "name": "four_distinct_action_frames",
+      "status": "PASS"
+    },
+    {
+      "name": "action_frames_belong_to_first_presented_actor",
+      "status": "PASS"
+    },
+    {
+      "name": "action_frame_capture_order_during_first_playback",
+      "status": "PASS"
+    },
+    {
+      "name": "exactly_four_attack_frame_records",
+      "status": "PASS"
+    },
+    {
+      "name": "diagnostic_checkpoint_matches_reward",
+      "status": "PASS"
+    },
+    {
+      "name": "checkpoint_fresh_file",
+      "status": "PASS"
+    }
+  ]
+}

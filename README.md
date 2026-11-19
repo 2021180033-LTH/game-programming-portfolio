@@ -1,24 +1,28 @@
-# 이태현 | Game Programmer Portfolio
+# 이태현 | 게임 기획 · 프로그래밍 포트폴리오
 
-Unreal Engine 기반 멀티플레이 게임과 C++ IOCP 서버를 중심으로 정리한 코드 포트폴리오입니다.  
-각 프로젝트는 독립적으로 개발된 작업이며, 이 저장소는 실행 파일과 외부 에셋을 모은 배포본이 아니라 **직접 담당한 코드와 설계·검증 근거를 빠르게 검토할 수 있도록 구성한 제출용 저장소**입니다.
+어떤 선수를 영입해 어느 시설에서 키울지, 상대에게 보여 준 화투를 실제 승부에도 쓸지, 오늘 밤 탐색에 동료를 몇 명 보낼지. 아래에는 이런 결정을 플레이어에게 맡기기 위해 작성한 기획서와 실제 작업물을 모았습니다.
 
-- 한국공학대학교 게임공학과
-- 2027년 2월 졸업 예정
-- 지원 분야: 게임 프로그래밍 · 서버/멀티플레이 · 게임플레이 · 기획
-- 연락처: mdk73000@naver.com
-- 포트폴리오 PDF: [`portfolio/LeeTaehyun_GameProgrammer_Portfolio_2026.pdf`](portfolio/LeeTaehyun_GameProgrammer_Portfolio_2026.pdf)
-- 졸업작품 소개 영상: [Dophamine Addiction](https://youtu.be/Gi9b-EheNaE)
+**[게임기획 포트폴리오 PDF · 29쪽](portfolio/game-design/LeeTaehyun_GameDesign_Portfolio.pdf)** · [편집용 PowerPoint · 본문 18장](portfolio/game-design/LeeTaehyun_GameDesign_Portfolio.pptx) · **[전체 프로젝트 및 작업물 46건](catalog/README.md)**
 
-## 프로젝트 한눈에 보기
+한국공학대학교 게임공학과 · 2027년 2월 졸업 예정 · mdk73000@naver.com
 
-| 프로젝트 | 성격 / 인원 | 역할 | 핵심 기술 | 상태 |
-|---|---|---|---|---|
-| [Dophamine Addiction](projects/01-dophamine-addiction/README.md) | 졸업작품 / 4인 | 서버 파트 전담, 서버 권위 게임 판정, 충돌·획득/배치 판정 일부 — 공동 통합 파일은 기여표로 구분 | Unreal Engine, C++, Dedicated Server, WinSock2/IOCP, TCP | 4대 PC 실제 플레이 검증 |
-| [C++ IOCP 2D MMORPG](projects/02-iocp-2d-mmorpg/README.md) | 학기 개인 프로젝트 / 1인 | 네트워크·동시성·DB·게임 로직·부하 시험 | C++, IOCP, SFML, ODBC/MS SQL, Lua | 구현 및 자체 시험 완료 |
-| [EverPlanet World Study](projects/03-everplanet-world-study/README.md) | 개인 기술 연구 / 1인 | UE 구면 기술 연구 → Godot playable slice·저장·지역·퀘스트 | Godot/GDScript, Unreal C++, Python, Automation Test | 진행 중 |
-| [Football Owner](projects/04-football-owner/README.md) | 개인 기획·구현 / 1인 | 시뮬레이션 기획, 요구사항·검증, 구현 통합 | C++20, Qt 6/QML, SQLite, CMake | 개발 중 |
-| [계약과 공명 RPG](projects/05-rpg-game-design/README.md) | 개인 기획 / 1인 | GDD, 전투·성장·선택 구조, 기술 구조 설계 | C++20·SFML·Lua·CMake 목표 | 기획 단계 |
+## 게임 기획 대표작
+
+| 프로젝트 | 개인 기여와 작업물 |
+|---|---|
+| [Football Owner](projects/04-football-owner/README.md) | FM에서 좋아하던 선수단 운영을 구단주 게임으로 기획했습니다. [1~8차 기획서 전문과 개정 이력](projects/04-football-owner/design-history/README.md), [0.24 운영 규칙과 테스트](projects/04-football-owner/design-history/rules-v0.24/README.md)를 볼 수 있습니다. |
+| [Dophamine Addiction](projects/01-dophamine-addiction/design/README.md) | 4인 졸업작품에서 TPS와 섯다의 결합을 제안하고 공개 카드와 최종 패를 따로 고르도록 판정을 수정했습니다. [실제 시연 영상](https://youtu.be/Gi9b-EheNaE) |
+| [계약과 공명 RPG](projects/05-rpg-game-design/README.md) | 계약체에 따라 같은 적의 공격에 다르게 대응하는 파티 RPG입니다. [v0.11 기획서](projects/05-rpg-game-design/design/RPG_GDD_v0.11.pdf), 광산 전투 데모 화면, 재현 가능한 규칙 검사를 담았습니다. |
+| [By the Cthul](projects/06-by-the-cthul/README.md) | 2021년 카드 전략 게임 제안서와 직접 그린 보드에서 시작했습니다. [보완한 종이판 규칙](projects/06-by-the-cthul/design/paper-rules.md)과 [9일간의 플레이 예시](projects/06-by-the-cthul/design/first-playthrough.md)를 원안과 함께 읽을 수 있습니다. |
+| [Football Manager 2022 전술 실험](projects/07-fm22-tactics/README.md) | 컷백 전술을 고정하고 두 팀의 능력치 조건을 바꿔 영입 우선순위를 검토했습니다. 원본 발표의 실험 조건·결과·결론을 첨부했습니다. |
+| [PC 던전앤파이터 무기고 역기획](projects/08-dnf-armory/README.md) | 계정에 등록된 품목을 부캐도 사용할 때 달라지는 파밍과 상위 던전 보상을 분석한 개인 기획 과제입니다. |
+
+[종이 삼킨 새벽 · Teammate Chain · 이어지는 이야기](projects/09-indie-experiments/README.md)에서는 전투 규칙, 선수 연결 판정, 대화 분기와 기억 정책을 실제 작업에서 발췌했습니다. 수업 과제, 팀 기여와 도구 제작은 [분야별 전체 목록](catalog/README.md)에서 이어집니다.
+
+## 프로그래밍 포트폴리오
+
+[프로그래밍 PDF](portfolio/LeeTaehyun_GameProgrammer_Portfolio_2026.pdf) · [졸업작품의 네트워크·게임 판정](projects/01-dophamine-addiction/README.md) · [C++ IOCP 2D MMORPG](projects/02-iocp-2d-mmorpg/README.md) · [EverPlanet World Study](projects/03-everplanet-world-study/README.md)
+
 
 ## 핵심 역량과 코드 근거
 
@@ -40,7 +44,7 @@ Unreal Engine 기반 멀티플레이 게임과 C++ IOCP 서버를 중심으로 �
 2. `projects/02-iocp-2d-mmorpg` — accept/recv/send → TCP framing → session lifetime → world/DB thread → 게임 로직
 3. `projects/03-everplanet-world-study` — 현재 Godot slice → 이전 UE surface gravity/tangent camera 연구 → 자동화 테스트
 4. `projects/04-football-owner` — Controller → simulation core/repository → SQLite transaction → QML → tests
-5. `projects/05-rpg-game-design` — 구현물이 아니라 기획 의도와 시스템 구조 확인
+5. [계약과 공명 RPG](projects/05-rpg-game-design/README.md) — v0.4·v0.11 문서, 규칙 검사 및 초기 데모 화면
 
 ## 저장소 원칙
 
@@ -48,7 +52,7 @@ Unreal Engine 기반 멀티플레이 게임과 C++ IOCP 서버를 중심으로 �
 - 빌드 산출물, 실행 파일, 캐시, 대용량 패키지, 계정·접속정보, 외부 상용 에셋은 포함하지 않습니다.
 - 팀 프로젝트와 수업 프로젝트는 담당 범위와 제외 범위를 각 README에 명시합니다.
 - AI를 활용한 프로젝트는 활용 방식과 본인이 수행한 판단·검증 범위를 [`docs/AUTHORSHIP_AND_AI_USE.md`](docs/AUTHORSHIP_AND_AI_USE.md)에 공개합니다.
-- 각 복사본의 출처 구분과 SHA-256은 [`docs/SOURCE_MANIFEST.csv`](docs/SOURCE_MANIFEST.csv)에서 확인할 수 있습니다.
+- 기존 코드 공개본의 파일별 출처와 SHA-256은 [`docs/SOURCE_MANIFEST.csv`](docs/SOURCE_MANIFEST.csv)에서 확인할 수 있습니다.
 - 자동 검사 결과와 수동 판정은 [`docs/VERIFICATION_REPORT.md`](docs/VERIFICATION_REPORT.md), [`docs/REVIEWED_WARNINGS.md`](docs/REVIEWED_WARNINGS.md)에 기록합니다.
 - 실제로 재수행한 빌드·테스트와 재현 범위는 [`docs/QA_SUMMARY.md`](docs/QA_SUMMARY.md)에 기록합니다.
 - 이 저장소 전체에 일괄 적용되는 오픈소스 라이선스는 부여하지 않습니다. 자세한 내용은 [`NOTICE.md`](NOTICE.md)를 확인해 주세요.
@@ -57,4 +61,4 @@ Unreal Engine 기반 멀티플레이 게임과 C++ IOCP 서버를 중심으로 �
 
 프로젝트별 엔진·라이브러리·DB 의존성이 서로 달라 저장소 루트에서 한 번에 빌드하지 않습니다. 각 폴더의 README에 빌드 조건, 실행 방법, 확인된 검증 결과와 재현하지 못한 항목을 구분해 기록했습니다.
 
-채용 사이트 제출 항목에는 PDF를 파일로 등록하고, 이 저장소의 공개 URL을 링크로 등록하는 구성을 권장합니다. 제출 전 확인 순서는 [`docs/SUBMISSION_GUIDE.md`](docs/SUBMISSION_GUIDE.md)에 정리했습니다.
+기획·프로그래밍 자료의 구성과 개별 링크는 [포트폴리오 안내](docs/SUBMISSION_GUIDE.md)에 정리했습니다.

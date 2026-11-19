@@ -1,0 +1,28 @@
+{
+  "scope": "trace-only fixed command replay; no damage/AI/complete battle",
+  "status": "PASS",
+  "expected": [
+    {
+      "at": 400,
+      "trace": "water",
+      "expires": 1650
+    },
+    {
+      "at": 500,
+      "trace": null,
+      "reaction": "reaction.frost"
+    }
+  ],
+  "actual": [
+    {
+      "at": 400,
+      "trace": "water",
+      "expires": 1650
+    },
+    {
+      "at": 500,
+      "trace": null,
+      "reaction": "reaction.frost"
+    }
+  ]
+}

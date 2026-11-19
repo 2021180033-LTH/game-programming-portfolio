@@ -6,12 +6,22 @@
 - 인원: 1명
 - 역할: 게임 방향·기획, 요구사항과 우선순위, 도메인 규칙, 결과 검토·검증, 구현 통합
 - 기술: C++20, Qt 6/QML, SQLite, CMake, CTest
-- 현재 코드 기준: MVP 0.10.0
+- 현재 개발본: 0.24.0. 이 폴더 루트의 빌드 가능한 공개 코드는 MVP 0.10.0이며, 최신 운영 규칙·테스트는 [0.24 발췌본](design-history/rules-v0.24/README.md)에 있습니다.
 - 상태: 운영·이적·임대·재계약·AI 시장·저장 구조를 구현한 개발 중 프로젝트
 
 Sports Interactive 또는 Football Manager와 제휴·승인 관계가 없습니다. 공개본에는 실존 선수·구단의 대규모 원천 데이터와 이미지를 넣지 않았습니다. 다만 코드 리뷰와 규칙 검증을 위해 1992-93 Manchester United를 기준으로 한 **소규모 내장 prototype fixture**는 남겼습니다. 이름·생년월일·당시 소속은 공식/공개 역사 자료로 교차 확인했고, 능력·금액·계약·스카우팅 수치는 자체 `prototype_estimate`/`gameplay_estimate`이며 Football Manager DB나 rating을 복제한 값이 아닙니다.
 
 사용한 출처와 사실/추정치 구분은 [`docs/HISTORICAL_DATA_PROVENANCE.md`](docs/HISTORICAL_DATA_PROVENANCE.md)에 기록했습니다.
+
+## 기획서 1차부터 8차까지
+
+FM에서 좋아하는 선수를 모아 키우는 일은 즐거웠지만, 성적이 나빠져 팀에서 경질될까 봐 다른 유저의 전술을 내려받아 쓰기도 했습니다. 시설 투자도 좋은 성적과 충분한 자금이 있어도 거절된 적이 많았습니다. 그래서 선수단과 투자 방향은 제가 정하고 경기 지휘는 감독에게 맡기는 게임을 구상했습니다. 1992년 여름에 구단을 인수하고, 기억에 남는 선수들로 명문을 재건하거나 기존 강팀의 기록을 다시 쓰는 것이 목표입니다.
+
+[1~8차 기획서 전문과 개정 이력](design-history/README.md) · [통합 기획서 8차](design-history/versions/v08-career-and-era-rules.pdf) · [0.24 운영 규칙과 테스트](design-history/rules-v0.24/README.md)
+
+![구단주가 직원 총 주급, 개별 채용 상한과 단장 위임을 결정하는 화면](design-history/screens/owner_delegation.jpg)
+
+[스카우트 보고서](design-history/screens/owner_scout_report.jpg) · [재계약 협상](design-history/screens/football_renewal.jpg) · [구단 결산](design-history/screens/football_settlement.jpg)
 
 ## 설계 목표
 
@@ -129,7 +139,7 @@ GUI와 repository 전체 통합에는 Qt 6.5+와 공개본에서 제외한 histo
 - 실존 선수·구단 seed와 원천 CSV/SQLite
 - local save DB와 build 결과
 - 사실 검증용 대규모 handoff dataset
-- 외부 공개 권리 검토가 필요한 원본 GDD
+- 초안 중복 파일, 개발 환경 설정과 개인 세이브
 
 `src/core/game_state.cpp`의 소규모 prototype fixture는 포함 대상입니다. 반면 별도 원천 dataset과 source-game 기반 대형 membership/ratings 자료는 포함하지 않았습니다.
 
@@ -137,7 +147,7 @@ GUI와 repository 전체 통합에는 Qt 6.5+와 공개본에서 제외한 histo
 
 ## 알려진 상태 차이
 
-- CMake, `src/main.cpp`와 현재 기능 문서는 0.10.0 기준입니다.
+- 이 폴더 루트의 CMake와 `src/main.cpp`는 0.10.0 스냅샷입니다. 0.24.0의 변경은 기획서 이력·규칙 발췌 폴더에서 확인할 수 있습니다.
 - `qml/Main.qml`, `qml/pages/GameShell.qml`, `qml/pages/StartPage.qml`의 화면 label은 아직 `MVP 0.7.0`입니다.
 - 원본을 보존하기 위해 이 공개 복사본에서는 label을 임의 수정하지 않았습니다. 실행 화면의 label보다 CMake/code 기능 기준을 우선해 판단해야 합니다.
 

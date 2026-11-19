@@ -21,11 +21,15 @@
 
 저장소의 일반 재현 명령은 [`projects/04-football-owner/README.md`](../projects/04-football-owner/README.md)에 있습니다.
 
-## 이번 패키징 단계에서 재수행하지 않은 항목
+## 2026년 8월 공개 당시의 패키징 범위
 
 - Dophamine Addiction: Unreal Engine 콘텐츠와 팀 전체 저장소를 재배포하지 않아 이 복사본만으로 패키징하지 않았습니다. 프로젝트 README는 원본의 4대 PC 실제 플레이 검증 기록·영상과 고정 commit에서 추출한 코드 발췌본을 구분해 제공합니다.
 - C++ IOCP 2D MMORPG: 수업 제공 protocol header를 재배포하지 않아 이 복사본만으로 전체 재빌드하지 않았습니다. 기존 캡처와 자체 측정값은 README에서 `기존 기록`으로만 표시합니다.
 - EverPlanet World Study: 현재 Godot 작업과 이전 Unreal 연구를 함께 보존하되, 엔진 프로젝트 전체 에셋을 공개하지 않아 이번 단계에서 end-to-end 재빌드하지 않았습니다.
-- 계약과 공명 RPG: 기획서만 있는 프로젝트이므로 빌드 대상이 없습니다.
+- 계약과 공명 RPG는 8월에 v0.4 기획서를 공개했습니다. 11월에 추가한 v0.11 데모와 규칙 검사 결과는 아래에 기록했습니다.
 
 재수행하지 않은 항목을 완료 또는 독립 재현된 결과로 주장하지 않습니다.
+
+## 2026년 11월 게임기획 자료 추가
+
+[v0.11 데모 명세](../projects/05-rpg-game-design/rules-v0.11/README.md)의 규칙 검사 63건과 원소 반응 고정 재생을 공개용 파일로 재실행했습니다. [By the Cthul](../projects/06-by-the-cthul/README.md)은 진행 예시의 자원을 계산해 대조한 종이판 기획입니다. 기존 프로그래밍 프로젝트의 빌드 결과는 위에 적힌 당시 버전 기준입니다.

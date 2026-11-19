@@ -1,20 +1,13 @@
-# 채용 사이트 제출 가이드
+# 포트폴리오 안내
 
-## 파일 등록
+| 자료 | 볼 수 있는 내용 |
+|---|---|
+| [게임기획 PDF](../portfolio/game-design/LeeTaehyun_GameDesign_Portfolio.pdf) | 1~18쪽은 대표 게임의 기획과 실제 진행 화면, 19~29쪽은 당시 기획서·수업 발표 원본 발췌 |
+| [게임기획 PowerPoint](../portfolio/game-design/LeeTaehyun_GameDesign_Portfolio.pptx) | 본문 18장 |
+| [작업 목록](../catalog/README.md) | 기획, 게임 제작, 기술 연구와 수업 작업의 역할·근거 |
+| [구단주 게임 기획서 8개](../projects/04-football-owner/design-history/README.md) | 한 게임을 기획하면서 무엇을 언제 결정했는지 차수별로 비교 |
+| [By the Cthul](../projects/06-by-the-cthul/README.md) | 2021년 제안서와 종이판으로 진행하도록 보완한 규칙 |
+| [프로그래밍 PDF](../portfolio/LeeTaehyun_GameProgrammer_Portfolio_2026.pdf) | C++·네트워크·멀티플레이 프로젝트의 담당 코드와 검증 기록 |
+| [무기고 역기획](../projects/08-dnf-armory/armory-design-review.pdf) | PC 던전앤파이터 무기고의 현행 구조 분석과 계정 공유 제안 6쪽 |
 
-`portfolio/LeeTaehyun_GameProgrammer_Portfolio_2026.pdf` 한 파일을 우선 등록합니다. 프로젝트의 기간·인원·역할·기여·기술과 대표 구현을 빠르게 훑는 문서입니다.
-
-## 링크 등록
-
-이 저장소를 Public으로 전환한 뒤 저장소 메인 URL을 등록합니다. 별도 링크 입력이 가능하면 Dophamine Addiction 소개 영상도 함께 등록할 수 있습니다.
-
-## 공개 직전 확인
-
-1. 저장소가 Public인지 로그아웃 또는 시크릿 창에서 확인
-2. 루트 README와 프로젝트 5개 링크가 모두 열리는지 확인
-3. PDF와 이미지가 GitHub에서 표시되는지 확인
-4. `tools/verify_public_repo.ps1` 실행 결과에 blocking finding이 없는지 확인
-5. 팀 프로젝트의 기여 범위와 외부 IP 고지가 그대로 있는지 확인
-6. 지원서의 C/C++·C# 수준과 구현 가능 영역은 실제 공개 코드 근거에 맞춰 선택
-
-이 저장소 하나에 여러 프로젝트가 들어 있어도 무방합니다. 심사자가 관심 프로젝트로 바로 이동할 수 있도록 루트 README의 표와 프로젝트별 README를 진입점으로 사용합니다.
+팀 작업과 AI 보조 범위는 [기여 기록](AUTHORSHIP_AND_AI_USE.md)에, 기존 코드의 빌드 검증 범위는 [QA 기록](QA_SUMMARY.md)에 정리했습니다.

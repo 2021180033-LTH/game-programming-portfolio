@@ -1,0 +1,260 @@
+{
+  "version": "0.11",
+  "scope": "data consistency + deterministic primitive/regression cases; NOT full game or full-battle balance test",
+  "passed": 63,
+  "failed": 0,
+  "cases": [
+    {
+      "name": "data.unique_ids",
+      "status": "PASS"
+    },
+    {
+      "name": "data.all_61_skills_have_explicit_inputs",
+      "status": "PASS"
+    },
+    {
+      "name": "data.enemy_attacks_resolved",
+      "status": "PASS"
+    },
+    {
+      "name": "data.no_player_balance_assumed",
+      "status": "PASS"
+    },
+    {
+      "name": "data.cross_references",
+      "status": "PASS"
+    },
+    {
+      "name": "data.all_7_presets_valid",
+      "status": "PASS"
+    },
+    {
+      "name": "rounding.half_up_0_5",
+      "status": "PASS"
+    },
+    {
+      "name": "rounding.half_up_1_5",
+      "status": "PASS"
+    },
+    {
+      "name": "timing.base_spd32",
+      "status": "PASS"
+    },
+    {
+      "name": "timing.base_spd100",
+      "status": "PASS"
+    },
+    {
+      "name": "timing.positive_interval_floor",
+      "status": "PASS"
+    },
+    {
+      "name": "timing.max_general_delay",
+      "status": "PASS"
+    },
+    {
+      "name": "timing.combined_break_cap",
+      "status": "PASS"
+    },
+    {
+      "name": "timing.no_same_tick_requeue",
+      "status": "PASS"
+    },
+    {
+      "name": "damage.physical_known",
+      "status": "PASS"
+    },
+    {
+      "name": "damage.enemy_physical_known",
+      "status": "PASS"
+    },
+    {
+      "name": "damage.guard_both_classes",
+      "status": "PASS"
+    },
+    {
+      "name": "shield.common_formula_130",
+      "status": "PASS"
+    },
+    {
+      "name": "shield.common_formula_equipped_136",
+      "status": "PASS"
+    },
+    {
+      "name": "heal.contract_common_formula",
+      "status": "PASS"
+    },
+    {
+      "name": "balance.resistance_half",
+      "status": "PASS"
+    },
+    {
+      "name": "balance.weak_with_fraction",
+      "status": "PASS"
+    },
+    {
+      "name": "balance.zero_support",
+      "status": "PASS"
+    },
+    {
+      "name": "resonance.rank0_start",
+      "status": "PASS"
+    },
+    {
+      "name": "resonance.rank5_start",
+      "status": "PASS"
+    },
+    {
+      "name": "resonance.no_overheal_gain",
+      "status": "PASS"
+    },
+    {
+      "name": "resonance.action_cap",
+      "status": "PASS"
+    },
+    {
+      "name": "cost.failure_is_atomic",
+      "status": "PASS"
+    },
+    {
+      "name": "reaction.demo_water_wind_reachable",
+      "status": "PASS"
+    },
+    {
+      "name": "reaction.reverse_order",
+      "status": "PASS"
+    },
+    {
+      "name": "reaction.expiry_before_action",
+      "status": "PASS"
+    },
+    {
+      "name": "reaction.same_element_refresh",
+      "status": "PASS"
+    },
+    {
+      "name": "reaction.no_support_water_shortcut",
+      "status": "PASS"
+    },
+    {
+      "name": "reaction.crystal_ally_only",
+      "status": "PASS"
+    },
+    {
+      "name": "target.slot_follows_position",
+      "status": "PASS"
+    },
+    {
+      "name": "target.entity_tracks_rear",
+      "status": "PASS"
+    },
+    {
+      "name": "target.dead_fizzle",
+      "status": "PASS"
+    },
+    {
+      "name": "target.multihit_no_spill",
+      "status": "PASS"
+    },
+    {
+      "name": "shield.share_cannot_kill_protector",
+      "status": "PASS"
+    },
+    {
+      "name": "clock.dot_death_before_rear",
+      "status": "PASS"
+    },
+    {
+      "name": "ai.deterministic_cycle",
+      "status": "PASS"
+    },
+    {
+      "name": "ai.two_opportunity_telegraph",
+      "status": "PASS"
+    },
+    {
+      "name": "ai.phase2_purify_first_two_not_backflow",
+      "status": "PASS"
+    },
+    {
+      "name": "dungeon.graph_and_mandatory_C2",
+      "status": "PASS"
+    },
+    {
+      "name": "route.c10.elite0.purify",
+      "status": "PASS"
+    },
+    {
+      "name": "route.c10.elite0.discharge",
+      "status": "PASS"
+    },
+    {
+      "name": "route.c10.elite1.purify",
+      "status": "PASS"
+    },
+    {
+      "name": "route.c10.elite1.discharge",
+      "status": "PASS"
+    },
+    {
+      "name": "route.c11.elite0.purify",
+      "status": "PASS"
+    },
+    {
+      "name": "route.c11.elite0.discharge",
+      "status": "PASS"
+    },
+    {
+      "name": "route.c11.elite1.purify",
+      "status": "PASS"
+    },
+    {
+      "name": "route.c11.elite1.discharge",
+      "status": "PASS"
+    },
+    {
+      "name": "economy.full_income_1055",
+      "status": "PASS"
+    },
+    {
+      "name": "economy.rewards_idempotent",
+      "status": "PASS"
+    },
+    {
+      "name": "economy.craft_preserves_upgrade_one_core",
+      "status": "PASS"
+    },
+    {
+      "name": "economy.invalid_craft_no_partial_cost",
+      "status": "PASS"
+    },
+    {
+      "name": "save.event_step_atomic_receipt",
+      "status": "PASS"
+    },
+    {
+      "name": "save.retry_rollback_except_knowledge",
+      "status": "PASS"
+    },
+    {
+      "name": "save.demo_knowledge_isolated",
+      "status": "PASS"
+    },
+    {
+      "name": "save.v0_migration",
+      "status": "PASS"
+    },
+    {
+      "name": "save.future_version_rejected",
+      "status": "PASS"
+    },
+    {
+      "name": "rng.xorshift_known_vector",
+      "status": "PASS"
+    },
+    {
+      "name": "rng.replayable_sequence",
+      "status": "PASS"
+    }
+  ]
+}

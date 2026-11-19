@@ -1,0 +1,970 @@
+[
+  {
+    "case": "c10_elite0_purify",
+    "final": {
+      "mode": "demo",
+      "gold": 1145,
+      "materials": {
+        "material.echo_powder": 6,
+        "material.rectifier_plate": 1,
+        "material.drill_iron": 5,
+        "material.sediment_crystal": 1
+      },
+      "receipts": [
+        "reward.B",
+        "reward.C2",
+        "reward.C2_ore",
+        "choice.pump",
+        "reward.E",
+        "reward.F",
+        "reward.goal"
+      ],
+      "flags": {
+        "route": "purify"
+      },
+      "inventory": {},
+      "equipment": {
+        "equip.field_sword": 0,
+        "equip.survey_dagger": 0,
+        "equip.resonance_staff": 0
+      }
+    },
+    "steps": [
+      {
+        "step": "start",
+        "gold": 400,
+        "material.echo_powder": 0,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "B",
+        "gold": 465,
+        "material.echo_powder": 2,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C2",
+        "gold": 530,
+        "material.echo_powder": 3,
+        "material.drill_iron": 2,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C2_ore",
+        "gold": 530,
+        "material.echo_powder": 3,
+        "material.drill_iron": 4,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "purify",
+        "gold": 530,
+        "material.echo_powder": 3,
+        "material.drill_iron": 4,
+        "material.rectifier_plate": 1,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "E",
+        "gold": 595,
+        "material.echo_powder": 5,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 1,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "F",
+        "gold": 895,
+        "material.echo_powder": 5,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 1,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "goal",
+        "gold": 1145,
+        "material.echo_powder": 6,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 1,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 0
+      }
+    ]
+  },
+  {
+    "case": "c10_elite0_discharge",
+    "final": {
+      "mode": "demo",
+      "gold": 1145,
+      "materials": {
+        "material.echo_powder": 5,
+        "material.rectifier_plate": 2,
+        "material.drill_iron": 7,
+        "material.sediment_crystal": 1
+      },
+      "receipts": [
+        "reward.B",
+        "reward.C2",
+        "reward.C2_ore",
+        "choice.pump",
+        "reward.E",
+        "reward.F",
+        "reward.goal"
+      ],
+      "flags": {
+        "route": "discharge"
+      },
+      "inventory": {},
+      "equipment": {
+        "equip.field_sword": 0,
+        "equip.survey_dagger": 0,
+        "equip.resonance_staff": 0
+      }
+    },
+    "steps": [
+      {
+        "step": "start",
+        "gold": 400,
+        "material.echo_powder": 0,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "B",
+        "gold": 465,
+        "material.echo_powder": 2,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C2",
+        "gold": 530,
+        "material.echo_powder": 3,
+        "material.drill_iron": 2,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C2_ore",
+        "gold": 530,
+        "material.echo_powder": 3,
+        "material.drill_iron": 4,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "discharge",
+        "gold": 530,
+        "material.echo_powder": 3,
+        "material.drill_iron": 4,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "E",
+        "gold": 595,
+        "material.echo_powder": 5,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "F",
+        "gold": 895,
+        "material.echo_powder": 5,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "goal",
+        "gold": 1145,
+        "material.echo_powder": 5,
+        "material.drill_iron": 7,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 0
+      }
+    ]
+  },
+  {
+    "case": "c10_elite1_purify",
+    "final": {
+      "mode": "demo",
+      "gold": 1230,
+      "materials": {
+        "material.echo_powder": 7,
+        "material.rectifier_plate": 2,
+        "material.drill_iron": 6,
+        "material.sediment_crystal": 1
+      },
+      "receipts": [
+        "reward.B",
+        "reward.C2",
+        "reward.C2_ore",
+        "reward.elite",
+        "choice.pump",
+        "reward.E",
+        "reward.F",
+        "reward.goal"
+      ],
+      "flags": {
+        "route": "purify"
+      },
+      "inventory": {},
+      "equipment": {
+        "equip.field_sword": 0,
+        "equip.survey_dagger": 0,
+        "equip.resonance_staff": 0
+      }
+    },
+    "steps": [
+      {
+        "step": "start",
+        "gold": 400,
+        "material.echo_powder": 0,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "B",
+        "gold": 465,
+        "material.echo_powder": 2,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C2",
+        "gold": 530,
+        "material.echo_powder": 3,
+        "material.drill_iron": 2,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C2_ore",
+        "gold": 530,
+        "material.echo_powder": 3,
+        "material.drill_iron": 4,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "elite",
+        "gold": 615,
+        "material.echo_powder": 4,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 3,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "purify",
+        "gold": 615,
+        "material.echo_powder": 4,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "E",
+        "gold": 680,
+        "material.echo_powder": 6,
+        "material.drill_iron": 6,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "F",
+        "gold": 980,
+        "material.echo_powder": 6,
+        "material.drill_iron": 6,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "goal",
+        "gold": 1230,
+        "material.echo_powder": 7,
+        "material.drill_iron": 6,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 0
+      }
+    ]
+  },
+  {
+    "case": "c10_elite1_discharge",
+    "final": {
+      "mode": "demo",
+      "gold": 1230,
+      "materials": {
+        "material.echo_powder": 6,
+        "material.rectifier_plate": 3,
+        "material.drill_iron": 8,
+        "material.sediment_crystal": 1
+      },
+      "receipts": [
+        "reward.B",
+        "reward.C2",
+        "reward.C2_ore",
+        "reward.elite",
+        "choice.pump",
+        "reward.E",
+        "reward.F",
+        "reward.goal"
+      ],
+      "flags": {
+        "route": "discharge"
+      },
+      "inventory": {},
+      "equipment": {
+        "equip.field_sword": 0,
+        "equip.survey_dagger": 0,
+        "equip.resonance_staff": 0
+      }
+    },
+    "steps": [
+      {
+        "step": "start",
+        "gold": 400,
+        "material.echo_powder": 0,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "B",
+        "gold": 465,
+        "material.echo_powder": 2,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C2",
+        "gold": 530,
+        "material.echo_powder": 3,
+        "material.drill_iron": 2,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C2_ore",
+        "gold": 530,
+        "material.echo_powder": 3,
+        "material.drill_iron": 4,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "elite",
+        "gold": 615,
+        "material.echo_powder": 4,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 3,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "discharge",
+        "gold": 615,
+        "material.echo_powder": 4,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 3,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "E",
+        "gold": 680,
+        "material.echo_powder": 6,
+        "material.drill_iron": 6,
+        "material.rectifier_plate": 3,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "F",
+        "gold": 980,
+        "material.echo_powder": 6,
+        "material.drill_iron": 6,
+        "material.rectifier_plate": 3,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "goal",
+        "gold": 1230,
+        "material.echo_powder": 6,
+        "material.drill_iron": 8,
+        "material.rectifier_plate": 3,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 0
+      }
+    ]
+  },
+  {
+    "case": "c11_elite0_purify",
+    "final": {
+      "mode": "demo",
+      "gold": 1370,
+      "materials": {
+        "material.echo_powder": 9,
+        "material.clear_resin": 2,
+        "material.rectifier_plate": 1,
+        "material.drill_iron": 5,
+        "material.sediment_crystal": 1
+      },
+      "receipts": [
+        "reward.B",
+        "reward.C1",
+        "reward.C1_cache",
+        "reward.C2",
+        "reward.C2_ore",
+        "choice.pump",
+        "reward.E",
+        "reward.F",
+        "reward.goal"
+      ],
+      "flags": {
+        "c1_read": true,
+        "route": "purify"
+      },
+      "inventory": {},
+      "equipment": {
+        "equip.field_sword": 0,
+        "equip.survey_dagger": 0,
+        "equip.resonance_staff": 0
+      }
+    },
+    "steps": [
+      {
+        "step": "start",
+        "gold": 400,
+        "material.echo_powder": 0,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "B",
+        "gold": 465,
+        "material.echo_powder": 2,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C1",
+        "gold": 540,
+        "material.echo_powder": 4,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C1_cache",
+        "gold": 690,
+        "material.echo_powder": 4,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "C2",
+        "gold": 755,
+        "material.echo_powder": 5,
+        "material.drill_iron": 2,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "C2_ore",
+        "gold": 755,
+        "material.echo_powder": 5,
+        "material.drill_iron": 4,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "purify",
+        "gold": 755,
+        "material.echo_powder": 5,
+        "material.drill_iron": 4,
+        "material.rectifier_plate": 1,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "E",
+        "gold": 820,
+        "material.echo_powder": 7,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 1,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "F",
+        "gold": 1120,
+        "material.echo_powder": 7,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 1,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "goal",
+        "gold": 1370,
+        "material.echo_powder": 9,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 1,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 2
+      }
+    ]
+  },
+  {
+    "case": "c11_elite0_discharge",
+    "final": {
+      "mode": "demo",
+      "gold": 1370,
+      "materials": {
+        "material.echo_powder": 8,
+        "material.clear_resin": 2,
+        "material.rectifier_plate": 2,
+        "material.drill_iron": 7,
+        "material.sediment_crystal": 1
+      },
+      "receipts": [
+        "reward.B",
+        "reward.C1",
+        "reward.C1_cache",
+        "reward.C2",
+        "reward.C2_ore",
+        "choice.pump",
+        "reward.E",
+        "reward.F",
+        "reward.goal"
+      ],
+      "flags": {
+        "c1_read": true,
+        "route": "discharge"
+      },
+      "inventory": {},
+      "equipment": {
+        "equip.field_sword": 0,
+        "equip.survey_dagger": 0,
+        "equip.resonance_staff": 0
+      }
+    },
+    "steps": [
+      {
+        "step": "start",
+        "gold": 400,
+        "material.echo_powder": 0,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "B",
+        "gold": 465,
+        "material.echo_powder": 2,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C1",
+        "gold": 540,
+        "material.echo_powder": 4,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C1_cache",
+        "gold": 690,
+        "material.echo_powder": 4,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "C2",
+        "gold": 755,
+        "material.echo_powder": 5,
+        "material.drill_iron": 2,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "C2_ore",
+        "gold": 755,
+        "material.echo_powder": 5,
+        "material.drill_iron": 4,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "discharge",
+        "gold": 755,
+        "material.echo_powder": 5,
+        "material.drill_iron": 4,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "E",
+        "gold": 820,
+        "material.echo_powder": 7,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "F",
+        "gold": 1120,
+        "material.echo_powder": 7,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "goal",
+        "gold": 1370,
+        "material.echo_powder": 8,
+        "material.drill_iron": 7,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 2
+      }
+    ]
+  },
+  {
+    "case": "c11_elite1_purify",
+    "final": {
+      "mode": "demo",
+      "gold": 1455,
+      "materials": {
+        "material.echo_powder": 10,
+        "material.clear_resin": 2,
+        "material.rectifier_plate": 2,
+        "material.drill_iron": 6,
+        "material.sediment_crystal": 1
+      },
+      "receipts": [
+        "reward.B",
+        "reward.C1",
+        "reward.C1_cache",
+        "reward.C2",
+        "reward.C2_ore",
+        "reward.elite",
+        "choice.pump",
+        "reward.E",
+        "reward.F",
+        "reward.goal"
+      ],
+      "flags": {
+        "c1_read": true,
+        "route": "purify"
+      },
+      "inventory": {},
+      "equipment": {
+        "equip.field_sword": 0,
+        "equip.survey_dagger": 0,
+        "equip.resonance_staff": 0
+      }
+    },
+    "steps": [
+      {
+        "step": "start",
+        "gold": 400,
+        "material.echo_powder": 0,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "B",
+        "gold": 465,
+        "material.echo_powder": 2,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C1",
+        "gold": 540,
+        "material.echo_powder": 4,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C1_cache",
+        "gold": 690,
+        "material.echo_powder": 4,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "C2",
+        "gold": 755,
+        "material.echo_powder": 5,
+        "material.drill_iron": 2,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "C2_ore",
+        "gold": 755,
+        "material.echo_powder": 5,
+        "material.drill_iron": 4,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "elite",
+        "gold": 840,
+        "material.echo_powder": 6,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 3,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "purify",
+        "gold": 840,
+        "material.echo_powder": 6,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "E",
+        "gold": 905,
+        "material.echo_powder": 8,
+        "material.drill_iron": 6,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "F",
+        "gold": 1205,
+        "material.echo_powder": 8,
+        "material.drill_iron": 6,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "goal",
+        "gold": 1455,
+        "material.echo_powder": 10,
+        "material.drill_iron": 6,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 2
+      }
+    ]
+  },
+  {
+    "case": "c11_elite1_discharge",
+    "final": {
+      "mode": "demo",
+      "gold": 1455,
+      "materials": {
+        "material.echo_powder": 9,
+        "material.clear_resin": 2,
+        "material.rectifier_plate": 3,
+        "material.drill_iron": 8,
+        "material.sediment_crystal": 1
+      },
+      "receipts": [
+        "reward.B",
+        "reward.C1",
+        "reward.C1_cache",
+        "reward.C2",
+        "reward.C2_ore",
+        "reward.elite",
+        "choice.pump",
+        "reward.E",
+        "reward.F",
+        "reward.goal"
+      ],
+      "flags": {
+        "c1_read": true,
+        "route": "discharge"
+      },
+      "inventory": {},
+      "equipment": {
+        "equip.field_sword": 0,
+        "equip.survey_dagger": 0,
+        "equip.resonance_staff": 0
+      }
+    },
+    "steps": [
+      {
+        "step": "start",
+        "gold": 400,
+        "material.echo_powder": 0,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "B",
+        "gold": 465,
+        "material.echo_powder": 2,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C1",
+        "gold": 540,
+        "material.echo_powder": 4,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 0
+      },
+      {
+        "step": "C1_cache",
+        "gold": 690,
+        "material.echo_powder": 4,
+        "material.drill_iron": 0,
+        "material.rectifier_plate": 0,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "C2",
+        "gold": 755,
+        "material.echo_powder": 5,
+        "material.drill_iron": 2,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "C2_ore",
+        "gold": 755,
+        "material.echo_powder": 5,
+        "material.drill_iron": 4,
+        "material.rectifier_plate": 2,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "elite",
+        "gold": 840,
+        "material.echo_powder": 6,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 3,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "discharge",
+        "gold": 840,
+        "material.echo_powder": 6,
+        "material.drill_iron": 5,
+        "material.rectifier_plate": 3,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "E",
+        "gold": 905,
+        "material.echo_powder": 8,
+        "material.drill_iron": 6,
+        "material.rectifier_plate": 3,
+        "material.sediment_crystal": 0,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "F",
+        "gold": 1205,
+        "material.echo_powder": 8,
+        "material.drill_iron": 6,
+        "material.rectifier_plate": 3,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 2
+      },
+      {
+        "step": "goal",
+        "gold": 1455,
+        "material.echo_powder": 9,
+        "material.drill_iron": 8,
+        "material.rectifier_plate": 3,
+        "material.sediment_crystal": 1,
+        "material.clear_resin": 2
+      }
+    ]
+  }
+]

@@ -12,6 +12,10 @@ TPS 전투와 섯다 카드게임을 순환하는 Unreal Engine Dedicated Server
 
 > 코드 프로젝트와 과거 자료에는 `Manager` 또는 `Dopamine Addiction` 표기가 남아 있습니다. 이 포트폴리오에서는 제출용 프로젝트명인 `Dophamine Addiction`을 사용하며, 원본 파일명은 추적 가능성을 위해 바꾸지 않았습니다.
 
+## 게임 기획과 실제 플레이
+
+전투에서 고른 카드와 모은 골드를 다음 섯다판에 가져갑니다. [라운드 기획, 공개 카드 변경 전후와 플레이 화면](design/README.md)
+
 ## 전체 구조
 
 ```mermaid

@@ -1,0 +1,29 @@
+{
+  "initial": {
+    "trace": null,
+    "hp": 1000,
+    "wil": 55
+  },
+  "commands": [
+    {
+      "at": 400,
+      "skill": "skill.nema.water_lance"
+    },
+    {
+      "at": 500,
+      "skill": "skill.asel.feather"
+    }
+  ],
+  "expected": [
+    {
+      "at": 400,
+      "trace": "water",
+      "expires": 1650
+    },
+    {
+      "at": 500,
+      "trace": null,
+      "reaction": "reaction.frost"
+    }
+  ]
+}

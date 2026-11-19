@@ -1,0 +1,102 @@
+[
+  {
+    "character": "char.raen",
+    "normal": {
+      "HP": 972,
+      "SP": 110,
+      "ATK": 86,
+      "DEF": 92,
+      "RES": 70,
+      "WIL": 92,
+      "SPD": 32
+    },
+    "casting": {
+      "HP": 972,
+      "SP": 110,
+      "ATK": 86,
+      "DEF": 92,
+      "RES": 70,
+      "WIL": 92,
+      "SPD": 32
+    },
+    "weapons": {
+      "equip.field_sword": 35,
+      "equip.guard_spear": 34
+    }
+  },
+  {
+    "character": "char.seria",
+    "normal": {
+      "HP": 778,
+      "SP": 125,
+      "ATK": 72,
+      "DEF": 58,
+      "RES": 68,
+      "WIL": 72,
+      "SPD": 62
+    },
+    "casting": {
+      "HP": 778,
+      "SP": 125,
+      "ATK": 72,
+      "DEF": 58,
+      "RES": 68,
+      "WIL": 72,
+      "SPD": 62
+    },
+    "weapons": {
+      "equip.survey_dagger": 30,
+      "equip.patrol_bow": 32
+    }
+  },
+  {
+    "character": "char.kael",
+    "normal": {
+      "HP": 1078,
+      "SP": 100,
+      "ATK": 105,
+      "DEF": 86,
+      "RES": 50,
+      "WIL": 63,
+      "SPD": 25
+    },
+    "casting": {
+      "HP": 1078,
+      "SP": 100,
+      "ATK": 105,
+      "DEF": 86,
+      "RES": 50,
+      "WIL": 63,
+      "SPD": 25
+    },
+    "weapons": {
+      "equip.repair_hammer": 38,
+      "equip.industrial_spear": 34
+    }
+  },
+  {
+    "character": "char.mirea",
+    "normal": {
+      "HP": 821,
+      "SP": 135,
+      "ATK": 48,
+      "DEF": 64,
+      "RES": 109,
+      "WIL": 108,
+      "SPD": 38
+    },
+    "casting": {
+      "HP": 821,
+      "SP": 135,
+      "ATK": 48,
+      "DEF": 64,
+      "RES": 117,
+      "WIL": 108,
+      "SPD": 38
+    },
+    "weapons": {
+      "equip.forest_bow": 32,
+      "equip.resonance_staff": 28
+    }
+  }
+]

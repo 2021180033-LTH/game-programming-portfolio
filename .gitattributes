@@ -1,6 +1,7 @@
 # Preserve binary portfolio artifacts exactly as copied.
 *.pdf binary
 *.docx binary
+*.pptx binary
 *.png binary
 *.jpg binary
 *.jpeg binary
