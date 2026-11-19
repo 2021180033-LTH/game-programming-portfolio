@@ -30,7 +30,7 @@
 |---|---|
 | C/C++ | Dophamine Addiction, IOCP MMORPG, EverPlanet의 Unreal C++ 기술 연구, Football Owner |
 | Unreal Engine | Dophamine Addiction, EverPlanet의 이전 C++ 기술 연구 |
-| Godot | EverPlanet의 현재 playable slice |
+| Godot | EverPlanet의 8월 시제품, [10월 전투·거래·저장 검증](projects/03-everplanet-world-study/october-gameplay.md) |
 | 네트워크·멀티플레이 | Dophamine Addiction, IOCP MMORPG |
 | 서버·백엔드 | IOCP lobby, Dedicated Server orchestration, ODBC/MS SQL, SQLite repository |
 | 멀티스레드·병렬 프로그래밍 | IOCP worker, world thread, DB worker, atomic/mutex/SRWLOCK/condition_variable |
@@ -42,7 +42,7 @@
 
 1. `projects/01-dophamine-addiction` — IOCP lobby → Dedicated Server handoff → readiness/reconnect → 서버 권위 게임 판정
 2. `projects/02-iocp-2d-mmorpg` — accept/recv/send → TCP framing → session lifetime → world/DB thread → 게임 로직
-3. `projects/03-everplanet-world-study` — 현재 Godot slice → 이전 UE surface gravity/tangent camera 연구 → 자동화 테스트
+3. [EverPlanet](projects/03-everplanet-world-study/README.md) — 구면 이동 연구, Godot 시제품, 전투와 연속 의뢰 검증
 4. `projects/04-football-owner` — Controller → simulation core/repository → SQLite transaction → QML → tests
 5. [계약과 공명 RPG](projects/05-rpg-game-design/README.md) — v0.4·v0.11 문서, 규칙 검사 및 초기 데모 화면
 

@@ -10,7 +10,8 @@
 |---|---|---|---|
 | 초기 Canvas prototype | [`archive/early-canvas-prototype.html`](archive/early-canvas-prototype.html) | browser에서 실행하는 초기 공간·상호작용 실험 | archive |
 | Unreal 기술 연구 | [`unreal-study`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/03-everplanet-world-study/unreal-study) | 구면 중력, 접선 이동, local-Up camera, world progression, 자동화 test/tool | 이전 연구 기준 |
-| Godot 현재 구현 | [`godot-current`](https://github.com/2021180033-LTH/game-programming-portfolio/tree/main/projects/03-everplanet-world-study/godot-current) | Town↔Field, quest 4단계, portal, save/resume, fixed camera, 초기 environment pass | 현재 개발 방향 |
+| Godot 8월 시제품 | [시제품 코드와 장면](godot-current) | 마을·필드 왕복, 의뢰 한 개의 4단계 진행, 저장과 재개 | 공개 코드 |
+| Godot 10월 개발본 | [게임 규칙과 플레이 검증 기록](october-gameplay.md) | 다섯 지역, 의뢰 열 개, 전투·거래·장비, 저장 후 재개 | 규칙과 시험 사례 발췌 |
 
 - Unreal 연구 시작: 2026.08
 - Godot 전환 및 첫 playable slice: 2026.08.27–
@@ -24,7 +25,11 @@ Unreal 단계에서는 구면 공간의 수학과 engine lifecycle을 깊게 검
 
 이전 작업을 완성 게임처럼 포장하지 않고, 어떤 기술 문제를 해결했고 다음 구현에 무엇을 가져왔는지 확인할 수 있도록 연구 archive로 남겼습니다.
 
-## Godot 현재 구현
+## 10월에 추가한 플레이
+
+8월 시제품에서는 마을에서 의뢰를 받고 필드에서 목표를 조사한 뒤 NPC에게 돌아오는 흐름을 만들었습니다. 10월 개발본에서는 몬스터를 잡아 얻은 물품을 의뢰에 쓰거나 상점에서 거래할 수 있습니다. 의뢰를 마친 뒤 게임을 종료하고 다시 열어 소지품과 장착한 장비가 복원되는 과정까지 확인했습니다. [전투·거래·저장 시험](october-gameplay.md)
+
+## 8월 Godot 시제품
 
 ```mermaid
 flowchart LR
@@ -48,7 +53,7 @@ flowchart LR
 - 고정 camera rig와 input lock, transition 중 중복 요청 방지
 - reusable environment kit, material palette와 organic path shader
 
-현재 Godot 구현의 player gravity는 global `-Y` 기준입니다. Unreal 연구에서 구현한 radial gravity를 Godot에서도 완료했다고 주장하지 않으며, 구면 collision/gravity는 후속 목표입니다.
+8월 Godot 시제품에서 중력은 월드 좌표의 `-Y` 방향으로 작용합니다. 구면 중력과 접선 이동을 시험한 코드는 아래 Unreal 연구에 있습니다.
 
 ### 코드 리뷰 순서
 
