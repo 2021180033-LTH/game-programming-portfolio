@@ -2,7 +2,7 @@
 
 어떤 선수를 영입해 어느 시설에서 키울지, 상대에게 보여 준 화투를 실제 승부에도 쓸지, 오늘 밤 탐색에 동료를 몇 명 보낼지. 아래에는 이런 결정을 플레이어에게 맡기기 위해 작성한 기획서와 실제 작업물을 모았습니다.
 
-**[게임기획 포트폴리오 PDF · 29쪽](portfolio/game-design/LeeTaehyun_GameDesign_Portfolio.pdf)** · [편집용 PowerPoint · 본문 18장](portfolio/game-design/LeeTaehyun_GameDesign_Portfolio.pptx) · **[전체 프로젝트 및 작업물 46건](catalog/README.md)**
+**[게임기획 포트폴리오 PDF · 18쪽](portfolio/game-design/LeeTaehyun_GameDesign_Portfolio.pdf)** · [작업물 원본 발췌 PDF · 11쪽](portfolio/game-design/LeeTaehyun_GameDesign_Work_Samples.pdf) · [편집용 PowerPoint · 18장](portfolio/game-design/LeeTaehyun_GameDesign_Portfolio.pptx) · [전체 프로젝트 및 작업물 46건](catalog/README.md)
 
 한국공학대학교 게임공학과 · 2027년 2월 졸업 예정 · mdk73000@naver.com
 

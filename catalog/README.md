@@ -2,7 +2,7 @@
 
 게임 기획·제작, 수업 과제, 연구·수정 작업을 포함한 46건의 기록이다. 같은 기획서의 개정판은 해당 게임 아래에 모았다. 41건에는 기획서·코드·제출 장면·검증 사례·공개 저장소 중 확인할 수 있는 자료를 연결했다. 나머지 5건은 개인 작업과 팀·수업 제공 자료의 구분이 어려워 **개요**로 표시했다. 팀 제안서에 기록된 분담과 기말보고서·코드에서 확인한 결과는 구분해 적었다.
 
-게임 기획 지원용으로 선별한 작업은 [게임 기획 포트폴리오 PDF](../portfolio/game-design/LeeTaehyun_GameDesign_Portfolio.pdf)에서 볼 수 있다.
+게임 기획 지원용으로 선별한 작업은 [게임기획 포트폴리오 PDF · 18쪽](../portfolio/game-design/LeeTaehyun_GameDesign_Portfolio.pdf)에 정리했다. 당시 기획서와 수업 발표 자료는 [작업물 원본 발췌 PDF · 11쪽](../portfolio/game-design/LeeTaehyun_GameDesign_Work_Samples.pdf)에서 볼 수 있다.
 
 ## 게임 기획과 시스템 분석
 

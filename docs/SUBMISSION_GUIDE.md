@@ -2,7 +2,8 @@
 
 | 자료 | 볼 수 있는 내용 |
 |---|---|
-| [게임기획 PDF](../portfolio/game-design/LeeTaehyun_GameDesign_Portfolio.pdf) | 1~18쪽은 대표 게임의 기획과 실제 진행 화면, 19~29쪽은 당시 기획서·수업 발표 원본 발췌 |
+| [게임기획 포트폴리오 PDF · 18쪽](../portfolio/game-design/LeeTaehyun_GameDesign_Portfolio.pdf) | 다섯 프로젝트의 기획 의도, 직접 정한 규칙과 결과를 정리한 제출용 본문 |
+| [작업물 원본 발췌 PDF · 11쪽](../portfolio/game-design/LeeTaehyun_GameDesign_Work_Samples.pdf) | 1~4쪽 Football Owner 기획서, 5~7쪽 By the Cthul 기말 제안서, 8~11쪽 Football Manager 2022 전술 실험 발표 |
 | [게임기획 PowerPoint](../portfolio/game-design/LeeTaehyun_GameDesign_Portfolio.pptx) | 본문 18장 |
 | [작업 목록](../catalog/README.md) | 기획, 게임 제작, 기술 연구와 수업 작업의 역할·근거 |
 | [구단주 게임 기획서 8개](../projects/04-football-owner/design-history/README.md) | 한 게임을 기획하면서 무엇을 언제 결정했는지 차수별로 비교 |
