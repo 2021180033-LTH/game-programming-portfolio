@@ -15,7 +15,7 @@
 | [계약과 공명 RPG](projects/05-rpg-game-design/README.md) | 계약체에 따라 같은 적의 공격에 다르게 대응하는 파티 RPG입니다. [v0.11 기획서](projects/05-rpg-game-design/design/RPG_GDD_v0.11.pdf), 광산 전투 데모 화면, 재현 가능한 규칙 검사를 담았습니다. |
 | [By the Cthul](projects/06-by-the-cthul/README.md) | 2021년 카드 전략 게임 제안서와 직접 그린 보드에서 시작했습니다. [보완한 종이판 규칙](projects/06-by-the-cthul/design/paper-rules.md)과 [9일간의 플레이 예시](projects/06-by-the-cthul/design/first-playthrough.md)를 원안과 함께 읽을 수 있습니다. |
 | [Football Manager 2022 전술 실험](projects/07-fm22-tactics/README.md) | 컷백 전술을 고정하고 두 팀의 능력치 조건을 바꿔 영입 우선순위를 검토했습니다. 원본 발표의 실험 조건·결과·결론을 첨부했습니다. |
-| [PC 던전앤파이터 무기고 역기획](projects/08-dnf-armory/README.md) | 계정에 등록된 품목을 부캐도 사용할 때 달라지는 파밍과 상위 던전 보상을 분석한 개인 기획 과제입니다. |
+| [PC 던전앤파이터 무기고 역기획](projects/08-dnf-armory/README.md) | 부캐로 같은 세트를 다시 모으는 부담을 분석하고, 무기고 등록 품목의 계정 공유와 레이드 카드 보상 기준을 제안했습니다. [제출용 PDF · 6쪽](projects/08-dnf-armory/armory-design-review.pdf) · [Word 편집본](projects/08-dnf-armory/armory-design-review.docx) |
 
 [종이 삼킨 새벽 · Teammate Chain · 이어지는 이야기](projects/09-indie-experiments/README.md)에서는 전투 규칙, 선수 연결 판정, 대화 분기와 기억 정책을 실제 작업에서 발췌했습니다. 수업 과제, 팀 기여와 도구 제작은 [분야별 전체 목록](catalog/README.md)에서 이어집니다.
 
